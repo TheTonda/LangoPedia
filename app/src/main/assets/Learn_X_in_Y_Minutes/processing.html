@@ -1,0 +1,548 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn processing in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/processing/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fprocessing%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dprocessing">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=processing</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learnprocessing.pde">learnprocessing.pde</a>
+    </p>
+  <div id="doc">
+    <h2>Introduction</h2>
+
+<p>Processing is a programming language for creation of digital arts and
+multimedia content, allowing non-programmers to learn fundamentals of computer
+programming in a visual context.</p>
+
+<p>While the language is based on Java language, its syntax has been largely
+influenced by both Java and Javascript syntaxes. <a href="https://processing.org/reference/">See more here</a></p>
+
+<p>The language is statically typed, and also comes with its official IDE to
+compile and run the scripts.</p>
+<div class="highlight"><pre><span></span><span class="o">/*</span> <span class="o">---------</span>
+   <span class="n">Comments</span>
+   <span class="o">---------</span>
+<span class="o">*/</span>
+
+<span class="sr">//</span> <span class="n">Single</span><span class="o">-</span><span class="n">line</span> <span class="n">comment</span> <span class="n">starts</span> <span class="n">with</span> <span class="sr">//</span>
+
+<span class="o">/*</span>
+   <span class="n">Since</span> <span class="n">Processing</span> <span class="n">is</span> <span class="n">based</span> <span class="n">on</span> <span class="n">Java</span><span class="p">,</span>
+   <span class="n">the</span> <span class="n">syntax</span> <span class="k">for</span> <span class="n">its</span> <span class="n">comments</span> <span class="n">are</span> <span class="n">the</span> <span class="n">same</span> <span class="n">as</span> <span class="n">Java</span> <span class="p">(</span><span class="n">as</span> <span class="n">you</span> <span class="n">may</span> <span class="n">have</span> <span class="n">noticed</span> <span class="n">above</span><span class="p">)</span><span class="o">!</span>
+   <span class="n">Multi</span><span class="o">-</span><span class="n">line</span> <span class="n">comments</span> <span class="n">are</span> <span class="n">wrapped</span> <span class="n">as</span> <span class="n">seen</span> <span class="n">here</span><span class="o">.</span>
+<span class="o">*/</span>
+
+<span class="o">/*</span> <span class="o">---------------------------------------</span>
+   <span class="n">Writing</span> <span class="ow">and</span> <span class="n">Running</span> <span class="n">Processing</span> <span class="n">Programs</span>
+   <span class="o">---------------------------------------</span>
+<span class="o">*/</span>
+
+<span class="sr">//</span> <span class="n">In</span> <span class="n">Processing</span><span class="p">,</span> <span class="n">the</span> <span class="n">program</span> <span class="n">entry</span> <span class="n">point</span> <span class="n">is</span> <span class="n">a</span> <span class="n">function</span> <span class="n">named</span> <span class="n">setup</span><span class="p">()</span> <span class="n">with</span> <span class="n">a</span>
+<span class="sr">//</span> <span class="n">void</span> <span class="k">return</span> <span class="n">type</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">Note</span><span class="o">!</span> <span class="n">The</span> <span class="n">syntax</span> <span class="n">looks</span> <span class="n">strikingly</span> <span class="n">similar</span> <span class="n">to</span> <span class="n">that</span> <span class="n">of</span> <span class="n">C</span><span class="o">++.</span>
+<span class="n">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="sr">//</span> <span class="n">This</span> <span class="n">prints</span> <span class="n">out</span> <span class="n">the</span> <span class="n">classic</span> <span class="n">output</span> <span class="s">&quot;Hello World!&quot;</span> <span class="n">to</span> <span class="n">the</span> <span class="n">console</span> <span class="n">when</span> <span class="n">run</span><span class="o">.</span>
+  <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">Another</span> <span class="n">language</span> <span class="n">with</span> <span class="n">a</span> <span class="n">semi</span><span class="o">-</span><span class="n">column</span> <span class="n">trap</span><span class="p">,</span> <span class="n">aint</span> <span class="n">it</span><span class="p">?</span>
+<span class="p">}</span>
+
+<span class="sr">//</span> <span class="n">Normally</span><span class="p">,</span> <span class="n">we</span> <span class="n">put</span> <span class="n">all</span> <span class="n">the</span> <span class="n">static</span> <span class="n">codes</span> <span class="n">inside</span> <span class="n">the</span> <span class="n">setup</span><span class="p">()</span> <span class="n">method</span> <span class="n">as</span> <span class="n">the</span> <span class="n">name</span>
+<span class="sr">//</span> <span class="n">suggest</span> <span class="n">since</span> <span class="n">it</span> <span class="n">only</span> <span class="n">runs</span> <span class="n">once</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">It</span> <span class="n">can</span> <span class="n">range</span> <span class="n">from</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">background</span> <span class="n">colours</span><span class="p">,</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">canvas</span> <span class="n">size</span><span class="o">.</span>
+<span class="n">background</span><span class="p">(</span><span class="n">color</span><span class="p">);</span> <span class="sr">//</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">background</span> <span class="n">colour</span>
+<span class="n">size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,[</span><span class="n">renderer</span><span class="p">]);</span> <span class="sr">//</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">canvas</span> <span class="n">size</span> <span class="n">with</span> <span class="n">optional</span>
+<span class="sr">//</span> <span class="n">parameter</span> <span class="n">defining</span> <span class="n">renderer</span>
+<span class="sr">//</span> <span class="n">You</span> <span class="n">will</span> <span class="n">see</span> <span class="n">more</span> <span class="n">of</span> <span class="n">them</span> <span class="n">throughout</span> <span class="n">this</span> <span class="n">document</span><span class="o">.</span>
+
+<span class="sr">//</span> <span class="n">If</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">run</span> <span class="n">the</span> <span class="n">codes</span> <span class="n">indefinitely</span><span class="p">,</span> <span class="n">it</span> <span class="n">has</span> <span class="n">to</span> <span class="n">be</span> <span class="n">placed</span> <span class="n">in</span> <span class="n">draw</span><span class="p">()</span>
+<span class="sr">//</span> <span class="n">method</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">draw</span><span class="p">()</span> <span class="n">must</span> <span class="n">exist</span> <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">the</span> <span class="n">code</span> <span class="n">to</span> <span class="n">run</span> <span class="n">continuously</span> <span class="ow">and</span> <span class="n">obviously</span><span class="p">,</span>
+<span class="sr">//</span> <span class="n">there</span> <span class="n">can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">one</span> <span class="n">draw</span><span class="p">()</span> <span class="n">method</span><span class="o">.</span>
+<span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">void</span> <span class="n">draw</span><span class="p">()</span> <span class="p">{</span>
+  <span class="sr">//</span> <span class="n">This</span> <span class="n">block</span> <span class="n">of</span> <span class="n">code</span> <span class="n">loops</span> <span class="n">forever</span> <span class="k">until</span> <span class="n">stopped</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+  <span class="n">i</span><span class="o">++</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Increment</span> <span class="n">Operator</span><span class="o">!</span>
+<span class="p">}</span>
+
+<span class="sr">//</span> <span class="n">Now</span> <span class="n">that</span> <span class="n">we</span> <span class="n">know</span> <span class="n">how</span> <span class="n">to</span> <span class="nb">write</span> <span class="n">the</span> <span class="n">working</span> <span class="n">script</span> <span class="ow">and</span> <span class="n">how</span> <span class="n">to</span> <span class="n">run</span> <span class="n">it</span><span class="p">,</span>
+<span class="sr">//</span> <span class="n">we</span> <span class="n">will</span> <span class="n">proceed</span> <span class="n">to</span> <span class="n">explore</span> <span class="n">what</span> <span class="n">data</span> <span class="n">types</span> <span class="ow">and</span> <span class="n">collections</span> <span class="n">are</span> <span class="n">supported</span> <span class="n">in</span>
+<span class="sr">//</span> <span class="n">Processing</span><span class="o">.</span>
+
+<span class="o">/*</span> <span class="o">------------------------</span>
+   <span class="n">Datatypes</span> <span class="o">&amp;</span> <span class="n">collections</span>
+   <span class="o">------------------------</span>
+<span class="o">*/</span>
+
+<span class="sr">//</span> <span class="n">According</span> <span class="n">to</span> <span class="n">Processing</span> <span class="n">References</span><span class="p">,</span> <span class="n">Processing</span> <span class="n">supports</span> <span class="mi">8</span> <span class="n">primitive</span>
+<span class="sr">//</span> <span class="n">datatypes</span> <span class="n">as</span> <span class="n">follows</span><span class="o">.</span>
+
+<span class="n">boolean</span> <span class="n">booleanValue</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Boolean</span>
+<span class="n">byte</span> <span class="n">byteValueOfA</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Byte</span>
+<span class="n">char</span> <span class="n">charValueOfA</span> <span class="o">=</span> <span class="s">&#39;A&#39;</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Char</span>
+<span class="n">color</span> <span class="n">colourValueOfWhiteM</span> <span class="o">=</span> <span class="n">color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span> <span class="sr">//</span> <span class="n">Colour</span> <span class="p">(</span><span class="n">Specified</span> <span class="n">using</span>
+<span class="sr">//</span> <span class="n">color</span><span class="p">()</span> <span class="n">method</span><span class="p">)</span>
+<span class="n">color</span> <span class="n">colourValueOfWhiteH</span> <span class="o">=</span> <span class="c1">#FFFFFF; // Colour (Specified using hash value)</span>
+<span class="nb">int</span> <span class="n">intValue</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Integer</span> <span class="p">(</span><span class="n">Number</span> <span class="n">without</span> <span class="n">decimals</span><span class="p">)</span>
+<span class="n">long</span> <span class="n">longValue</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="n">L</span><span class="p">;</span> <span class="sr">//</span> <span class="s">&quot;L&quot;</span> <span class="n">is</span> <span class="n">added</span> <span class="n">to</span> <span class="n">number</span> <span class="n">to</span> <span class="n">mark</span> <span class="n">it</span> <span class="n">as</span> <span class="n">a</span> <span class="n">long</span>
+<span class="n">float</span> <span class="n">floatValue</span> <span class="o">=</span> <span class="mf">1.12345</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Float</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span> <span class="n">floating</span><span class="o">-</span><span class="n">point</span> <span class="n">numbers</span><span class="p">)</span>
+<span class="n">double</span> <span class="n">doubleValue</span> <span class="o">=</span> <span class="mf">1.12345</span><span class="n">D</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Double</span> <span class="p">(</span><span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">floating</span><span class="o">-</span><span class="n">point</span> <span class="n">numbers</span><span class="p">)</span>
+
+<span class="sr">//</span> <span class="n">NOTE</span><span class="o">!</span>
+<span class="sr">//</span> <span class="n">Although</span> <span class="n">datatypes</span> <span class="s">&quot;long&quot;</span> <span class="ow">and</span> <span class="s">&quot;double&quot;</span> <span class="n">work</span> <span class="n">in</span> <span class="n">the</span> <span class="n">language</span><span class="p">,</span>
+<span class="sr">//</span> <span class="n">processing</span> <span class="n">functions</span> <span class="k">do</span> <span class="ow">not</span> <span class="k">use</span> <span class="nn">these</span> <span class="n">datatypes</span><span class="p">,</span> <span class="n">therefore</span>
+<span class="sr">//</span> <span class="n">they</span> <span class="n">need</span> <span class="n">to</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">into</span> <span class="s">&quot;int&quot;</span> <span class="ow">and</span> <span class="s">&quot;float&quot;</span> <span class="n">datatypes</span> <span class="n">respectively</span><span class="p">,</span>
+<span class="sr">//</span> <span class="n">using</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">float</span><span class="p">)</span> <span class="n">syntax</span> <span class="n">before</span> <span class="n">passing</span> <span class="n">into</span> <span class="n">a</span> <span class="n">function</span><span class="o">.</span>
+
+<span class="sr">//</span> <span class="n">There</span> <span class="n">is</span> <span class="n">a</span> <span class="n">whole</span> <span class="n">bunch</span> <span class="n">of</span> <span class="n">default</span> <span class="n">composite</span> <span class="n">datatypes</span> <span class="n">available</span> <span class="k">for</span> <span class="k">use</span> <span class="nn">in</span>
+<span class="sr">//</span> <span class="n">Processing</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">Primarily</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">brief</span> <span class="n">through</span> <span class="n">the</span> <span class="n">most</span> <span class="n">commonly</span> <span class="n">used</span> <span class="n">ones</span> <span class="n">to</span> <span class="n">save</span> <span class="nb">time</span><span class="o">.</span>
+
+<span class="sr">//</span> <span class="n">String</span>
+<span class="sr">//</span> <span class="n">While</span> <span class="n">char</span> <span class="n">datatype</span> <span class="n">uses</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">String</span> <span class="n">datatype</span> <span class="n">uses</span> <span class="s">&quot;&quot;</span> <span class="o">-</span> <span class="n">double</span> <span class="n">quotes</span><span class="o">.</span>
+<span class="n">String</span> <span class="n">sampleString</span> <span class="o">=</span> <span class="s">&quot;Hello, Processing!&quot;</span><span class="p">;</span>
+<span class="sr">//</span> <span class="n">String</span> <span class="n">can</span> <span class="n">be</span> <span class="n">constructed</span> <span class="n">from</span> <span class="n">an</span> <span class="n">array</span> <span class="n">of</span> <span class="n">char</span> <span class="n">datatypes</span> <span class="n">as</span> <span class="n">well</span><span class="o">.</span> <span class="n">We</span> <span class="n">will</span>
+<span class="sr">//</span> <span class="n">discuss</span> <span class="n">array</span> <span class="n">very</span> <span class="n">soon</span><span class="o">.</span>
+<span class="n">char</span> <span class="n">source</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="s">&#39;O&#39;</span><span class="p">};</span>
+<span class="n">String</span> <span class="n">stringFromSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="p">(</span><span class="n">source</span><span class="p">);</span> <span class="sr">//</span> <span class="n">HELLO</span>
+<span class="sr">//</span> <span class="n">As</span> <span class="n">in</span> <span class="n">Java</span><span class="p">,</span> <span class="n">strings</span> <span class="n">can</span> <span class="n">be</span> <span class="n">concatenated</span> <span class="n">using</span> <span class="n">the</span> <span class="s">&quot;+&quot;</span> <span class="n">operator</span><span class="o">.</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello &quot;</span> <span class="o">+</span> <span class="s">&quot;World!&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">Hello</span> <span class="n">World</span><span class="o">!</span>
+
+<span class="sr">//</span> <span class="n">Array</span>
+<span class="sr">//</span> <span class="n">Arrays</span> <span class="n">in</span> <span class="n">Processing</span> <span class="n">can</span> <span class="n">hold</span> <span class="n">any</span> <span class="n">datatypes</span> <span class="n">including</span> <span class="n">Objects</span> <span class="n">themselves</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">Since</span> <span class="n">arrays</span> <span class="n">are</span> <span class="n">similar</span> <span class="n">to</span> <span class="n">objects</span><span class="p">,</span> <span class="n">they</span> <span class="n">must</span> <span class="n">be</span> <span class="n">created</span> <span class="n">with</span> <span class="n">the</span> <span class="n">keyword</span>
+<span class="sr">//</span> <span class="s">&quot;new&quot;</span><span class="o">.</span>
+<span class="nb">int</span><span class="o">[]</span> <span class="n">intArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">int</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="nb">int</span><span class="o">[]</span> <span class="n">intArrayWithValues</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span> <span class="sr">//</span> <span class="n">You</span> <span class="n">can</span> <span class="n">also</span> <span class="n">populate</span> <span class="n">with</span> <span class="n">data</span><span class="o">.</span>
+
+<span class="sr">//</span> <span class="n">ArrayList</span>
+<span class="sr">//</span> <span class="n">Functions</span> <span class="n">are</span> <span class="n">similar</span> <span class="n">to</span> <span class="n">those</span> <span class="n">of</span> <span class="n">array</span><span class="p">;</span> <span class="n">arraylists</span> <span class="n">can</span> <span class="n">hold</span> <span class="n">any</span> <span class="n">datatypes</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">The</span> <span class="n">only</span> <span class="n">difference</span> <span class="n">is</span> <span class="n">arraylists</span> <span class="n">resize</span> <span class="n">dynamically</span><span class="p">,</span> <span class="n">as</span> <span class="n">it</span> <span class="n">is</span> <span class="n">a</span> <span class="n">form</span> <span class="n">of</span>
+<span class="sr">//</span> <span class="n">resizable</span><span class="o">-</span><span class="n">array</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Java</span> <span class="s">&quot;List&quot;</span> <span class="n">interface</span><span class="o">.</span>
+<span class="n">ArrayList</span><span class="sr">&lt;Integer&gt;</span> <span class="n">intArrayList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="sr">&lt;Integer&gt;</span><span class="p">();</span>
+
+<span class="sr">//</span> <span class="n">Object</span>
+<span class="sr">//</span> <span class="n">Since</span> <span class="n">it</span> <span class="n">is</span> <span class="n">based</span> <span class="n">on</span> <span class="n">Java</span><span class="p">,</span> <span class="n">Processing</span> <span class="n">supports</span> <span class="n">object</span><span class="o">-</span><span class="n">oriented</span> <span class="n">programming</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">That</span> <span class="n">means</span> <span class="n">you</span> <span class="n">can</span> <span class="n">basically</span> <span class="n">define</span> <span class="n">any</span> <span class="n">datatypes</span> <span class="n">of</span> <span class="n">your</span> <span class="n">own</span> <span class="ow">and</span> <span class="n">manipulate</span>
+<span class="sr">//</span> <span class="n">them</span> <span class="n">to</span> <span class="n">your</span> <span class="n">needs</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">Of</span> <span class="n">course</span><span class="p">,</span> <span class="n">a</span> <span class="n">class</span> <span class="n">has</span> <span class="n">to</span> <span class="n">be</span> <span class="nb">defined</span> <span class="n">before</span> <span class="k">for</span> <span class="n">the</span> <span class="n">object</span> <span class="n">you</span> <span class="n">want</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">Format</span> <span class="o">--&gt;</span> <span class="n">ClassName</span> <span class="n">InstanceName</span>
+<span class="n">SomeRandomClass</span> <span class="n">myObject</span> <span class="sr">//</span> <span class="k">then</span> <span class="n">instantiate</span> <span class="n">later</span>
+<span class="sr">//o</span><span class="n">r</span>
+<span class="n">SomeRandomClass</span> <span class="n">myObjectInstantiated</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SomeRandomClass</span><span class="p">();</span>
+
+<span class="sr">//</span> <span class="n">Processing</span> <span class="n">comes</span> <span class="n">up</span> <span class="n">with</span> <span class="n">more</span> <span class="n">collections</span> <span class="p">(</span><span class="n">eg</span><span class="o">.</span> <span class="o">-</span> <span class="n">Dictionaries</span> <span class="ow">and</span> <span class="n">Lists</span><span class="p">)</span> <span class="n">by</span>
+<span class="sr">//</span> <span class="n">default</span><span class="p">,</span> <span class="k">for</span> <span class="n">the</span> <span class="n">simplicity</span> <span class="n">sake</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">leave</span> <span class="n">them</span> <span class="n">out</span> <span class="n">of</span> <span class="n">discussion</span> <span class="n">here</span><span class="o">.</span>
+
+<span class="o">/*</span> <span class="o">------------</span>
+   <span class="n">Maths</span>
+   <span class="o">------------</span>
+<span class="o">*/</span>
+
+<span class="sr">//</span> <span class="n">Arithmetic</span>
+<span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="sr">//</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span> <span class="sr">//</span> <span class="mi">0</span>
+<span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="sr">//</span> <span class="mi">6</span>
+<span class="mi">3</span> <span class="sr">/ 2 /</span><span class="o">/</span> <span class="mi">1</span>
+<span class="mf">3.0</span> <span class="sr">/ 2 /</span><span class="o">/</span> <span class="mf">1.5</span>
+<span class="mf">3.0</span> <span class="nv">%</span> <span class="nv">2</span> <span class="sr">//</span> <span class="mf">1.0</span>
+
+<span class="sr">//</span> <span class="n">Processing</span> <span class="n">also</span> <span class="n">comes</span> <span class="n">with</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">functions</span> <span class="n">that</span> <span class="n">simplify</span> <span class="n">mathematical</span>
+<span class="sr">//</span> <span class="n">operations</span><span class="o">.</span>
+<span class="n">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">sq</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="sr">//</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">9.0</span>
+<span class="n">float</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="sr">//</span> <span class="n">p</span> <span class="o">=</span> <span class="mf">27.0</span>
+<span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">13</span><span class="p">)</span> <span class="sr">//</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="nb">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="mf">3.1</span><span class="p">);</span> <span class="sr">//</span> <span class="n">r1</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="nb">int</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">round</span><span class="p">(</span><span class="mf">3.7</span><span class="p">);</span> <span class="sr">//</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">float</span> <span class="n">sr</span> <span class="o">=</span> <span class="nb">sqrt</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span> <span class="sr">//</span> <span class="n">sr</span> <span class="o">=</span> <span class="mf">5.0</span>
+
+<span class="sr">//</span> <span class="n">Vectors</span>
+<span class="sr">//</span> <span class="n">Processing</span> <span class="n">provides</span> <span class="n">an</span> <span class="n">easy</span> <span class="n">way</span> <span class="n">to</span> <span class="n">implement</span> <span class="n">vectors</span> <span class="n">in</span> <span class="n">its</span> <span class="n">environment</span>
+<span class="sr">//</span> <span class="n">using</span> <span class="n">PVector</span> <span class="n">class</span><span class="o">.</span> <span class="n">It</span> <span class="n">can</span> <span class="n">describe</span> <span class="n">a</span> <span class="n">two</span> <span class="ow">or</span> <span class="n">three</span> <span class="n">dimensional</span> <span class="n">vector</span> <span class="ow">and</span>
+<span class="sr">//</span> <span class="n">comes</span> <span class="n">with</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">methods</span> <span class="n">which</span> <span class="n">are</span> <span class="n">useful</span> <span class="k">for</span> <span class="n">matrices</span> <span class="n">operations</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">You</span> <span class="n">can</span> <span class="n">find</span> <span class="n">more</span> <span class="n">information</span> <span class="n">on</span> <span class="n">PVector</span> <span class="n">class</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">functions</span> <span class="n">here</span><span class="o">.</span>
+<span class="sr">//</span> <span class="p">(</span><span class="n">https:</span><span class="sr">//</span><span class="n">processing</span><span class="o">.</span><span class="n">org</span><span class="sr">/reference/</span><span class="n">PVector</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>
+
+<span class="sr">//</span> <span class="n">Trigonometry</span>
+<span class="sr">//</span> <span class="n">Processing</span> <span class="n">also</span> <span class="n">supports</span> <span class="n">trigonometric</span> <span class="n">operations</span> <span class="n">by</span> <span class="n">supplying</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span>
+<span class="sr">//</span> <span class="n">functions</span><span class="o">.</span> <span class="nb">sin</span><span class="p">(),</span> <span class="nb">cos</span><span class="p">(),</span> <span class="n">tan</span><span class="p">(),</span> <span class="n">asin</span><span class="p">(),</span> <span class="n">acos</span><span class="p">(),</span> <span class="n">atan</span><span class="p">()</span> <span class="ow">and</span> <span class="n">also</span> <span class="n">degrees</span><span class="p">()</span>
+<span class="sr">//</span> <span class="ow">and</span> <span class="n">radians</span><span class="p">()</span> <span class="k">for</span> <span class="n">convenient</span> <span class="n">conversion</span><span class="o">.</span>
+<span class="sr">//</span> <span class="n">However</span><span class="p">,</span> <span class="n">those</span> <span class="n">functions</span> <span class="n">take</span> <span class="n">angle</span> <span class="n">in</span> <span class="n">radians</span> <span class="n">as</span> <span class="n">the</span> <span class="n">parameter</span> <span class="n">so</span> <span class="n">it</span> <span class="n">has</span>
+<span class="sr">//</span> <span class="n">to</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">beforehand</span><span class="o">.</span>
+<span class="n">float</span> <span class="n">one</span> <span class="o">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">PI</span><span class="sr">/2); /</span><span class="o">/</span> <span class="n">one</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="sr">//</span> <span class="n">As</span> <span class="n">you</span> <span class="n">may</span> <span class="n">have</span> <span class="n">noticed</span><span class="p">,</span> <span class="n">there</span> <span class="nb">exists</span> <span class="n">a</span> <span class="n">set</span> <span class="n">of</span> <span class="n">constants</span> <span class="k">for</span> <span class="n">trigonometric</span>
+<span class="sr">//</span> <span class="n">uses</span><span class="p">;</span>
+<span class="sr">//</span> <span class="n">PI</span><span class="p">,</span> <span class="n">HALF_PI</span><span class="p">,</span> <span class="n">QUARTER_PI</span> <span class="ow">and</span> <span class="n">so</span> <span class="n">on</span><span class="o">...</span>
+
+<span class="o">/*</span> <span class="o">-------------</span>
+   <span class="n">Control</span> <span class="n">Flow</span>
+   <span class="o">-------------</span>
+<span class="o">*/</span>
+
+<span class="sr">//</span> <span class="n">Conditional</span> <span class="n">Statements</span>
+<span class="sr">//</span> <span class="n">If</span> <span class="n">Statements</span> <span class="o">-</span> <span class="n">The</span> <span class="n">same</span> <span class="n">syntax</span> <span class="n">as</span> <span class="k">if</span> <span class="n">statements</span> <span class="n">in</span> <span class="n">Java</span><span class="o">.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">author</span><span class="o">.</span><span class="n">getAppearance</span><span class="p">()</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="s">&quot;hot&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Narcissism at its best!&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="sr">//</span> <span class="n">You</span> <span class="n">can</span> <span class="n">check</span> <span class="k">for</span> <span class="n">other</span> <span class="n">conditions</span> <span class="n">here</span><span class="o">.</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Something is really wrong here!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="sr">//</span> <span class="n">A</span> <span class="n">shortcut</span> <span class="k">for</span> <span class="k">if</span><span class="o">-</span><span class="k">else</span> <span class="n">statements</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">used</span><span class="o">.</span>
+<span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">?</span> <span class="s">&quot;Big&quot;</span> <span class="p">:</span> <span class="s">&quot;Small&quot;</span><span class="p">;</span> <span class="sr">//</span> <span class="s">&quot;Small&quot;</span>
+
+<span class="sr">//</span> <span class="n">Switch</span><span class="o">-</span><span class="k">case</span> <span class="n">structure</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">check</span> <span class="n">multiple</span> <span class="n">conditions</span> <span class="n">concisely</span><span class="o">.</span>
+<span class="nb">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">switch</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Nought!&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">get</span> <span class="n">executed</span><span class="o">.</span>
+    <span class="n">break</span><span class="p">;</span> <span class="sr">//</span> <span class="n">Jumps</span> <span class="n">to</span> <span class="n">the</span> <span class="k">next</span> <span class="n">statement</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Getting there...&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">again</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">get</span> <span class="n">executed</span><span class="o">.</span>
+    <span class="n">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Bravo!&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">line</span> <span class="n">gets</span> <span class="n">executed</span><span class="o">.</span>
+    <span class="n">break</span><span class="p">;</span>
+  <span class="n">default:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Not found!&quot;</span><span class="p">);</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">line</span> <span class="n">gets</span> <span class="n">executed</span> <span class="k">if</span> <span class="k">our</span> <span class="n">value</span> <span class="n">was</span> <span class="n">some</span> <span class="n">other</span> <span class="n">value</span><span class="o">.</span>
+    <span class="n">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="sr">//</span> <span class="n">Iterative</span> <span class="n">statements</span>
+<span class="sr">//</span> <span class="n">For</span> <span class="n">Statements</span> <span class="o">-</span> <span class="n">Again</span><span class="p">,</span> <span class="n">the</span> <span class="n">same</span> <span class="n">syntax</span> <span class="n">as</span> <span class="n">in</span> <span class="n">Java</span>
+<span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">){</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="sr">//</span> <span class="n">prints</span> <span class="n">from</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">4</span>
+<span class="p">}</span>
+
+<span class="sr">//</span> <span class="n">While</span> <span class="n">Statements</span> <span class="o">-</span> <span class="n">Again</span><span class="p">,</span> <span class="n">nothing</span> <span class="k">new</span> <span class="k">if</span> <span class="n">you</span> <span class="n">are</span> <span class="n">familiar</span> <span class="n">with</span> <span class="n">Java</span> <span class="n">syntax</span><span class="o">.</span>
+<span class="nb">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
+  <span class="n">j</span><span class="o">--</span><span class="p">;</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">is</span> <span class="n">important</span> <span class="n">to</span> <span class="n">prevent</span> <span class="n">from</span> <span class="n">the</span> <span class="n">code</span> <span class="n">running</span> <span class="n">indefinitely</span><span class="o">.</span>
+<span class="p">}</span>
+
+<span class="sr">//</span> <span class="n">loop</span><span class="p">()</span><span class="o">|</span> <span class="n">noLoop</span><span class="p">()</span> <span class="o">|</span> <span class="n">redraw</span><span class="p">()</span> <span class="o">|</span> <span class="nb">exit</span><span class="p">()</span>
+<span class="sr">//</span> <span class="n">These</span> <span class="n">are</span> <span class="n">more</span> <span class="n">of</span> <span class="n">Processing</span><span class="o">-</span><span class="n">specific</span> <span class="n">functions</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">program</span> <span class="n">flow</span><span class="o">.</span>
+<span class="n">loop</span><span class="p">();</span> <span class="sr">//</span> <span class="n">allows</span> <span class="n">the</span> <span class="n">draw</span><span class="p">()</span> <span class="n">method</span> <span class="n">to</span> <span class="n">run</span> <span class="n">forever</span> <span class="k">while</span>
+<span class="n">noLoop</span><span class="p">();</span> <span class="sr">//</span> <span class="n">only</span> <span class="n">allows</span> <span class="n">it</span> <span class="n">to</span> <span class="n">run</span> <span class="n">once</span><span class="o">.</span>
+<span class="n">redraw</span><span class="p">();</span> <span class="sr">//</span> <span class="n">runs</span> <span class="n">the</span> <span class="n">draw</span><span class="p">()</span> <span class="n">method</span> <span class="n">once</span> <span class="n">more</span><span class="o">.</span>
+<span class="nb">exit</span><span class="p">();</span> <span class="sr">//</span> <span class="n">This</span> <span class="n">stops</span> <span class="n">the</span> <span class="n">program</span><span class="o">.</span> <span class="n">It</span> <span class="n">is</span> <span class="n">useful</span> <span class="k">for</span> <span class="n">programs</span> <span class="n">with</span> <span class="n">draw</span><span class="p">()</span>
+<span class="sr">//</span> <span class="n">running</span> <span class="n">continuously</span><span class="o">.</span>
+</pre></div>
+<h2>Drawing with Processing</h2>
+
+<p>Since you will have understood the basics of the language by now, we will now
+look into the best part of Processing - DRAWING.</p>
+<div class="highlight"><pre><span></span><span class="cm">/* ------</span>
+<span class="cm">   Shapes</span>
+<span class="cm">   ------</span>
+<span class="cm">*/</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span><span class="m">2</span>D<span class="w"> </span>Shapes<span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Point<span class="w"></span>
+point<span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>In<span class="w"> </span><span class="m">2</span>D<span class="w"> </span>space<span class="w"></span>
+point<span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">,</span><span class="w"> </span>z<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>In<span class="w"> </span><span class="m">3</span>D<span class="w"> </span>space<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>a<span class="w"> </span>point<span class="w"> </span>in<span class="w"> </span>the<span class="w"> </span>coordinate<span class="w"> </span>space<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Line<span class="w"></span>
+line<span class="o">(</span>x1<span class="o">,</span><span class="w"> </span>y1<span class="o">,</span><span class="w"> </span>x2<span class="o">,</span><span class="w"> </span>y2<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>In<span class="w"> </span><span class="m">2</span>D<span class="w"> </span>space<span class="w"></span>
+line<span class="o">(</span>x1<span class="o">,</span><span class="w"> </span>y1<span class="o">,</span><span class="w"> </span>z1<span class="o">,</span><span class="w"> </span>x2<span class="o">,</span><span class="w"> </span>y2<span class="o">,</span><span class="w"> </span>z2<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>In<span class="w"> </span><span class="m">3</span>D<span class="w"> </span>space<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>a<span class="w"> </span>line<span class="w"> </span>connecting<span class="w"> </span>two<span class="w"> </span>points<span class="w"> </span>defined<span class="w"> </span><span class="kr">by</span><span class="w"> </span><span class="o">(</span>x1<span class="o">,</span><span class="w"> </span>y1<span class="o">)</span><span class="w"> </span>and<span class="w"> </span><span class="o">(</span>x2<span class="o">,</span><span class="w"> </span>y2<span class="o">).</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Triangle<span class="w"></span>
+triangle<span class="o">(</span>x1<span class="o">,</span><span class="w"> </span>y1<span class="o">,</span><span class="w"> </span>x2<span class="o">,</span><span class="w"> </span>y2<span class="o">,</span><span class="w"> </span>x3<span class="o">,</span><span class="w"> </span>y3<span class="o">)</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>a<span class="w"> </span>triangle<span class="w"> </span>connecting<span class="w"> </span>three<span class="w"> </span>points<span class="w"> </span>defined<span class="w"> </span><span class="kr">by</span><span class="w"> </span>coordinate<span class="w"> </span>paramters<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Rectangle<span class="w"></span>
+rect<span class="o">(</span>a<span class="o">,</span><span class="w"> </span>b<span class="o">,</span><span class="w"> </span>c<span class="o">,</span><span class="w"> </span>d<span class="o">,</span><span class="w"> </span><span class="err">[</span>r<span class="err">]</span><span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>With<span class="w"> </span>optional<span class="w"> </span>parameter<span class="w"> </span>defining<span class="w"> </span>the<span class="w"> </span>radius<span class="w"> </span>of<span class="w"> </span>all<span class="w"> </span>corners<span class="w"></span>
+rect<span class="o">(</span>a<span class="o">,</span><span class="w"> </span>b<span class="o">,</span><span class="w"> </span>c<span class="o">,</span><span class="w"> </span>d<span class="o">,</span><span class="w"> </span><span class="err">[</span>tl<span class="o">,</span><span class="w"> </span>tr<span class="o">,</span><span class="w"> </span>br<span class="o">,</span><span class="w"> </span>bl<span class="err">]</span><span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>With<span class="w"> </span>optional<span class="w"> </span>set<span class="w"> </span>of<span class="w"> </span>parameters<span class="w"> </span>defining<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>radius<span class="w"> </span>of<span class="w"> </span>each<span class="w"> </span>corner<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>a<span class="w"> </span>rectangle<span class="w"> </span>with<span class="w"> </span><span class="err">{</span>a<span class="o">,</span><span class="w"> </span>b<span class="err">}</span><span class="w"> </span>as<span class="w"> </span>a<span class="w"> </span>top<span class="w"> </span>left<span class="w"> </span>coordinate<span class="w"> </span>and<span class="w"> </span>c<span class="w"> </span>and<span class="w"> </span>d<span class="w"> </span>as<span class="w"> </span>width<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>and<span class="w"> </span>height<span class="w"> </span>respectively<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Quad<span class="w"></span>
+quad<span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">,</span><span class="w"> </span>x2<span class="o">,</span><span class="w"> </span>y2<span class="o">,</span><span class="w"> </span>x3<span class="o">,</span><span class="w"> </span>y3<span class="o">,</span><span class="w"> </span>x4<span class="o">,</span><span class="w"> </span>y4<span class="o">)</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>a<span class="w"> </span>quadrilateral<span class="w"> </span>with<span class="w"> </span>parameters<span class="w"> </span>defining<span class="w"> </span>coordinates<span class="w"> </span>of<span class="w"> </span>each<span class="w"> </span>corner<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>point<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Ellipse<span class="w"></span>
+ellipse<span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">,</span><span class="w"> </span>width<span class="o">,</span><span class="w"> </span>height<span class="o">)</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Draws<span class="w"> </span>an<span class="w"> </span>eclipse<span class="w"> </span>at<span class="w"> </span>point<span class="w"> </span><span class="err">{</span>x<span class="o">,</span><span class="w"> </span>y<span class="err">}</span><span class="w"> </span>with<span class="w"> </span>width<span class="w"> </span>and<span class="w"> </span>height<span class="w"> </span>specified<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Arc<span class="w"></span>
+arc<span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">,</span><span class="w"> </span>width<span class="o">,</span><span class="w"> </span>height<span class="o">,</span><span class="w"> </span>start<span class="o">,</span><span class="w"> </span>stop<span class="o">,</span><span class="w"> </span><span class="err">[</span>mode<span class="err">]</span><span class="o">)</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="kr">While</span><span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span>four<span class="w"> </span>parameters<span class="w"> </span>are<span class="w"> </span>self<span class="o">-</span>explanatory<span class="o">,</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>start<span class="w"> </span>and<span class="w"> </span><span class="kr">end</span><span class="w"> </span>defined<span class="w"> </span>the<span class="w"> </span>angles<span class="w"> </span>the<span class="w"> </span>arc<span class="w"> </span>starts<span class="w"> </span>and<span class="w"> </span>ends<span class="w"> </span><span class="o">(</span>in<span class="w"> </span>radians<span class="o">).</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Optional<span class="w"> </span>parameter<span class="w"> </span><span class="err">[</span>mode<span class="err">]</span><span class="w"> </span>defines<span class="w"> </span>the<span class="w"> </span>filling<span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>PIE<span class="w"> </span>gives<span class="w"> </span>pie<span class="o">-</span>like<span class="w"> </span>outline<span class="o">,</span><span class="w"> </span>CHORD<span class="w"> </span>gives<span class="w"> </span>the<span class="w"> </span>chord<span class="o">-</span>like<span class="w"> </span>outline<span class="w"> </span>and<span class="w"> </span>OPEN<span class="w"> </span>is<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>CHORD<span class="w"> </span>without<span class="w"> </span>strokes<span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Curves<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Processing<span class="w"> </span>provides<span class="w"> </span>two<span class="w"> </span>implementation<span class="w"> </span>of<span class="w"> </span>curves<span class="err">;</span><span class="w"> </span>using<span class="w"> </span>curve<span class="o">()</span><span class="w"> </span>and<span class="w"> </span>bezier<span class="o">().</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Since<span class="w"> </span>I<span class="w"> </span>plan<span class="w"> </span><span class="kr">to</span><span class="w"> </span>keep<span class="w"> </span>this<span class="w"> </span>simple<span class="w"> </span>I<span class="w"> </span>wont<span class="w"> </span>be<span class="w"> </span>discussing<span class="w"> </span>any<span class="w"> </span>further<span class="w"> </span>details<span class="o">.</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>However<span class="o">,</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span><span class="kr">to</span><span class="w"> </span>implement<span class="w"> </span>it<span class="w"> </span>in<span class="w"> </span>your<span class="w"> </span>sketch<span class="o">,</span><span class="w"> </span>here<span class="w"> </span>are<span class="w"> </span>the<span class="w"> </span><span class="nl">references</span><span class="o">:</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>curve_<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>bezier_<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span><span class="m">3</span>D<span class="w"> </span>Shapes<span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span><span class="m">3</span>D<span class="w"> </span>space<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>configured<span class="w"> </span><span class="kr">by</span><span class="w"> </span>setting<span class="w"> </span><span class="s">&quot;P3D&quot;</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span>the<span class="w"> </span>renderer<span class="w"> </span>parameter<span class="w"> </span>in<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>size<span class="o">()</span><span class="w"> </span>method<span class="o">.</span><span class="w"></span>
+size<span class="o">(</span>width<span class="o">,</span><span class="w"> </span>height<span class="o">,</span><span class="w"> </span>P3D<span class="o">)</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>In<span class="w"> </span><span class="m">3</span>D<span class="w"> </span>space<span class="o">,</span><span class="w"> </span>you<span class="w"> </span>will<span class="w"> </span>have<span class="w"> </span><span class="kr">to</span><span class="w"> </span>translate<span class="w"> </span><span class="kr">to</span><span class="w"> </span>the<span class="w"> </span>particular<span class="w"> </span>coordinate<span class="w"> </span><span class="kr">to</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>render<span class="w"> </span>the<span class="w"> </span><span class="m">3</span>D<span class="w"> </span>shapes<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Box<span class="w"></span>
+box<span class="o">(</span>size<span class="o">)</span><span class="err">;</span><span class="w">  </span><span class="o">//</span><span class="w"> </span>Cube<span class="w"> </span>with<span class="w"> </span>same<span class="w"> </span>length<span class="w"> </span>defined<span class="w"> </span><span class="kr">by</span><span class="w"> </span>size<span class="w"></span>
+box<span class="o">(</span>w<span class="o">,</span><span class="w"> </span>h<span class="o">,</span><span class="w"> </span>d<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Box<span class="w"> </span>with<span class="w"> </span>width<span class="o">,</span><span class="w"> </span>height<span class="w"> </span>and<span class="w"> </span>depth<span class="w"> </span>separately<span class="w"> </span>defined<span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Sphere<span class="w"></span>
+sphere<span class="o">(</span>radius<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Its<span class="w"> </span>size<span class="w"> </span>is<span class="w"> </span>defined<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>radius<span class="w"> </span>parameter<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Mechanism<span class="w"> </span>behind<span class="w"> </span>rendering<span class="w"> </span>spheres<span class="w"> </span>is<span class="w"> </span>implemented<span class="w"> </span><span class="kr">by</span><span class="w"> </span>tessellating<span class="w"> </span>triangles<span class="o">.</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>That<span class="w"> </span>said<span class="o">,</span><span class="w"> </span>how<span class="w"> </span>much<span class="w"> </span>detail<span class="w"> </span>being<span class="w"> </span>rendered<span class="w"> </span>is<span class="w"> </span>controlled<span class="w"> </span><span class="kr">by</span><span class="w"> </span>function<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>sphereDetail<span class="o">(</span>res<span class="o">)</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>More<span class="w"> </span>information<span class="w"> </span><span class="nl">here</span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>sphereDetail_<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Irregular<span class="w"> </span>Shapes<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>What<span class="w"> </span><span class="kr">if</span><span class="w"> </span>you<span class="w"> </span>wanted<span class="w"> </span><span class="kr">to</span><span class="w"> </span>draw<span class="w"> </span>something<span class="w"> </span>thats<span class="w"> </span>not<span class="w"> </span>made<span class="w"> </span>available<span class="w"> </span><span class="kr">by</span><span class="w"> </span>Processing<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>functions<span class="err">?</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>use<span class="w"> </span>beginShape<span class="o">(),</span><span class="w"> </span>endShape<span class="o">(),</span><span class="w"> </span>vertex<span class="o">(</span>x<span class="o">,</span>y<span class="o">)</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span>define<span class="w"> </span>shapes<span class="w"> </span><span class="kr">by</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>specifying<span class="w"> </span>each<span class="w"> </span>point<span class="o">.</span><span class="w"> </span>More<span class="w"> </span>information<span class="w"> </span><span class="nl">here</span><span class="o">:</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>beginShape_<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>custom<span class="w"> </span>made<span class="w"> </span>shapes<span class="w"> </span>using<span class="w"> </span>PShape<span class="w"> </span><span class="nl">class</span><span class="o">:</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>PShape<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+
+<span class="cm">/* ---------------</span>
+<span class="cm">   Transformations</span>
+<span class="cm">   ---------------</span>
+<span class="cm">*/</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Transformations<span class="w"> </span>are<span class="w"> </span>particularly<span class="w"> </span>useful<span class="w"> </span><span class="kr">to</span><span class="w"> </span>keep<span class="w"> </span>track<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>coordinate<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>space<span class="w"> </span>and<span class="w"> </span>the<span class="w"> </span>vertices<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>shapes<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span>drawn<span class="o">.</span><span class="w"> </span>Particularly<span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>matrix<span class="w"> </span>stack<span class="w"> </span>methods<span class="err">;</span><span class="w"> </span>pushMatrix<span class="o">(),</span><span class="w"> </span>popMatrix<span class="o">()</span><span class="w"> </span>and<span class="w"> </span><span class="nb">translate</span><span class="o">(</span>x<span class="o">,</span>y<span class="o">)</span><span class="w"></span>
+pushMatrix<span class="o">()</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Saves<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>coordinate<span class="w"> </span>system<span class="w"> </span><span class="kr">to</span><span class="w"> </span>the<span class="w"> </span>stack<span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">...</span><span class="w"> </span>apply<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>transformations<span class="w"> </span>here<span class="w"> </span><span class="o">...</span><span class="w"></span>
+popMatrix<span class="o">()</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Restores<span class="w"> </span>the<span class="w"> </span>saved<span class="w"> </span>coordinate<span class="w"> </span>system<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Using<span class="w"> </span>them<span class="o">,</span><span class="w"> </span>the<span class="w"> </span>coordinate<span class="w"> </span>system<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>preserved<span class="w"> </span>and<span class="w"> </span>visualized<span class="w"> </span>without<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>causing<span class="w"> </span>any<span class="w"> </span>conflicts<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Translate<span class="w"></span>
+<span class="nb">translate</span><span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Translates<span class="w"> </span><span class="kr">to</span><span class="w"> </span>point<span class="err">{</span>x<span class="o">,</span><span class="w"> </span>y<span class="err">}</span><span class="w"> </span>i<span class="o">.</span>e<span class="o">.</span><span class="w"> </span><span class="o">-</span><span class="w"> </span>setting<span class="w"> </span>origin<span class="w"> </span><span class="kr">to</span><span class="w"> </span>that<span class="w"> </span>point<span class="w"></span>
+<span class="nb">translate</span><span class="o">(</span>x<span class="o">,</span><span class="w"> </span>y<span class="o">,</span><span class="w"> </span>z<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="m">3</span>D<span class="w"> </span>counterpart<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>function<span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Rotate<span class="w"></span>
+rotate<span class="o">(</span>angle<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Rotate<span class="w"> </span>the<span class="w"> </span>amount<span class="w"> </span>specified<span class="w"> </span><span class="kr">by</span><span class="w"> </span>the<span class="w"> </span>angle<span class="w"> </span>parameter<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>It<span class="w"> </span>has<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span>D<span class="w"> </span>counterparts<span class="w"> </span><span class="kr">to</span><span class="w"> </span>perform<span class="w"> </span>rotation<span class="o">,</span><span class="w"> </span>each<span class="w"> </span><span class="kr">for</span><span class="w"> </span>every<span class="w"> </span>dimension<span class="o">,</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="nl">namely</span><span class="o">:</span><span class="w"> </span>rotateX<span class="o">(</span>angle<span class="o">),</span><span class="w"> </span>rotateY<span class="o">(</span>angle<span class="o">),</span><span class="w"> </span>rotateZ<span class="o">(</span>angle<span class="o">)</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Scale<span class="w"></span>
+scale<span class="o">(</span>s<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Scale<span class="w"> </span>the<span class="w"> </span>coordinate<span class="w"> </span>system<span class="w"> </span><span class="kr">by</span><span class="w"> </span>either<span class="w"> </span>expanding<span class="w"> </span>or<span class="w"> </span>contracting<span class="w"> </span>it<span class="o">.</span><span class="w"></span>
+
+<span class="cm">/* --------------------</span>
+<span class="cm">   Styling and Textures</span>
+<span class="cm">   --------------------</span>
+<span class="cm">*/</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Colours<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>As<span class="w"> </span>I<span class="w"> </span>have<span class="w"> </span>discussed<span class="w"> </span>earlier<span class="o">,</span><span class="w"> </span>the<span class="w"> </span>background<span class="w"> </span>colour<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>configured<span class="w"> </span>using<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>background<span class="o">()</span><span class="w"> </span>function<span class="o">.</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>define<span class="w"> </span>a<span class="w"> </span>color<span class="w"> </span>object<span class="w"> </span>beforehand<span class="w"> </span>and<span class="w"> </span><span class="kr">then</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>pass<span class="w"> </span>it<span class="w"> </span><span class="kr">to</span><span class="w"> </span>the<span class="w"> </span>function<span class="w"> </span>as<span class="w"> </span>an<span class="w"> </span>argument<span class="o">.</span><span class="w"></span>
+color<span class="w"> </span>c<span class="w"> </span><span class="o">=</span><span class="w"> </span>color<span class="o">(</span><span class="m">255</span><span class="o">,</span><span class="w"> </span><span class="m">255</span><span class="o">,</span><span class="w"> </span><span class="m">255</span><span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>WHITE<span class="err">!</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="kr">By</span><span class="w"> </span>default<span class="o">,</span><span class="w"> </span>Processing<span class="w"> </span>uses<span class="w"> </span>RGB<span class="w"> </span>colour<span class="w"> </span>scheme<span class="w"> </span>but<span class="w"> </span>it<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>configured<span class="w"> </span><span class="kr">to</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>HSB<span class="w"> </span>using<span class="w"> </span>colorMode<span class="o">().</span><span class="w"> </span>Read<span class="w"> </span>more<span class="w"> </span><span class="nl">here</span><span class="o">:</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="o">(</span><span class="nl">https</span><span class="o">://</span>processing<span class="o">.</span>org<span class="o">/</span>reference<span class="o">/</span>colorMode_<span class="o">.</span>html<span class="o">)</span><span class="w"></span>
+background<span class="o">(</span>color<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="kr">By</span><span class="w"> </span>now<span class="o">,</span><span class="w"> </span>the<span class="w"> </span>background<span class="w"> </span>colour<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>white<span class="o">.</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>use<span class="w"> </span>fill<span class="o">()</span><span class="w"> </span>function<span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="kr">select</span><span class="w"> </span>the<span class="w"> </span>colour<span class="w"> </span><span class="kr">for</span><span class="w"> </span>filling<span class="w"> </span>the<span class="w"> </span>shapes<span class="o">.</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span>It<span class="w"> </span>has<span class="w"> </span><span class="kr">to</span><span class="w"> </span>be<span class="w"> </span>configured<span class="w"> </span>before<span class="w"> </span>you<span class="w"> </span>start<span class="w"> </span>drawing<span class="w"> </span>shapes<span class="w"> </span>so<span class="w"> </span>the<span class="w"> </span>colours<span class="w"> </span>gets<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>applied<span class="o">.</span><span class="w"></span>
+fill<span class="o">(</span>color<span class="o">(</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">))</span><span class="err">;</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="kr">If</span><span class="w"> </span>you<span class="w"> </span>just<span class="w"> </span>want<span class="w"> </span><span class="kr">to</span><span class="w"> </span>colour<span class="w"> </span>the<span class="w"> </span>outlines<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>shapes<span class="w"> </span><span class="kr">then</span><span class="w"> </span>you<span class="w"> </span>can<span class="w"> </span>use<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>stroke<span class="o">()</span><span class="w"> </span>function<span class="o">.</span><span class="w"></span>
+stroke<span class="o">(</span><span class="m">255</span><span class="o">,</span><span class="w"> </span><span class="m">255</span><span class="o">,</span><span class="w"> </span><span class="m">255</span><span class="o">,</span><span class="w"> </span><span class="m">200</span><span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>stroke<span class="w"> </span>colour<span class="w"> </span>set<span class="w"> </span><span class="kr">to</span><span class="w"> </span>yellow<span class="w"> </span>with<span class="w"> </span>transparency<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>set<span class="w"> </span><span class="kr">to</span><span class="w"> </span>a<span class="w"> </span>lower<span class="w"> </span>value<span class="o">.</span><span class="w"></span>
+
+<span class="o">//</span><span class="w"> </span>Images<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>Processing<span class="w"> </span>can<span class="w"> </span>render<span class="w"> </span>images<span class="w"> </span>and<span class="w"> </span>use<span class="w"> </span>them<span class="w"> </span>in<span class="w"> </span>several<span class="w"> </span>ways<span class="o">.</span><span class="w"> </span>Mostly<span class="w"> </span>stored<span class="w"> </span>as<span class="w"></span>
+<span class="o">//</span><span class="w"> </span>PImage<span class="w"> </span>datatype<span class="o">.</span><span class="w"></span>
+filter<span class="o">(</span>shader<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>Processing<span class="w"> </span>supports<span class="w"> </span>several<span class="w"> </span>filter<span class="w"> </span>functions<span class="w"> </span><span class="kr">for</span><span class="w"> </span>image<span class="w"> </span>manipulation<span class="o">.</span><span class="w"></span>
+texture<span class="o">(</span>image<span class="o">)</span><span class="err">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span>PImage<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>passed<span class="w"> </span>into<span class="w"> </span>arguments<span class="w"> </span><span class="kr">for</span><span class="w"> </span>texture<span class="o">-</span>mapping<span class="w"> </span>the<span class="w"> </span>shapes<span class="o">.</span><span class="w"></span>
+</pre></div>
+<p>If you want to take things further, there are more things Processing is powered
+for. Rendering models, shaders and whatnot. There&rsquo;s too much to cover in a
+short documentation, so I will leave them out here. Shoud you be interested,
+please check out the references.</p>
+<div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Before</span> <span class="n">we</span> <span class="n">move</span> <span class="n">on</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">touch</span> <span class="n">a</span> <span class="n">little</span> <span class="n">bit</span> <span class="n">more</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="kn">import</span> <span class="nn">libraries</span>
+<span class="o">//</span> <span class="n">so</span> <span class="n">you</span> <span class="n">can</span> <span class="n">extend</span> <span class="n">Processing</span> <span class="n">functionality</span> <span class="n">to</span> <span class="n">another</span> <span class="n">horizon</span><span class="o">.</span>
+
+<span class="o">/*</span> <span class="o">-------</span>
+   <span class="n">Imports</span>
+   <span class="o">-------</span>
+<span class="o">*/</span>
+
+<span class="o">//</span> <span class="n">The</span> <span class="n">power</span> <span class="n">of</span> <span class="n">Processing</span> <span class="n">can</span> <span class="n">be</span> <span class="n">further</span> <span class="n">visualized</span> <span class="n">when</span> <span class="n">we</span> <span class="kn">import</span> <span class="nn">libraries</span>
+<span class="o">//</span> <span class="ow">and</span> <span class="n">packages</span> <span class="n">into</span> <span class="n">our</span> <span class="n">sketches</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">Import</span> <span class="n">statement</span> <span class="n">can</span> <span class="n">be</span> <span class="n">written</span> <span class="k">as</span> <span class="n">below</span> <span class="n">at</span> <span class="n">the</span> <span class="n">top</span> <span class="n">of</span> <span class="n">the</span> <span class="n">source</span> <span class="n">code</span><span class="o">.</span>
+<span class="kn">import</span> <span class="nn">processing.something.</span><span class="o">*</span><span class="p">;</span>
+</pre></div>
+<h2>DTC?</h2>
+
+<p>Down To Code? Let&rsquo;s get our hands dirty!</p>
+
+<p>Let us see an example from openprocessing to visualize how much Processing is
+capable of within few lines of code.</p>
+
+<p>Copy the code below into your Processing IDE and see the magic.</p>
+<div class="highlight"><pre><span></span>// Disclaimer: I did not write this program since I currently am occupied with
+// internship and this sketch is adapted from openprocessing since it shows
+// something cool with simple codes.
+// Retrieved from: (https://www.openprocessing.org/sketch/559769)
+
+float theta;
+float a;
+float col;
+float num;
+
+void setup() {
+  size(600,600);
+}
+
+void draw() {
+  background(#F2F2F2);
+  translate(width/2, height/2);
+  theta = map(sin(millis()/1000.0), -1, 1, 0, PI/6);
+
+  float num=6;
+  for (int i=0; i&lt;num; i++) {
+    a =350;
+    rotate(TWO_PI/num);
+    branch(a);
+  }
+
+}
+
+void branch(float len) {
+  col=map(len, 0, 90, 150, 255);
+  fill(col, 0, 74);
+  stroke (col, 0, 74);
+  line(0, 0, 0, -len);
+  ellipse(0, -len, 3, 3);
+  len *= 0.7;
+
+  if (len&gt;30) {
+    pushMatrix();
+    translate(0, -30);
+    rotate(theta);
+    branch(len);
+    popMatrix();
+
+    pushMatrix();
+    translate(0, -30);
+    rotate(-theta);
+    branch(len);
+    popMatrix();
+
+  }
+}
+</pre></div>
+<p>Processing is easy to learn and is particularly useful to create multimedia
+contents (even in 3D) without having to type a lot of codes. It is so simple
+that you can read through the code and get a rough idea of the program flow.</p>
+
+<p>However, that does not apply when you introduce external libraries, packages
+and even your own classes. (Trust me! Processing projects can get real humongous&hellip;)</p>
+
+<h2>Some useful resources</h2>
+
+<ul>
+<li><a href="http://processing.org">Processing Website</a></li>
+<li><a href="http://openprocessing.org">Processing Sketches</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/processing.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Phone Thant Ko, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/processing.html.markdown">2 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="http://github.com/phonethantko">Phone Thant Ko</a>,
+        <a href="https://github.com/divayprakash">Divay Prakash</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn toml in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/toml/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Ftoml%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dtoml">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=toml</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learntoml.toml">learntoml.toml</a>
+    </p>
+  <div id="doc">
+    <p>TOML stands for Tom&rsquo;s Obvious, Minimal Language. It is a data serialisation language designed to be a minimal configuration file format that&rsquo;s easy to read due to obvious semantics.</p>
+
+<p>It is an alternative to YAML and JSON. It aims to be more human friendly than JSON and simpler that YAML. TOML is designed to map unambiguously to a hash table. TOML should be easy to parse into data structures in a wide variety of languages.</p>
+
+<p>Be warned, TOML&rsquo;s spec is still changing a lot. Until it&rsquo;s marked as 1.0, you
+should assume that it is unstable and act accordingly. This document follows TOML v0.4.0. </p>
+<div class="highlight"><pre><span></span># Comments in TOML look like this.
+
+################
+# SCALAR TYPES #
+################
+
+# Our root object (which continues for the entire document) will be a map,
+# which is equivalent to a dictionary, hash or object in other languages.
+
+# The key, equals sign, and value must be on the same line
+# (though some values can be broken over multiple lines).
+key = &quot;value&quot;
+string = &quot;hello&quot;
+number = 42
+float = 3.14
+boolean = true
+dateTime = 1979-05-27T07:32:00-08:00
+scientificNotation = 1e+12
+&quot;key can be quoted&quot; = true # Both &quot; and &#39; are fine
+&quot;key may contains&quot; = &quot;letters, numbers, underscores, and dashes&quot;
+
+# A bare key must be non-empty, but an empty quoted key is allowed
+&quot;&quot; = &quot;blank&quot;     # VALID but discouraged
+&#39;&#39; = &#39;blank&#39;     # VALID but discouraged
+
+##########
+# String #
+##########
+
+# All strings must contain only valid UTF-8 characters.
+# We can escape characters and some of them have a compact escape sequence.
+# For example, \t add a tabulation. Refers to the spec to get all of them.
+basicString = &quot;are surrounded by quotation marks. \&quot;I&#39;m quotable\&quot;. Name\tJos&quot;
+
+multiLineString = &quot;&quot;&quot;
+are surrounded by three quotation marks
+on each side and allow newlines.&quot;&quot;&quot;
+
+literalString = &#39;are surrounded by single quotes. Escaping are not allowed.&#39;
+
+multiLineLiteralString = &#39;&#39;&#39;
+are surrounded by three single quotes on each side
+and allow newlines. Still no escaping.
+The first newline is trimmed in raw strings.
+   All other whitespace
+   is preserved. #! are preserved?
+&#39;&#39;&#39;
+
+# For binary data it is recommended that you use Base64, another ASCII or UTF8
+# encoding. The handling of that encoding will be application specific.
+
+###########
+# Integer #
+###########
+
+## Integers can start with a +, a - or nothing.
+## Leading zeros are not allowed. Hex, octal, and binary forms are not allowed.
+## Values that cannot be expressed as a series of digits are not allowed.
+int1 = +42
+int2 = 0
+int3 = -21
+integerRange = 64
+
+## You can use underscores to enhance readability. Each
+## underscore must be surrounded by at least one digit.
+int4 = 5_349_221
+int5 = 1_2_3_4_5     # VALID but discouraged
+
+#########
+# Float #
+#########
+
+# Floats are an integer followed by a fractional and/or an exponent part.
+flt1 = 3.1415
+flt2 = -5e6
+flt3 = 6.626E-34
+
+###########
+# Boolean #
+###########
+
+bool1 = true
+bool2 = false
+boolMustBeLowercase = true
+
+############
+# Datetime #
+############
+
+date1 = 1979-05-27T07:32:00Z # UTC time, following RFC 3339/ISO 8601 spec
+date2 = 1979-05-26T15:32:00+08:00 # with RFC 3339/ISO 8601 offset
+date3 = 1979-05-27T07:32:00 # without offset
+date4 = 1979-05-27 # without offset or time
+
+####################
+# COLLECTION TYPES #
+####################
+
+#########
+# Array #
+#########
+
+array1 = [ 1, 2, 3 ]
+array2 = [ &quot;Commas&quot;, &quot;are&quot;, &quot;delimiters&quot; ]
+array3 = [ &quot;Don&#39;t mixed&quot;, &quot;different&quot;, &quot;types&quot; ]
+array4 = [ [ 1.2, 2.4 ], [&quot;all&quot;, &#39;strings&#39;, &quot;&quot;&quot;are the same&quot;&quot;&quot;, &#39;&#39;&#39;type&#39;&#39;&#39;] ]
+array5 = [
+  &quot;Whitespace&quot;, &quot;is&quot;, &quot;ignored&quot;
+]
+
+#########
+# Table #
+#########
+
+# Tables (or hash tables or dictionaries) are collections of key/value
+# pairs. They appear in square brackets on a line by themselves.
+# Empty tables are allowed and simply have no key/value pairs within them.
+[table]
+
+# Under that, and until the next table or EOF are the key/values of that table.
+# Key/value pairs within tables are not guaranteed to be in any specific order.
+[table-1]
+key1 = &quot;some string&quot;
+key2 = 123
+
+[table-2]
+key1 = &quot;another string&quot;
+key2 = 456
+
+# Dots are prohibited in bare keys because dots are used to signify nested tables.
+# Naming rules for each dot separated part are the same as for keys.
+[dog.&quot;tater.man&quot;]
+type = &quot;pug&quot;
+
+# In JSON land, that would give you the following structure:
+# { &quot;dog&quot;: { &quot;tater.man&quot;: { &quot;type&quot;: &quot;pug&quot; } } }
+
+# Whitespace around dot-separated parts is ignored, however, best practice is to
+# not use any extraneous whitespace.
+[a.b.c]            # this is best practice
+[ d.e.f ]          # same as [d.e.f]
+[ j . &quot;ʞ&quot; . &#39;l&#39; ]  # same as [j.&quot;ʞ&quot;.&#39;l&#39;]
+
+# You don&#39;t need to specify all the super-tables if you don&#39;t want to. TOML knows
+# how to do it for you.
+# [x] you
+# [x.y] don&#39;t
+# [x.y.z] need these
+[x.y.z.w] # for this to work
+
+# As long as a super-table hasn&#39;t been directly defined and hasn&#39;t defined a
+# specific key, you may still write to it.
+[a.b]
+c = 1
+
+[a]
+d = 2
+
+# You cannot define any key or table more than once. Doing so is invalid.
+
+# DO NOT DO THIS
+[a]
+b = 1
+
+[a]
+c = 2
+
+# DO NOT DO THIS EITHER
+[a]
+b = 1
+
+[a.b]
+c = 2
+
+# All table names must be non-empty.
+[]     # INVALID
+[a.]   # INVALID
+[a..b] # INVALID
+[.b]   # INVALID
+[.]    # INVALID
+
+################
+# Inline table #
+################
+
+inlineTables = { areEnclosedWith = &quot;{ and }&quot;, mustBeInline = true }
+point = { x = 1, y = 2 }
+
+###################
+# Array of Tables #
+###################
+
+# An array of tables can be expressed by using a table name in double brackets.
+# Each table with the same double bracketed name will be an item in the array.
+# The tables are inserted in the order encountered.
+
+[[products]]
+name = &quot;array of table&quot;
+sku = 738594937
+emptyTableAreAllowed = true
+
+[[products]]
+
+[[products]]
+name = &quot;Nail&quot;
+sku = 284758393
+color = &quot;gray&quot;
+
+# You can create nested arrays of tables as well. Each double-bracketed
+# sub-table will belong to the nearest table element above it.
+
+[[fruit]]
+  name = &quot;apple&quot;
+
+  [fruit.Geometry]
+    shape = &quot;round&quot;
+    note = &quot;I am an fruit&#39;s property&quot;
+
+  [[fruit.color]]
+    name = &quot;red&quot;
+    note = &quot;I am an array&#39;s item in apple&quot;
+
+  [[fruit.color]]
+    name = &quot;green&quot;
+    note = &quot;I am in the same array than red&quot;
+
+[[fruit]]
+  name = &quot;banana&quot;
+
+  [[fruit.color]]
+    name = &quot;yellow&quot;
+    note = &quot;I am an array&#39;s item too but banana&#39;s one&quot;
+</pre></div>
+<p>In JSON land, this code will be:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;fruit&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="nt">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+      <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="nt">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="nt">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span> <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;color&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="nt">&quot;note&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span> <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<h3>More Resources</h3>
+
+<ul>
+<li><a href="https://github.com/toml-lang/toml">TOML official repository</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/toml.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Alois de Gouvello, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/toml.html.markdown">2 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/aloisdg">Alois de Gouvello</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

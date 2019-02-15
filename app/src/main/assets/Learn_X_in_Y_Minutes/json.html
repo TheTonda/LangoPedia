@@ -1,0 +1,178 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn json in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/json/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fjson%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Djson">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=json</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learnjson.json">learnjson.json</a>
+    </p>
+  <div id="doc">
+    <p>JSON is an extremely simple data-interchange format. As <a href="http://json.org">json.org</a> says, it is easy for humans to read and write and for machines to parse and generate.</p>
+
+<p>A piece of JSON must represent either:</p>
+
+<ul>
+<li>A collection of name/value pairs (<code>{ }</code>). In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array.</li>
+<li>An ordered list of values (<code>[ ]</code>). In various languages, this is realized as an array, vector, list, or sequence.</li>
+</ul>
+
+<p>JSON in its purest form has no actual comments, but most parsers will accept C-style (<code>//</code>, <code>/* */</code>) comments. Some parsers also tolerate a trailing comma (i.e. a comma after the last element of an array or the after the last property of an object), but they should be avoided for better compatibility.</p>
+
+<p>For the purposes of this tutorial, everything is going to be 100% valid JSON. Luckily, it kind of speaks for itself.</p>
+
+<p>Supported data types:</p>
+
+<ul>
+<li>Strings: <code>&quot;hello&quot;</code>, <code>&quot;\&quot;A quote.\&quot;&quot;</code>, <code>&quot;\u0abe&quot;</code>, <code>&quot;Newline.\n&quot;</code></li>
+<li>Numbers: <code>23</code>, <code>0.11</code>, <code>12e10</code>, <code>3.141e-10</code>, <code>1.23e+4</code></li>
+<li>Objects: <code>{ &quot;key&quot;: &quot;value&quot; }</code></li>
+<li>Arrays: <code>[&quot;Values&quot;]</code></li>
+<li>Miscellaneous: <code>true</code>, <code>false</code>, <code>null</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+
+  <span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="s2">&quot;must always be enclosed in double quotes&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;numbers&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;strings&quot;</span><span class="p">:</span> <span class="s2">&quot;Hellø, wørld. All unicode is allowed, along with \&quot;escaping\&quot;.&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;has bools?&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;nothingness&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+
+  <span class="nt">&quot;big number&quot;</span><span class="p">:</span> <span class="mf">1.2e+100</span><span class="p">,</span>
+
+  <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;Most of your structure will come from objects.&quot;</span><span class="p">,</span>
+
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Arrays can have anything in them.&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+
+    <span class="nt">&quot;another object&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;These things can be nested, very useful.&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+
+  <span class="nt">&quot;silliness&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;sources of potassium&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bananas&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">[</span>
+      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;neo&quot;</span><span class="p">],</span>
+      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">]</span>
+  <span class="p">],</span>
+
+  <span class="nt">&quot;alternative style&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="s2">&quot;check this out!&quot;</span>
+  <span class="p">,</span> <span class="nt">&quot;comma position&quot;</span><span class="p">:</span> <span class="s2">&quot;doesn&#39;t matter, if it&#39;s before the next key, it&#39;s valid&quot;</span>
+  <span class="p">,</span> <span class="nt">&quot;another comment&quot;</span><span class="p">:</span> <span class="s2">&quot;how nice&quot;</span>
+  <span class="p">},</span>
+
+
+
+  <span class="nt">&quot;whitespace&quot;</span><span class="p">:</span> <span class="s2">&quot;Does not matter.&quot;</span><span class="p">,</span>
+
+
+
+  <span class="nt">&quot;that was short&quot;</span><span class="p">:</span> <span class="s2">&quot;And done. You now know everything JSON has to offer.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Further Reading</h2>
+
+<ul>
+<li><p><a href="http://json.org">JSON.org</a> All of JSON beautifully explained using flowchart-like graphics.</p></li>
+<li><p><a href="https://www.youtube.com/watch?v=wI1CWzNtE-M">JSON Tutorial</a> A concise introduction to JSON.</p></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/json.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Anna Harren, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/json.html.markdown">13 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/iirelu">Anna Harren</a>,
+        <a href="https://github.com/marcoms">Marco Scannadinari</a>,
+        <a href="https://github.com/himanshu81494">himanshu</a>,
+        <a href="https://github.com/infernocloud">Michael Neth</a>,
+        <a href="https://github.com/athanasiosem">Athanasios Emmanouilidis</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

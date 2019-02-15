@@ -1,0 +1,446 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn nix in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/nix/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fnix%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dnix">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=nix</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learn.nix">learn.nix</a>
+    </p>
+  <div id="doc">
+    <p>Nix is a simple functional language developed for the
+<a href="https://nixos.org/nix/">Nix package manager</a> and
+<a href="https://nixos.org/">NixOS</a>.</p>
+
+<p>You can evaluate Nix expressions using
+<a href="https://nixos.org/nix/manual/#sec-nix-instantiate">nix-instantiate</a>
+or <a href="https://github.com/edolstra/nix-repl"><code>nix-repl</code></a>.</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="nv">builtins</span><span class="c1">; [</span>
+
+  <span class="o">#</span>  <span class="nv">Comments</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Inline</span> <span class="nv">comments</span> <span class="nv">look</span> <span class="nv">like</span> <span class="nv">this.</span>
+
+  <span class="nv">/*</span> <span class="nv">Multi-line</span> <span class="nv">comments</span>
+     <span class="nv">look</span> <span class="nv">like</span> <span class="nv">this.</span> <span class="nv">*/</span>
+
+
+  <span class="o">#</span>  <span class="nv">Booleans</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="p">(</span><span class="nf">true</span> <span class="o">&amp;&amp;</span> <span class="nv">false</span><span class="p">)</span>               <span class="o">#</span> <span class="nv">And</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">false</span>
+
+  <span class="p">(</span><span class="nf">true</span> <span class="err">|</span><span class="k">| </span><span class="nv">false</span><span class="p">)</span>               <span class="o">#</span> <span class="nv">Or</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">true</span>
+
+  <span class="p">(</span><span class="k">if</span> <span class="mi">3</span> <span class="nv">&lt;</span> <span class="mi">4</span> <span class="nv">then</span> <span class="s">&quot;a&quot;</span> <span class="k">else</span> <span class="s">&quot;b&quot;</span><span class="p">)</span>  <span class="o">#</span> <span class="nv">Conditional</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a&quot;</span>
+
+
+  <span class="o">#</span>  <span class="nv">Integers</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Integers</span> <span class="nv">are</span> <span class="nv">the</span> <span class="nv">only</span> <span class="nv">numeric</span> <span class="nb">type</span><span class="nv">.</span>
+
+  <span class="mi">1</span> <span class="mi">0</span> <span class="mi">42</span> <span class="p">(</span><span class="mi">-3</span><span class="p">)</span>       <span class="o">#</span> <span class="nv">Some</span> <span class="nv">integers</span>
+
+  <span class="p">(</span><span class="mi">4</span> <span class="nv">+</span> <span class="mi">6</span> <span class="nv">+</span> <span class="mi">12</span> <span class="nv">-</span> <span class="mi">2</span><span class="p">)</span>  <span class="o">#</span> <span class="nv">Addition</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">20</span>
+
+  <span class="p">(</span><span class="mi">7</span> <span class="nv">/</span> <span class="mi">2</span><span class="p">)</span>           <span class="o">#</span> <span class="nv">Division</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">3</span>
+
+
+  <span class="o">#</span>  <span class="nv">Strings</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="s">&quot;Strings literals are in double quotes.&quot;</span>
+
+  <span class="s">&quot;</span>
+<span class="s">    String literals can span</span>
+<span class="s">    multiple lines.</span>
+<span class="s">  &quot;</span>
+
+  <span class="o">&#39;&#39;</span>
+    <span class="nv">This</span> <span class="k">is </span><span class="nv">called</span> <span class="nv">an</span> <span class="s">&quot;indented string&quot;</span> <span class="nv">literal.</span>
+    <span class="nv">It</span> <span class="nv">intelligently</span> <span class="nv">strips</span> <span class="nv">leading</span> <span class="nv">whitespace.</span>
+  <span class="o">&#39;&#39;</span>
+
+  <span class="o">&#39;&#39;</span>
+    <span class="nv">a</span>
+      <span class="nv">b</span>
+  <span class="o">&#39;&#39;</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a\n  b&quot;</span>
+
+  <span class="p">(</span><span class="s">&quot;ab&quot;</span> <span class="nv">+</span> <span class="s">&quot;cd&quot;</span><span class="p">)</span>   <span class="o">#</span> <span class="nv">String</span> <span class="nv">concatenation</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;abcd&quot;</span>
+
+  <span class="o">#</span> <span class="nv">Antiquotation</span> <span class="nv">lets</span> <span class="nv">you</span> <span class="nv">embed</span> <span class="nv">values</span> <span class="nv">into</span> <span class="nv">strings.</span>
+  <span class="p">(</span><span class="s">&quot;Your home directory is ${getEnv &quot;</span><span class="nv">HOME</span><span class="s">&quot;}&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;Your home directory is /home/alice&quot;</span>
+
+
+  <span class="o">#</span>  <span class="nv">Paths</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Nix</span> <span class="nv">has</span> <span class="nv">a</span> <span class="nv">primitive</span> <span class="nv">data</span> <span class="nb">type</span> <span class="k">for</span> <span class="nv">paths.</span>
+  <span class="nv">/tmp/tutorials/learn.nix</span>
+
+  <span class="o">#</span> <span class="nv">A</span> <span class="nv">relative</span> <span class="nv">path</span> <span class="k">is </span><span class="nv">resolved</span> <span class="nv">to</span> <span class="nv">an</span> <span class="nv">absolute</span> <span class="nv">path</span> <span class="nv">at</span> <span class="nv">parse</span>
+  <span class="o">#</span> <span class="nv">time</span>, <span class="nv">relative</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nb">file</span> <span class="k">in </span><span class="nv">which</span> <span class="nv">it</span> <span class="nv">occurs.</span>
+  <span class="nv">tutorials/learn.nix</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">/the-base-path/tutorials/learn.nix</span>
+
+  <span class="o">#</span> <span class="nv">A</span> <span class="nv">path</span> <span class="nv">must</span> <span class="nv">contain</span> <span class="nv">at</span> <span class="nv">least</span> <span class="nv">one</span> <span class="nv">slash</span>, <span class="nv">so</span> <span class="nv">a</span> <span class="nv">relative</span>
+  <span class="o">#</span> <span class="nv">path</span> <span class="k">for</span> <span class="nv">a</span> <span class="nb">file</span> <span class="k">in </span><span class="nv">the</span> <span class="nv">same</span> <span class="nv">directory</span> <span class="nv">needs</span> <span class="nv">a</span> <span class="nv">./</span> <span class="nv">prefix</span>,
+  <span class="nv">./learn.nix</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">/the-base-path/learn.nix</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">/</span> <span class="nv">operator</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">surrounded</span> <span class="nv">by</span> <span class="nv">whitespace</span> <span class="k">if</span>
+  <span class="o">#</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">it</span> <span class="nv">to</span> <span class="nv">signify</span> <span class="nv">division.</span>
+
+  <span class="mi">7</span><span class="nv">/2</span>        <span class="o">#</span> <span class="nv">This</span> <span class="k">is </span><span class="nv">a</span> <span class="nv">path</span> <span class="nv">literal</span>
+  <span class="p">(</span><span class="mi">7</span> <span class="nv">/</span> <span class="mi">2</span><span class="p">)</span>    <span class="o">#</span> <span class="nv">This</span> <span class="k">is </span><span class="nv">integer</span> <span class="nv">division</span>
+
+
+  <span class="o">#</span>  <span class="nv">Imports</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">A</span> <span class="nv">nix</span> <span class="nb">file</span> <span class="nv">contains</span> <span class="nv">a</span> <span class="nv">single</span> <span class="nv">top-level</span> <span class="nv">expression</span> <span class="k">with</span> <span class="nv">no</span> <span class="nv">free</span>
+  <span class="o">#</span> <span class="nv">variables.</span> <span class="nv">An</span> <span class="k">import </span><span class="nv">expression</span> <span class="nv">evaluates</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span>
+  <span class="o">#</span> <span class="nb">file</span> <span class="nv">that</span> <span class="nv">it</span> <span class="nv">imports.</span>
+  <span class="p">(</span><span class="k">import </span><span class="nv">/tmp/foo.nix</span><span class="p">)</span>
+
+  <span class="o">#</span> <span class="nv">Imports</span> <span class="nv">can</span> <span class="nv">also</span> <span class="nv">be</span> <span class="nv">specified</span> <span class="nv">by</span> <span class="nv">strings.</span>
+  <span class="p">(</span><span class="k">import </span><span class="s">&quot;/tmp/foo.nix&quot;</span><span class="p">)</span>
+
+  <span class="o">#</span> <span class="nv">Import</span> <span class="nv">paths</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">absolute.</span> <span class="nv">Path</span> <span class="nv">literals</span>
+  <span class="o">#</span> <span class="nv">are</span> <span class="nv">automatically</span> <span class="nv">resolved</span>, <span class="nv">so</span> <span class="nv">this</span> <span class="k">is </span><span class="nv">fine.</span>
+  <span class="p">(</span><span class="k">import </span><span class="nv">./foo.nix</span><span class="p">)</span>
+
+  <span class="o">#</span> <span class="nv">But</span> <span class="nv">this</span> <span class="nv">does</span> <span class="nv">not</span> <span class="nv">happen</span> <span class="k">with</span> <span class="nv">strings.</span>
+  <span class="p">(</span><span class="k">import </span><span class="s">&quot;./foo.nix&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">string</span> <span class="err">???</span><span class="nv">foo.nix</span><span class="err">???</span> <span class="nv">doesn</span><span class="ss">&#39;t</span> <span class="nv">represent</span> <span class="nv">an</span> <span class="nv">absolute</span> <span class="nv">path</span>
+
+
+  <span class="o">#</span>  <span class="nv">Let</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="o">`</span><span class="nv">let</span><span class="o">`</span> <span class="nv">blocks</span> <span class="nv">allow</span> <span class="nv">us</span> <span class="nv">to</span> <span class="nv">bind</span> <span class="nv">values</span> <span class="nv">to</span> <span class="nv">variables.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; in</span>
+    <span class="nv">x</span> <span class="nv">+</span> <span class="nv">x</span> <span class="nv">+</span> <span class="nv">x</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;aaa&quot;</span>
+
+  <span class="o">#</span> <span class="nv">Bindings</span> <span class="nv">can</span> <span class="nv">refer</span> <span class="nv">to</span> <span class="nv">each</span> <span class="nv">other</span>, <span class="nv">and</span> <span class="nv">their</span> <span class="nv">order</span> <span class="nv">does</span> <span class="nv">not</span> <span class="nv">matter.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">y</span> <span class="nv">=</span> <span class="nv">x</span> <span class="nv">+</span> <span class="s">&quot;b&quot;</span><span class="c1">;</span>
+       <span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; in</span>
+    <span class="nv">y</span> <span class="nv">+</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;abc&quot;</span>
+
+  <span class="o">#</span> <span class="nv">Inner</span> <span class="nv">bindings</span> <span class="nv">shadow</span> <span class="nv">outer</span> <span class="nv">bindings.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; in</span>
+    <span class="k">let </span><span class="nv">a</span> <span class="nv">=</span> <span class="mi">2</span><span class="c1">; in</span>
+      <span class="nv">a</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">2</span>
+
+
+  <span class="o">#</span>  <span class="nv">Functions</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="p">(</span><span class="nf">n</span><span class="err">:</span> <span class="nv">n</span> <span class="nv">+</span> <span class="mi">1</span><span class="p">)</span>      <span class="o">#</span> <span class="nv">Function</span> <span class="nv">that</span> <span class="nv">adds</span> <span class="mi">1</span>
+
+  <span class="p">((</span><span class="nf">n</span><span class="err">:</span> <span class="nv">n</span> <span class="nv">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>  <span class="o">#</span> <span class="nv">That</span> <span class="nv">same</span> <span class="nv">function</span>, <span class="nv">applied</span> <span class="nv">to</span> <span class="mi">5</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">6</span>
+
+  <span class="o">#</span> <span class="nv">There</span> <span class="k">is </span><span class="nv">no</span> <span class="nv">syntax</span> <span class="k">for</span> <span class="nv">named</span> <span class="nv">functions</span>, <span class="nv">but</span> <span class="nv">they</span>
+  <span class="o">#</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">bound</span> <span class="nv">by</span> <span class="o">`</span><span class="nv">let</span><span class="o">`</span> <span class="nv">blocks</span> <span class="nv">like</span> <span class="nb">any</span> <span class="nv">other</span> <span class="nv">value.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">succ</span> <span class="nv">=</span> <span class="p">(</span><span class="nf">n</span><span class="err">:</span> <span class="nv">n</span> <span class="nv">+</span> <span class="mi">1</span><span class="p">)</span><span class="c1">; in succ 5)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">6</span>
+
+  <span class="o">#</span> <span class="nv">A</span> <span class="nv">function</span> <span class="nv">has</span> <span class="nv">exactly</span> <span class="nv">one</span> <span class="nv">argument.</span>
+  <span class="o">#</span> <span class="nv">Multiple</span> <span class="nv">arguments</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">achieved</span> <span class="k">with</span> <span class="nv">currying.</span>
+  <span class="p">((</span><span class="nf">x</span><span class="err">:</span> <span class="nv">y</span><span class="err">:</span> <span class="nv">x</span> <span class="nv">+</span> <span class="s">&quot;-&quot;</span> <span class="nv">+</span> <span class="nv">y</span><span class="p">)</span> <span class="s">&quot;a&quot;</span> <span class="s">&quot;b&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a-b&quot;</span>
+
+  <span class="o">#</span> <span class="nv">We</span> <span class="nv">can</span> <span class="nv">also</span> <span class="nv">have</span> <span class="nv">named</span> <span class="nv">function</span> <span class="nv">arguments</span>,
+  <span class="o">#</span> <span class="nv">which</span> <span class="nv">we</span><span class="ss">&#39;ll</span> <span class="k">get </span><span class="nv">to</span> <span class="nv">later</span> <span class="nv">after</span> <span class="nv">we</span> <span class="nv">introduce</span> <span class="nv">sets.</span>
+
+
+  <span class="o">#</span>  <span class="nv">Lists</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Lists</span> <span class="nv">are</span> <span class="nv">denoted</span> <span class="nv">by</span> <span class="nv">square</span> <span class="nv">brackets.</span>
+
+  <span class="p">(</span><span class="nf">length</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="s">&quot;x&quot;</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">4</span>
+
+  <span class="p">([</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span> <span class="nv">++</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">5</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+
+  <span class="p">(</span><span class="nf">concatLists</span> <span class="p">[[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">4</span><span class="p">]</span> <span class="p">[</span><span class="mi">5</span><span class="p">]])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+
+  <span class="p">(</span><span class="nf">head</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">1</span>
+  <span class="p">(</span><span class="nf">tail</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">3</span><span class="p">]</span>
+
+  <span class="p">(</span><span class="nf">elemAt</span> <span class="p">[</span><span class="s">&quot;a&quot;</span> <span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span> <span class="s">&quot;d&quot;</span><span class="p">]</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;c&quot;</span>
+
+  <span class="p">(</span><span class="nf">elem</span> <span class="mi">2</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">true</span>
+  <span class="p">(</span><span class="nf">elem</span> <span class="mi">5</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">false</span>
+
+  <span class="p">(</span><span class="nb">filter</span> <span class="p">(</span><span class="nf">n</span><span class="err">:</span> <span class="nv">n</span> <span class="nv">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">[</span> <span class="mi">1</span> <span class="mi">2</span> <span class="p">]</span>
+
+
+  <span class="o">#</span>  <span class="nv">Sets</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">A</span> <span class="s">&quot;set&quot;</span> <span class="k">is </span><span class="nv">an</span> <span class="nv">unordered</span> <span class="nv">mapping</span> <span class="k">with</span> <span class="nv">string</span> <span class="nv">keys.</span>
+  <span class="p">{</span> <span class="nv">foo</span> <span class="nv">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span><span class="c1">; bar = &quot;x&quot;; }</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">.</span> <span class="nv">operator</span> <span class="nv">pulls</span> <span class="nv">a</span> <span class="nv">value</span> <span class="nv">out</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nb">set</span><span class="nv">.</span>
+  <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; }.a</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">1</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">?</span> <span class="nv">operator</span> <span class="nv">tests</span> <span class="nv">whether</span> <span class="nv">a</span> <span class="nv">key</span> <span class="k">is </span><span class="nv">present</span> <span class="k">in </span><span class="nv">a</span> <span class="nb">set</span><span class="nv">.</span>
+  <span class="p">({</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; } ? a)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">true</span>
+  <span class="p">({</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; } ? c)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">false</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">//</span> <span class="nv">operator</span> <span class="nv">merges</span> <span class="nv">two</span> <span class="nv">sets.</span>
+  <span class="p">({</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; } // { b = 2; })</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; }</span>
+
+  <span class="o">#</span> <span class="nv">Values</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">right</span> <span class="nv">override</span> <span class="nv">values</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">left.</span>
+  <span class="p">({</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; } // { a = 3; c = 4; })</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">3</span><span class="c1">; b = 2; c = 4; }</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">rec</span> <span class="nv">keyword</span> <span class="nv">denotes</span> <span class="nv">a</span> <span class="s">&quot;recursive set&quot;</span>,
+  <span class="o">#</span> <span class="k">in </span><span class="nv">which</span> <span class="nv">attributes</span> <span class="nv">can</span> <span class="nv">refer</span> <span class="nv">to</span> <span class="nv">each</span> <span class="nv">other.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; in     { a = 2; b = a; }.b)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">1</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; in rec { a = 2; b = a; }.b)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">2</span>
+
+  <span class="o">#</span> <span class="nv">Nested</span> <span class="nv">sets</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">defined</span> <span class="k">in </span><span class="nv">a</span> <span class="nv">piecewise</span> <span class="nv">fashion.</span>
+  <span class="p">{</span>
+    <span class="nv">a.b</span>   <span class="nv">=</span> <span class="mi">1</span><span class="c1">;</span>
+    <span class="nv">a.c.d</span> <span class="nv">=</span> <span class="mi">2</span><span class="c1">;</span>
+    <span class="nv">a.c.e</span> <span class="nv">=</span> <span class="mi">3</span><span class="c1">;</span>
+  <span class="p">}</span><span class="nv">.a.c</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">d</span> <span class="nv">=</span> <span class="mi">2</span><span class="c1">; e = 3; }</span>
+
+  <span class="o">#</span> <span class="nv">An</span> <span class="nv">attribute</span><span class="ss">&#39;s</span> <span class="nv">descendants</span> <span class="nv">cannot</span> <span class="nv">be</span> <span class="nv">assigned</span> <span class="k">in </span><span class="nv">this</span>
+  <span class="o">#</span> <span class="nv">way</span> <span class="k">if</span> <span class="nv">the</span> <span class="nv">attribute</span> <span class="nv">itself</span> <span class="nv">has</span> <span class="nv">been</span> <span class="nv">directly</span> <span class="nv">assigned.</span>
+  <span class="p">{</span>
+    <span class="nv">a</span> <span class="nv">=</span> <span class="p">{</span> <span class="nv">b</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; };</span>
+    <span class="nv">a.c</span> <span class="nv">=</span> <span class="mi">2</span><span class="c1">;</span>
+  <span class="p">}</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">attribute</span> <span class="err">???</span><span class="nv">a</span><span class="err">???</span> <span class="nv">already</span> <span class="nv">defined</span>
+
+
+  <span class="o">#</span>  <span class="nv">With</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">body</span> <span class="nv">of</span> <span class="nv">a</span> <span class="o">`</span><span class="k">with</span><span class="o">`</span> <span class="nv">block</span> <span class="k">is </span><span class="nv">evaluated</span> <span class="k">with</span>
+  <span class="o">#</span> <span class="nv">a</span> <span class="nb">set</span><span class="ss">&#39;s</span> <span class="nv">mappings</span> <span class="nv">bound</span> <span class="nv">to</span> <span class="nv">variables.</span>
+  <span class="p">(</span><span class="k">with</span> <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; };</span>
+    <span class="nv">a</span> <span class="nv">+</span> <span class="nv">b</span><span class="p">)</span>
+  <span class="o">#</span> <span class="nv">=&gt;</span> <span class="mi">3</span>
+
+  <span class="o">#</span> <span class="nv">Inner</span> <span class="nv">bindings</span> <span class="nv">shadow</span> <span class="nv">outer</span> <span class="nv">bindings.</span>
+  <span class="p">(</span><span class="k">with</span> <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">1</span><span class="c1">; b = 2; };</span>
+    <span class="p">(</span><span class="k">with</span> <span class="p">{</span> <span class="nv">a</span> <span class="nv">=</span> <span class="mi">5</span><span class="c1">; };</span>
+      <span class="nv">a</span> <span class="nv">+</span> <span class="nv">b</span><span class="p">))</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">7</span>
+
+  <span class="o">#</span> <span class="nv">This</span> <span class="k">first </span><span class="nv">line</span> <span class="nv">of</span> <span class="nv">tutorial</span> <span class="nv">starts</span> <span class="k">with</span> <span class="s">&quot;with builtins;&quot;</span>
+  <span class="o">#</span> <span class="nv">because</span> <span class="nv">builtins</span> <span class="k">is </span><span class="nv">a</span> <span class="nb">set</span> <span class="nv">the</span> <span class="nv">contains</span> <span class="nb">all</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">built-in</span>
+  <span class="o">#</span> <span class="nv">functions</span> <span class="p">(</span><span class="nf">length</span>, <span class="nv">head</span>, <span class="nv">tail</span>, <span class="nb">filter</span>, <span class="nv">etc.</span><span class="p">)</span><span class="nv">.</span> <span class="nv">This</span> <span class="nv">saves</span>
+  <span class="o">#</span> <span class="nv">us</span> <span class="nv">from</span> <span class="nv">having</span> <span class="nv">to</span> <span class="nv">write</span>, <span class="k">for</span> <span class="nv">example</span>, <span class="s">&quot;builtins.length&quot;</span>
+  <span class="o">#</span> <span class="nv">instead</span> <span class="nv">of</span> <span class="nv">just</span> <span class="s">&quot;length&quot;</span><span class="nv">.</span>
+
+
+  <span class="o">#</span>  <span class="nv">Set</span> <span class="nv">patterns</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Sets</span> <span class="nv">are</span> <span class="nv">useful</span> <span class="k">when </span><span class="nv">we</span> <span class="nv">need</span> <span class="nv">to</span> <span class="k">pass</span> <span class="nv">multiple</span> <span class="nv">values</span>
+  <span class="o">#</span> <span class="nv">to</span> <span class="nv">a</span> <span class="nv">function.</span>
+  <span class="p">(</span><span class="nf">args</span><span class="err">:</span> <span class="nv">args.x</span> <span class="nv">+</span> <span class="s">&quot;-&quot;</span> <span class="nv">+</span> <span class="nv">args.y</span><span class="p">)</span> <span class="p">{</span> <span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; y = &quot;b&quot;; }</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a-b&quot;</span>
+
+  <span class="o">#</span> <span class="nv">This</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">written</span> <span class="nv">more</span> <span class="nv">clearly</span> <span class="nv">using</span> <span class="nb">set</span> <span class="nv">patterns.</span>
+  <span class="p">({</span><span class="nv">x</span>, <span class="nv">y</span><span class="p">}</span><span class="err">:</span> <span class="nv">x</span> <span class="nv">+</span> <span class="s">&quot;-&quot;</span> <span class="nv">+</span> <span class="nv">y</span><span class="p">)</span> <span class="p">{</span> <span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; y = &quot;b&quot;; }</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a-b&quot;</span>
+
+  <span class="o">#</span> <span class="nv">By</span> <span class="nv">default</span>, <span class="nv">the</span> <span class="nv">pattern</span> <span class="nv">fails</span> <span class="nv">on</span> <span class="nv">sets</span> <span class="nv">containing</span> <span class="nv">extra</span> <span class="nv">keys.</span>
+  <span class="p">({</span><span class="nv">x</span>, <span class="nv">y</span><span class="p">}</span><span class="err">:</span> <span class="nv">x</span> <span class="nv">+</span> <span class="s">&quot;-&quot;</span> <span class="nv">+</span> <span class="nv">y</span><span class="p">)</span> <span class="p">{</span> <span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; y = &quot;b&quot;; z = &quot;c&quot;; }</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">anonymous</span> <span class="nv">function</span> <span class="nv">called</span> <span class="k">with</span> <span class="nv">unexpected</span> <span class="nv">argument</span> <span class="err">???</span><span class="nv">z</span><span class="err">???</span>
+
+  <span class="o">#</span> <span class="nv">Adding</span> <span class="s">&quot;, ...&quot;</span> <span class="nv">allows</span> <span class="nv">ignoring</span> <span class="nv">extra</span> <span class="nv">keys.</span>
+  <span class="p">({</span><span class="nv">x</span>, <span class="nv">y</span>, <span class="nv">...</span><span class="p">}</span><span class="err">:</span> <span class="nv">x</span> <span class="nv">+</span> <span class="s">&quot;-&quot;</span> <span class="nv">+</span> <span class="nv">y</span><span class="p">)</span> <span class="p">{</span> <span class="nv">x</span> <span class="nv">=</span> <span class="s">&quot;a&quot;</span><span class="c1">; y = &quot;b&quot;; z = &quot;c&quot;; }</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;a-b&quot;</span>
+
+
+  <span class="o">#</span>  <span class="nv">Errors</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="o">`</span><span class="nv">throw</span><span class="o">`</span> <span class="nv">causes</span> <span class="nv">evaluation</span> <span class="nv">to</span> <span class="nv">abort</span> <span class="k">with</span> <span class="nv">an</span> <span class="nv">error</span> <span class="nv">message.</span>
+  <span class="p">(</span><span class="mi">2</span> <span class="nv">+</span> <span class="p">(</span><span class="nf">throw</span> <span class="s">&quot;foo&quot;</span><span class="p">))</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">foo</span>
+
+  <span class="o">#</span> <span class="o">`</span><span class="nv">tryEval</span><span class="o">`</span> <span class="nv">catches</span> <span class="nv">thrown</span> <span class="nv">errors.</span>
+  <span class="p">(</span><span class="nf">tryEval</span> <span class="mi">42</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">success</span> <span class="nv">=</span> <span class="nv">true</span><span class="c1">; value = 42; }</span>
+  <span class="p">(</span><span class="nf">tryEval</span> <span class="p">(</span><span class="mi">2</span> <span class="nv">+</span> <span class="p">(</span><span class="nf">throw</span> <span class="s">&quot;foo&quot;</span><span class="p">)))</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">success</span> <span class="nv">=</span> <span class="nv">false</span><span class="c1">; value = false; }</span>
+
+  <span class="o">#</span> <span class="o">`</span><span class="nv">abort</span><span class="o">`</span> <span class="k">is </span><span class="nv">like</span> <span class="nv">throw</span>, <span class="nv">but</span> <span class="nv">it</span><span class="ss">&#39;s</span> <span class="nv">fatal</span><span class="c1">; it cannot be caught.</span>
+  <span class="p">(</span><span class="nf">tryEval</span> <span class="p">(</span><span class="nf">abort</span> <span class="s">&quot;foo&quot;</span><span class="p">))</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">evaluation</span> <span class="nv">aborted</span> <span class="k">with</span> <span class="nv">the</span> <span class="nv">following</span> <span class="nv">error</span> <span class="nv">message</span><span class="err">:</span> <span class="err">???</span><span class="nv">foo</span><span class="err">???</span>
+
+  <span class="o">#</span> <span class="o">`</span><span class="k">assert</span><span class="o">`</span> <span class="nv">evaluates</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">given</span> <span class="nv">value</span> <span class="k">if</span> <span class="nv">true</span><span class="c1">;</span>
+  <span class="o">#</span> <span class="nv">otherwise</span> <span class="nv">it</span> <span class="nv">throws</span> <span class="nv">a</span> <span class="nv">catchable</span> <span class="nv">exception.</span>
+  <span class="p">(</span><span class="k">assert</span> <span class="mi">1</span> <span class="nv">&lt;</span> <span class="mi">2</span><span class="c1">; 42)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">42</span>
+  <span class="p">(</span><span class="k">assert</span> <span class="mi">1</span> <span class="nv">&gt;</span> <span class="mi">2</span><span class="c1">; 42)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">error</span><span class="err">:</span> <span class="nv">assertion</span> <span class="nv">failed</span> <span class="nv">at</span> <span class="p">(</span><span class="nf">string</span><span class="p">)</span><span class="ss">:1:1</span>
+  <span class="p">(</span><span class="nf">tryEval</span> <span class="p">(</span><span class="k">assert</span> <span class="mi">1</span> <span class="nv">&gt;</span> <span class="mi">2</span><span class="c1">; 42))</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">{</span> <span class="nv">success</span> <span class="nv">=</span> <span class="nv">false</span><span class="c1">; value = false; }</span>
+
+
+  <span class="o">#</span>  <span class="nv">Impurity</span>
+  <span class="o">#</span><span class="nv">=========================================</span>
+
+  <span class="o">#</span> <span class="nv">Because</span> <span class="nv">repeatability</span> <span class="nv">of</span> <span class="nv">builds</span> <span class="k">is </span><span class="nv">critical</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">Nix</span> <span class="nv">package</span>
+  <span class="o">#</span> <span class="nv">manager</span>, <span class="k">in </span><span class="nv">which</span>, <span class="nv">functional</span> <span class="nv">purity</span> <span class="k">is </span><span class="nv">emphasized</span> <span class="k">in </span><span class="nv">the</span> <span class="nv">Nix</span>
+  <span class="o">#</span> <span class="nv">language.</span> <span class="nv">But</span> <span class="nv">there</span> <span class="nv">are</span> <span class="nv">a</span> <span class="nv">few</span> <span class="nv">impurities.</span>
+
+  <span class="o">#</span> <span class="nv">You</span> <span class="nv">can</span> <span class="nv">refer</span> <span class="nv">to</span> <span class="nv">environment</span> <span class="nv">variables.</span>
+  <span class="p">(</span><span class="nf">getEnv</span> <span class="s">&quot;HOME&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;/home/alice&quot;</span>
+
+  <span class="o">#</span> <span class="nv">The</span> <span class="nv">trace</span> <span class="nv">function</span> <span class="k">is </span><span class="nv">used</span> <span class="k">for</span> <span class="nv">debugging.</span> <span class="nv">It</span> <span class="nv">prints</span> <span class="nv">the</span> <span class="nv">first</span>
+  <span class="o">#</span> <span class="nv">argument</span> <span class="nv">to</span> <span class="nv">stderr</span> <span class="nv">and</span> <span class="nv">evaluates</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">second</span> <span class="nv">argument.</span>
+  <span class="p">(</span><span class="nf">trace</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="nv">trace</span><span class="err">:</span> <span class="mi">1</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="mi">2</span>
+
+  <span class="o">#</span> <span class="nv">You</span> <span class="nv">can</span> <span class="nv">write</span> <span class="nv">files</span> <span class="nv">into</span> <span class="nv">the</span> <span class="nv">Nix</span> <span class="nv">store.</span> <span class="nv">Although</span> <span class="nv">impure</span>, <span class="nv">this</span> <span class="nv">is</span>
+  <span class="o">#</span> <span class="nv">fairly</span> <span class="nv">safe</span> <span class="nv">because</span> <span class="nv">the</span> <span class="nb">file</span> <span class="nv">name</span> <span class="k">is </span><span class="nv">derived</span> <span class="nv">from</span> <span class="nv">the</span> <span class="nb">hash</span> <span class="nv">of</span>
+  <span class="o">#</span> <span class="nv">its</span> <span class="nv">contents.</span> <span class="nv">You</span> <span class="nv">can</span> <span class="nv">read</span> <span class="nv">files</span> <span class="nv">from</span> <span class="nv">anywhere.</span> <span class="nv">In</span> <span class="nv">this</span> <span class="nv">example</span>,
+  <span class="o">#</span> <span class="nv">we</span> <span class="nv">write</span> <span class="nv">a</span> <span class="nb">file</span> <span class="nv">into</span> <span class="nv">the</span> <span class="nv">store</span>, <span class="nv">and</span> <span class="nv">then</span> <span class="nv">read</span> <span class="nv">it</span> <span class="nv">back</span> <span class="nv">out.</span>
+  <span class="p">(</span><span class="k">let </span><span class="nv">filename</span> <span class="nv">=</span> <span class="nv">toFile</span> <span class="s">&quot;foo.txt&quot;</span> <span class="s">&quot;hello!&quot;</span><span class="c1">; in</span>
+    <span class="p">[</span><span class="nv">filename</span> <span class="p">(</span><span class="nf">builtins.readFile</span> <span class="nv">filename</span><span class="p">)])</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="p">[</span> <span class="s">&quot;/nix/store/ayh05aay2anx135prqp0cy34h891247x-foo.txt&quot;</span> <span class="s">&quot;hello!&quot;</span> <span class="p">]</span>
+
+  <span class="o">#</span> <span class="nv">We</span> <span class="nv">can</span> <span class="nv">also</span> <span class="nv">download</span> <span class="nv">files</span> <span class="nv">into</span> <span class="nv">the</span> <span class="nv">Nix</span> <span class="nv">store.</span>
+  <span class="p">(</span><span class="nf">fetchurl</span> <span class="s">&quot;https://example.com/package-1.2.3.tgz&quot;</span><span class="p">)</span>
+  <span class="o">#</span><span class="nv">=&gt;</span> <span class="s">&quot;/nix/store/2drvlh8r57f19s9il42zg89rdr33m2rm-package-1.2.3.tgz&quot;</span>
+
+<span class="p">]</span>
+</pre></div>
+<h3>Further Reading</h3>
+
+<ul>
+<li><p><a href="https://nixos.org/nix/manual/#ch-expression-language">Nix Manual - Nix expression language</a></p></li>
+<li><p><a href="https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55">James Fisher - Nix by example - Part 1: The Nix expression language</a></p></li>
+<li><p><a href="https://ebzzry.io/en/nix/#nix">Rommel Martinez - A Gentle Introduction to the Nix Family</a></p></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/nix.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Chris Martin, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/nix.html.markdown">3 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="http://chris-martin.org/">Chris Martin</a>,
+        <a href="https://ebzzry.io">Rommel Martinez</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn Pascal in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/pascal/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fpascal%2F&text=Learn+X+in+Y+minutes%2C+where+X%3DPascal">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=Pascal</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learnpascal.pas">learnpascal.pas</a>
+    </p>
+  <div id="doc">
+    <blockquote>
+<p>Pascal is an imperative and procedural programming language, which Niklaus Wirth designed in 1968–69 and published in 1970, as a small, efficient language intended to encourage good programming practices using structured programming and data structuring. It is named in honor of the French mathematician, philosopher and physicist Blaise Pascal. 
+source : <a href="https://en.wikipedia.org/wiki/Pascal_(programming_language">wikipedia</a>)</p>
+</blockquote>
+
+<p>to compile and run a pascal program you could use a free pascal compiler. <a href="https://www.freepascal.org/">Download Here</a></p>
+<div class="highlight"><pre><span></span><span class="c1">//Anathomy of a Pascal Program</span>
+<span class="c1">//this is a comment</span>
+<span class="cm">{</span>
+<span class="cm">    this is a </span>
+<span class="cm">    multiline comment</span>
+<span class="cm">}</span>
+
+<span class="c1">//name of the program</span>
+<span class="k">program</span> <span class="n">learn_pascal</span><span class="o">;</span> <span class="c1">//&lt;-- dont forget a semicolon</span>
+
+<span class="k">const</span>
+    <span class="cm">{</span>
+<span class="cm">        this is where you should declare constant values</span>
+<span class="cm">    }</span>
+<span class="k">type</span>
+    <span class="cm">{</span>
+<span class="cm">        this is where you should delcare a custom</span>
+<span class="cm">        data-types</span>
+<span class="cm">    }</span>
+<span class="k">var</span>
+    <span class="cm">{</span>
+<span class="cm">        this is where you should declare a variable</span>
+<span class="cm">    }</span>
+
+<span class="c1">//main program area</span>
+<span class="k">begin</span>
+    <span class="cm">{</span>
+<span class="cm">        area to declare your instruction</span>
+<span class="cm">    }</span>
+<span class="k">end</span><span class="o">.</span> <span class="c1">// End of a main program area should required a &quot;.&quot; symbol</span>
+</pre></div><div class="highlight"><pre><span></span><span class="c1">//declaring variable</span>
+<span class="c1">//you can do this</span>
+<span class="k">var</span> <span class="n">a</span><span class="o">:</span><span class="kt">integer</span><span class="o">;</span>
+<span class="k">var</span> <span class="n">b</span><span class="o">:</span><span class="kt">integer</span><span class="o">;</span>
+<span class="c1">//or this</span>
+<span class="k">var</span> 
+    <span class="n">a</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span>
+    <span class="n">b</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span>
+<span class="c1">//or this</span>
+<span class="k">var</span> <span class="n">a</span><span class="o">,</span><span class="n">b</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span>
+</pre></div><div class="highlight"><pre><span></span><span class="k">program</span> <span class="n">Learn_More</span><span class="o">;</span>
+<span class="c1">//Lets learn about data types and their operations</span>
+
+<span class="k">const</span>
+    <span class="nb">PI</span> <span class="o">=</span> <span class="mf">3.141592654</span><span class="o">;</span>
+    <span class="n">GNU</span> <span class="o">=</span> <span class="s">&#39;GNU&#39;</span><span class="n">s</span> <span class="k">Not</span> <span class="n">Unix</span><span class="s">&#39;;</span>
+<span class="s">        // constants are conventionally named using CAPS</span>
+<span class="s">        // their values are fixed and cannot be changed during runtime</span>
+<span class="s">        // holds any standard data type (integer, real, boolean, char, string)</span>
+
+<span class="s">type</span>
+<span class="s">    ch_array : array [0..255] of char;</span>
+<span class="s">        // arrays are new &#39;</span><span class="n">types</span><span class="s">&#39; specifying the length and data type</span>
+<span class="s">        // this defines a new data type that contains 255 characters</span>
+<span class="s">        // (this is functionally equivalent to a string[256] variable)</span>
+<span class="s">    md_array : array of array of integer;</span>
+<span class="s">        // nested arrays are equivalent to multidimensional arrays</span>
+<span class="s">        // can define zero (0) length arrays that are dynamically sized</span>
+<span class="s">        // this is a 2-dimensional array of integers</span>
+
+<span class="s">//Declaring variables</span>
+<span class="s">var</span>
+<span class="s">    int, c, d  : integer;</span>
+<span class="s">           // three variables that contain integer numbers</span>
+<span class="s">           // integers are 16-bits and limited to the range [-32,768..32,767]</span>
+<span class="s">    r    : real;</span>
+<span class="s">           // a variable that contains a real number data types</span>
+<span class="s">           // reals can range between [3.4E-38..3.4E38]</span>
+<span class="s">    bool : boolean;</span>
+<span class="s">           // a variable that contains a Boolean(True/False) value</span>
+<span class="s">    ch   : char;</span>
+<span class="s">           // a variable that contains a character value</span>
+<span class="s">           // char variables are stored as 8-bit data types so no UTF</span>
+<span class="s">    str  : string;</span>
+<span class="s">           // a non-standard variable that contains a string value</span>
+<span class="s">           // strings are an extension included in most Pascal compilers</span>
+<span class="s">           // they are stored as an array of char with default length of 255.</span>
+<span class="s">    s    : string[50];</span>
+<span class="s">           // a string with maximum length of 50 chars.</span>
+<span class="s">           // you can specify the length of the string to minimize memory usage</span>
+<span class="s">    my_str: ch_array;</span>
+<span class="s">           // you can declare variables of custom types</span>
+<span class="s">    my_2d : md_array;</span>
+<span class="s">           // dynamically sized arrays need to be sized before they can be used.</span>
+
+<span class="s">    // additional integer data types</span>
+<span class="s">    b    : byte;     // range [0..255]</span>
+<span class="s">    shi  : shortint; // range [-128..127]</span>
+<span class="s">    smi  : smallint; // range [-32,768..32,767] (standard Integer)</span>
+<span class="s">    w    : word;     // range [0..65,535]</span>
+<span class="s">    li   : longint;  // range [-2,147,483,648..2,147,483,647]</span>
+<span class="s">    lw   : longword; // range [0..4,294,967,295]</span>
+<span class="s">    c    : cardinal; // longword</span>
+<span class="s">    i64  : int64;    // range [-9223372036854775808..9223372036854775807]</span>
+<span class="s">    qw   : qword;    // range [0..18,446,744,073,709,551,615]</span>
+
+<span class="s">    // additional real types</span>
+<span class="s">    rr   : real;     // range depends on platform (i.e., 8-bit, 16-bit, etc.)</span>
+<span class="s">    rs   : single;   // range [1.5E-45..3.4E38]</span>
+<span class="s">    rd   : double;   // range [5.0E-324 .. 1.7E308]</span>
+<span class="s">    re   : extended; // range [1.9E-4932..1.1E4932]</span>
+<span class="s">    rc   : comp;     // range [-2E64+1 .. 2E63-1]</span>
+
+<span class="s">Begin</span>
+<span class="s">    int := 1;// how to assign a value to a variable</span>
+<span class="s">    r   := 3.14;</span>
+<span class="s">    ch  := &#39;</span><span class="n">a</span><span class="s">&#39;;</span>
+<span class="s">    str := &#39;</span><span class="n">apple</span><span class="s">&#39;;</span>
+<span class="s">    bool := true;</span>
+<span class="s">    //pascal is not a case-sensitive language</span>
+<span class="s">    //arithmethic operation</span>
+<span class="s">    int := 1 + 1; // int = 2 overwriting the previous assignment</span>
+<span class="s">    int := int + 1; // int = 2 + 1 = 3;</span>
+<span class="s">    int := 4 div 2; //int = 2 division operation where result will be floored</span>
+<span class="s">    int := 3 div 2; //int = 1</span>
+<span class="s">    int := 1 div 2; //int = 0</span>
+
+<span class="s">    bool := true or false; // bool = true</span>
+<span class="s">    bool := false and true; // bool = false</span>
+<span class="s">    bool := true xor true; // bool = false</span>
+
+<span class="s">    r := 3 / 2; // a division operator for real</span>
+<span class="s">    r := int; // can assign an integer to a real variable but not the reverse</span>
+
+<span class="s">    c := str[1]; // assign the first letter of str to c</span>
+<span class="s">    str := &#39;</span><span class="n">hello</span><span class="s">&#39; + &#39;</span><span class="n">world</span><span class="s">&#39;; //combining strings</span>
+
+<span class="s">    my_str[0] := &#39;</span><span class="n">a</span><span class="s">&#39;; // array assignment needs an index</span>
+
+<span class="s">    setlength(my_2d,10,10); // initialize dynamically sized arrays: 10×10 array</span>
+<span class="s">    for c := 0 to 9 do // arrays begin at 0 and end at length-1</span>
+<span class="s">        for d := 0 to 9 do // for loop counters need to be declared variables</span>
+<span class="s">        my_2d[c,d] := c * d;</span>
+<span class="s">          // address multidimensional arrays with a single set of brackets</span>
+
+<span class="s">End.</span>
+</pre></div><div class="highlight"><pre><span></span><span class="k">program</span> <span class="n">Functional_Programming</span><span class="o">;</span>
+
+<span class="k">Var</span>
+    <span class="n">i</span><span class="o">,</span> <span class="n">dummy</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span>
+
+<span class="k">function</span> <span class="nf">factorial_recursion</span><span class="p">(</span><span class="k">const</span> <span class="n">a</span><span class="o">:</span> <span class="kt">integer</span><span class="p">)</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span>
+<span class="cm">{ recursively calculates the factorial of integer parameter a }</span>
+
+<span class="c1">// Declare local variables within the function</span>
+<span class="c1">// e.g.:</span>
+<span class="c1">// Var</span>
+<span class="c1">//    local_a : integer;</span>
+
+<span class="k">Begin</span>
+    <span class="k">If</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">Then</span>
+    <span class="c1">// return values from functions by assigning a value to the function name</span>
+        <span class="n">factorial_recursion</span> <span class="o">:=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">factorial_recursion</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">Else</span>
+        <span class="n">factorial_recursion</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">End</span><span class="o">;</span> <span class="c1">// terminate a function using a semicolon after the End statement.</span>
+
+<span class="k">procedure</span> <span class="nf">get_integer</span><span class="p">(</span><span class="k">var</span> <span class="n">i</span> <span class="o">:</span> <span class="kt">integer</span><span class="o">;</span> <span class="n">dummy</span> <span class="o">:</span> <span class="kt">integer</span><span class="p">)</span><span class="o">;</span>
+<span class="cm">{ get user input and store it in the integer parameter i.</span>
+<span class="cm">  parameters prefaced with &#39;var&#39; are variable, meaning their value can change</span>
+<span class="cm">  outside of the parameter. Value parameters (without &#39;var&#39;) like &#39;dummy&#39; are</span>
+<span class="cm">  static and changes made within the scope of the function/procedure do not</span>
+<span class="cm">  affect the variable passed as a parameter }</span>
+
+<span class="k">Begin</span>
+    <span class="nb">write</span><span class="p">(</span><span class="s">&#39;Enter an integer: &#39;</span><span class="p">)</span><span class="o">;</span>
+    <span class="nb">readln</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">;</span>
+    <span class="n">dummy</span> <span class="o">:=</span> <span class="mi">4</span><span class="o">;</span> <span class="c1">// dummy will not change value outside of the procedure</span>
+<span class="k">End</span><span class="o">;</span>
+
+<span class="k">Begin</span> <span class="c1">// main program block</span>
+    <span class="n">dummy</span> <span class="o">:=</span> <span class="mi">3</span><span class="o">;</span>
+    <span class="n">get_integer</span><span class="p">(</span><span class="n">i</span><span class="o">,</span> <span class="n">dummy</span><span class="p">)</span><span class="o">;</span>
+    <span class="nb">writeln</span><span class="p">(</span><span class="n">i</span><span class="o">,</span> <span class="s">&#39;! = &#39;</span><span class="o">,</span> <span class="n">factorial_recursion</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">;</span>
+    <span class="c1">// outputs i!</span>
+    <span class="nb">writeln</span><span class="p">(</span><span class="s">&#39;dummy = &#39;</span><span class="o">,</span> <span class="n">dummy</span><span class="p">)</span><span class="o">;</span> <span class="c1">// always outputs &#39;3&#39; since dummy is unchanged.</span>
+<span class="k">End</span><span class="o">.</span>
+</pre></div>
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/pascal.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Ganesha Danu, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/pascal.html.markdown">2 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="http://github.com/blinfoldking">Ganesha Danu</a>,
+        <a href="https://github.com/kaymmm">Keith Miyake</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

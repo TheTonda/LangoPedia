@@ -1,0 +1,866 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn kdb+ in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/kdb+/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fkdb%2B%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dkdb%2B">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=kdb+</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/learnkdb.q">learnkdb.q</a>
+    </p>
+  <div id="doc">
+    <p>The q language and its database component kdb+ were developed by Arthur Whitney
+and released by Kx systems in 2003. q is a descendant of APL and as such is
+very terse and a little strange looking for anyone from a &ldquo;C heritage&rdquo; language
+background. Its expressiveness and vector oriented nature make it well suited
+to performing complex calculations on large amounts of data (while also
+encouraging some amount of <a href="https://en.wikipedia.org/wiki/Code_golf">code
+golf</a>). The fundamental structure in
+the language is not the object but instead the list, and tables are built as
+collections of lists. This means - unlike most traditional RDBMS systems -
+tables are column oriented.  The language has both an in-memory and on-disk
+database built in, giving a large amount of flexibility. kdb+ is most widely
+used in the world of finance to store, analyze, process and retrieve large
+time-series data sets.</p>
+
+<p>The terms <em>q</em> and <em>kdb+</em> are usually used interchangeably, as the two are not
+separable so this distinction is not really useful.</p>
+
+<p>All Feedback welcome!  You can reach me at matt.doherty@aquaq.co.uk, or Jonny
+at jonny.press@aquaq.co.uk</p>
+
+<p>To learn more about kdb+ you can join the <a href="https://groups.google.com/forum/#!forum/personal-kdbplus">Personal kdb+</a> or <a href="https://groups.google.com/forum/#!forum/kdbtorq">TorQ kdb+</a> group.</p>
+<div class="highlight"><pre><span></span><span class="o">/</span> <span class="nt">Single</span> <span class="nt">line</span> <span class="nt">comments</span> <span class="nt">start</span> <span class="nt">with</span> <span class="nt">a</span> <span class="nt">forward-slash</span>
+<span class="o">/</span> <span class="nt">These</span> <span class="nt">can</span> <span class="nt">also</span> <span class="nt">be</span> <span class="nt">used</span> <span class="nt">in-line</span><span class="o">,</span> <span class="nt">so</span> <span class="nt">long</span> <span class="nt">as</span> <span class="nt">at</span> <span class="nt">least</span> <span class="nt">one</span> <span class="nt">whitespace</span> <span class="nt">character</span>
+<span class="o">/</span> <span class="nt">separates</span> <span class="nt">it</span> <span class="nt">from</span> <span class="nt">text</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">left</span>
+<span class="o">/</span>
+  <span class="nt">A</span> <span class="nt">forward-slash</span> <span class="nt">on</span> <span class="nt">a</span> <span class="nt">line</span> <span class="nt">by</span> <span class="nt">itself</span> <span class="nt">starts</span> <span class="nt">a</span> <span class="nt">multiline</span> <span class="nt">comment</span>
+  <span class="nt">and</span> <span class="nt">a</span> <span class="nt">backward-slash</span> <span class="nt">on</span> <span class="nt">a</span> <span class="nt">line</span> <span class="nt">by</span> <span class="nt">itself</span> <span class="nt">terminates</span> <span class="nt">it</span>
+<span class="err">\</span>
+
+<span class="o">/</span> <span class="nt">Run</span> <span class="nt">this</span> <span class="nt">file</span> <span class="nt">in</span> <span class="nt">an</span> <span class="nt">empty</span> <span class="nt">directory</span>
+
+
+<span class="o">////////////////////////////////////</span>
+<span class="o">//</span> <span class="nt">Basic</span> <span class="nt">Operators</span> <span class="nt">and</span> <span class="nt">Datatypes</span>  <span class="o">//</span>
+<span class="o">////////////////////////////////////</span>
+
+<span class="o">/</span> <span class="nt">We</span> <span class="nt">have</span> <span class="nt">integers</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">are</span> <span class="nt">8</span> <span class="nt">byte</span> <span class="nt">by</span> <span class="nt">default</span>
+<span class="nt">3</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+
+<span class="o">/</span> <span class="nt">And</span> <span class="nt">floats</span><span class="o">,</span> <span class="nt">also</span> <span class="nt">8</span> <span class="nt">byte</span> <span class="nt">as</span> <span class="nt">standard</span><span class="o">.</span>  <span class="nt">Trailing</span> <span class="nt">f</span> <span class="nt">distinguishes</span> <span class="nt">from</span> <span class="nt">int</span>
+<span class="nt">3</span><span class="p">.</span><span class="nc">0</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3f</span>
+
+<span class="o">/</span> <span class="nt">4</span> <span class="nt">byte</span> <span class="nt">numerical</span> <span class="nt">types</span> <span class="nt">can</span> <span class="nt">also</span> <span class="nt">be</span> <span class="nt">specified</span> <span class="nt">with</span> <span class="nt">trailing</span> <span class="nt">chars</span>
+<span class="nt">3i</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3i</span>
+<span class="nt">3</span><span class="p">.</span><span class="nc">0e</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3e</span>
+
+<span class="o">/</span> <span class="nt">Math</span> <span class="nt">is</span> <span class="nt">mostly</span> <span class="nt">what</span> <span class="nt">you</span> <span class="nt">would</span> <span class="nt">expect</span>
+<span class="nt">1</span><span class="o">+</span><span class="nt">1</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">2</span>
+<span class="nt">8-1</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">7</span>
+<span class="nt">10</span><span class="o">*</span><span class="nt">2</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">20</span>
+<span class="o">/</span> <span class="nt">Except</span> <span class="nt">division</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">uses</span> <span class="nt">percent</span> <span class="o">(%)</span> <span class="nt">instead</span> <span class="nt">of</span> <span class="nt">forward-slash</span> <span class="o">(/)</span>
+<span class="nt">35</span><span class="o">%</span><span class="nt">5</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">7f</span>  <span class="o">(</span><span class="nt">the</span> <span class="nt">result</span> <span class="nt">of</span> <span class="nt">division</span> <span class="nt">is</span> <span class="nt">always</span> <span class="nt">a</span> <span class="nt">float</span><span class="o">)</span>
+
+<span class="o">/</span> <span class="nt">For</span> <span class="nt">integer</span> <span class="nt">division</span> <span class="nt">we</span> <span class="nt">have</span> <span class="nt">the</span> <span class="nt">keyword</span> <span class="nt">div</span>
+<span class="nt">4</span> <span class="nt">div</span> <span class="nt">3</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span>
+
+<span class="o">/</span> <span class="nt">Modulo</span> <span class="nt">also</span> <span class="nt">uses</span> <span class="nt">a</span> <span class="nt">keyword</span><span class="o">,</span> <span class="nt">since</span> <span class="nt">percent</span> <span class="o">(%)</span> <span class="nt">is</span> <span class="nt">taken</span>
+<span class="nt">4</span> <span class="nt">mod</span> <span class="nt">3</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span>
+
+<span class="o">/</span> <span class="nt">And</span> <span class="nt">exponentiation</span><span class="o">...</span>
+<span class="nt">2</span> <span class="nt">xexp</span> <span class="nt">4</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">16</span>
+
+<span class="o">/</span> <span class="o">..</span><span class="p">.</span><span class="nc">and</span> <span class="nt">truncating</span><span class="o">...</span>
+<span class="nt">floor</span> <span class="nt">3</span><span class="p">.</span><span class="nc">14159</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+
+<span class="o">/</span> <span class="o">..</span><span class="p">.</span><span class="nc">getting</span> <span class="nt">the</span> <span class="nt">absolute</span> <span class="nt">value</span><span class="o">...</span>
+<span class="nt">abs</span> <span class="nt">-3</span><span class="p">.</span><span class="nc">14159</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span><span class="p">.</span><span class="nc">14159</span>
+<span class="o">/</span> <span class="o">..</span><span class="p">.</span><span class="nc">and</span> <span class="nt">many</span> <span class="nt">other</span> <span class="nt">things</span>
+<span class="o">/</span> <span class="nt">see</span> <span class="nt">http</span><span class="o">://</span><span class="nt">code</span><span class="p">.</span><span class="nc">kx</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">q</span><span class="o">/</span><span class="nt">ref</span><span class="o">/</span><span class="nt">card</span><span class="o">/</span> <span class="nt">for</span> <span class="nt">more</span>
+
+<span class="o">/</span> <span class="nt">q</span> <span class="nt">has</span> <span class="nt">no</span> <span class="nt">operator</span> <span class="nt">precedence</span><span class="o">,</span> <span class="nt">everything</span> <span class="nt">is</span> <span class="nt">evaluated</span> <span class="nt">right</span> <span class="nt">to</span> <span class="nt">left</span>
+<span class="o">/</span> <span class="nt">so</span> <span class="nt">results</span> <span class="nt">like</span> <span class="nt">this</span> <span class="nt">might</span> <span class="nt">take</span> <span class="nt">some</span> <span class="nt">getting</span> <span class="nt">used</span> <span class="nt">to</span>
+<span class="nt">2</span><span class="o">*</span><span class="nt">1</span><span class="o">+</span><span class="nt">1</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">4</span> <span class="o">/</span> <span class="o">(</span><span class="nt">no</span> <span class="nt">operator</span> <span class="nt">precedence</span> <span class="nt">tables</span> <span class="nt">to</span> <span class="nt">remember</span><span class="o">!)</span>
+
+<span class="o">/</span> <span class="nt">Precedence</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">modified</span> <span class="nt">with</span> <span class="nt">parentheses</span> <span class="o">(</span><span class="nt">restoring</span> <span class="nt">the</span> <span class="s1">&#39;normal&#39;</span> <span class="nt">result</span><span class="o">)</span>
+<span class="o">(</span><span class="nt">2</span><span class="o">*</span><span class="nt">1</span><span class="o">)+</span><span class="nt">1</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+
+<span class="o">/</span> <span class="nt">Assignment</span> <span class="nt">uses</span> <span class="nt">colon</span> <span class="o">(:)</span> <span class="nt">instead</span> <span class="nt">of</span> <span class="nt">equals</span> <span class="o">(=)</span>
+<span class="o">/</span> <span class="nt">No</span> <span class="nt">need</span> <span class="nt">to</span> <span class="nt">declare</span> <span class="nt">variables</span> <span class="nt">before</span> <span class="nt">assignment</span>
+<span class="nt">a</span><span class="p">:</span><span class="nd">3</span>
+<span class="nt">a</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+
+<span class="o">/</span> <span class="nt">Variables</span> <span class="nt">can</span> <span class="nt">also</span> <span class="nt">be</span> <span class="nt">assigned</span> <span class="nt">in-line</span>
+<span class="o">/</span> <span class="nt">this</span> <span class="nt">does</span> <span class="nt">not</span> <span class="nt">affect</span> <span class="nt">the</span> <span class="nt">value</span> <span class="nt">passed</span> <span class="nt">on</span>
+<span class="nt">c</span><span class="p">:</span><span class="nd">3</span><span class="o">+</span><span class="nt">b</span><span class="p">:</span><span class="nd">2</span><span class="o">+</span><span class="nt">a</span><span class="p">:</span><span class="nd">1</span> <span class="o">/</span> <span class="o">(</span><span class="nt">data</span> <span class="s2">&quot;flows&quot;</span> <span class="nt">from</span> <span class="nt">right</span> <span class="nt">to</span> <span class="nt">left</span><span class="o">)</span>
+<span class="nt">a</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span>
+<span class="nt">b</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+<span class="nt">c</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">6</span>
+
+<span class="o">/</span> <span class="nt">In-place</span> <span class="nt">operations</span> <span class="nt">are</span> <span class="nt">also</span> <span class="nt">as</span> <span class="nt">you</span> <span class="nt">might</span> <span class="nt">expect</span>
+<span class="nt">a</span><span class="o">+</span><span class="p">:</span><span class="nd">2</span>
+<span class="nt">a</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span>
+
+<span class="o">/</span> <span class="nt">There</span> <span class="nt">are</span> <span class="nt">no</span> <span class="s2">&quot;true&quot;</span> <span class="nt">or</span> <span class="s2">&quot;false&quot;</span> <span class="nt">keywords</span> <span class="nt">in</span> <span class="nt">q</span>
+<span class="o">/</span> <span class="nt">boolean</span> <span class="nt">values</span> <span class="nt">are</span> <span class="nt">indicated</span> <span class="nt">by</span> <span class="nt">the</span> <span class="nt">bit</span> <span class="nt">value</span> <span class="nt">followed</span> <span class="nt">by</span> <span class="nt">b</span>
+<span class="nt">1b</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">true</span> <span class="nt">value</span>
+<span class="nt">0b</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">false</span> <span class="nt">value</span>
+
+<span class="o">/</span> <span class="nt">Equality</span> <span class="nt">comparisons</span> <span class="nt">use</span> <span class="nt">equals</span> <span class="o">(=)</span> <span class="o">(</span><span class="nt">since</span> <span class="nt">we</span> <span class="nt">don</span><span class="s1">&#39;t need it for assignment)</span>
+<span class="s1">1=1 / =&gt; 1b</span>
+<span class="s1">2=1 / =&gt; 0b</span>
+
+<span class="s1">/ Inequality uses &lt;&gt;</span>
+<span class="s1">1&lt;&gt;1 / =&gt; 0b</span>
+<span class="s1">2&lt;&gt;1 / =&gt; 1b</span>
+
+<span class="s1">/ The other comparisons are as you might expect</span>
+<span class="s1">1&lt;2 / =&gt; 1b</span>
+<span class="s1">1&gt;2 / =&gt; 0b</span>
+<span class="s1">2&lt;=2 / =&gt; 1b</span>
+<span class="s1">2&gt;=2 / =&gt; 1b</span>
+
+<span class="s1">/ Comparison is not strict with regard to types...</span>
+<span class="s1">42=42.0 / =&gt; 1b</span>
+
+<span class="s1">/ ...unless we use the match operator (~)</span>
+<span class="s1">/ which only returns true if entities are identical</span>
+<span class="s1">42~42.0 / =&gt; 0b</span>
+
+<span class="s1">/ The not operator returns true if the underlying value is zero</span>
+<span class="s1">not 0b / =&gt; 1b</span>
+<span class="s1">not 1b / =&gt; 0b</span>
+<span class="s1">not 42 / =&gt; 0b</span>
+<span class="s1">not 0.0 / =&gt; 1b</span>
+
+<span class="s1">/ The max operator (|) reduces to logical &quot;or&quot; for bools</span>
+<span class="s1">42|2.0 / =&gt; 42f</span>
+<span class="s1">1b|0b / =&gt; 1b</span>
+
+<span class="s1">/ The min operator (&amp;) reduces to logical &quot;and&quot; for bools</span>
+<span class="s1">42&amp;2.0 / =&gt; 2f</span>
+<span class="s1">1b&amp;0b / =&gt; 0b</span>
+
+<span class="s1">/ q provides two ways to store character data</span>
+<span class="s1">/ Chars in q are stored in a single byte and use double-quotes (&quot;)</span>
+<span class="s1">ch:&quot;a&quot;</span>
+<span class="s1">/ Strings are simply lists of char (more on lists later)</span>
+<span class="s1">str:&quot;This is a string&quot;</span>
+<span class="s1">/ Escape characters work as normal</span>
+<span class="s1">str:&quot;This is a string with \&quot;quotes\&quot;&quot;</span>
+
+<span class="s1">/ Char data can also be stored as symbols using backtick (`)</span>
+<span class="s1">symbol:`sym</span>
+<span class="s1">/ Symbols are NOT LISTS, they are an enumeration</span>
+<span class="s1">/ the q process stores internally a vector of strings</span>
+<span class="s1">/ symbols are enumerated against this vector</span>
+<span class="s1">/ this can be more space and speed efficient as these are constant width</span>
+
+<span class="s1">/ The string function converts to strings</span>
+<span class="s1">string `symbol / =&gt; &quot;symbol&quot;</span>
+<span class="s1">string 1.2345 / =&gt; &quot;1.2345&quot;</span>
+
+<span class="s1">/ q has a time type...</span>
+<span class="s1">t:01:00:00.000</span>
+<span class="s1">/ date type...</span>
+<span class="s1">d:2015.12.25</span>
+<span class="s1">/ and a datetime type (among other time types)</span>
+<span class="s1">dt:2015.12.25D12:00:00.000000000</span>
+
+<span class="s1">/ These support some arithmetic for easy manipulation</span>
+<span class="s1">dt + t / =&gt; 2015.12.25D13:00:00.000000000</span>
+<span class="s1">t - 00:10:00.000 / =&gt; 00:50:00.000</span>
+<span class="s1">/ and can be decomposed using dot notation</span>
+<span class="s1">d.year / =&gt; 2015i</span>
+<span class="s1">d.mm / =&gt; 12i</span>
+<span class="s1">d.dd / =&gt; 25i</span>
+<span class="s1">/ see http://code.kx.com/q4m3/2_Basic_Data_Types_Atoms/#25-temporal-data for more</span>
+
+<span class="s1">/ q also has an infinity value so div by zero will not throw an error</span>
+<span class="s1">1%0 / =&gt; 0w</span>
+<span class="s1">-1%0 / =&gt; -0w</span>
+
+<span class="s1">/ And null types for representing missing values</span>
+<span class="s1">0N / =&gt; null int</span>
+<span class="s1">0n / =&gt; null float</span>
+<span class="s1">/ see http://code.kx.com/q4m3/2_Basic_Data_Types_Atoms/#27-nulls for more</span>
+
+<span class="s1">/ q has standard control structures</span>
+<span class="s1">/ if is as you might expect (; separates the condition and instructions)</span>
+<span class="s1">if</span><span class="cp">[</span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;hi&quot;</span><span class="cp">]</span><span class="s1"></span>
+<span class="s1">a / =&gt; &quot;hi&quot;</span>
+<span class="s1">/ if-else uses $ (and unlike if, returns a value)</span>
+<span class="s1">$</span><span class="cp">[</span><span class="mi">1</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;hi&quot;</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;bye&quot;</span><span class="cp">]</span><span class="s1"> / =&gt; &quot;bye&quot;</span>
+<span class="s1">a / =&gt; &quot;bye&quot;</span>
+<span class="s1">/ if-else can be extended to multiple clauses by adding args separated by ;</span>
+<span class="s1">$</span><span class="cp">[</span><span class="mi">1</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;hi&quot;</span><span class="p">;</span><span class="mi">0</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;bye&quot;</span><span class="p">;</span><span class="nx">a</span><span class="p">:</span><span class="s2">&quot;hello again&quot;</span><span class="cp">]</span><span class="s1"></span>
+<span class="s1">a / =&gt; &quot;hello again&quot;</span>
+
+
+<span class="s1">////////////////////////////////////</span>
+<span class="s1">////      Data Structures       ////</span>
+<span class="s1">////////////////////////////////////</span>
+
+<span class="s1">/ q is not an object oriented language</span>
+<span class="s1">/ instead complexity is built through ordered lists</span>
+<span class="s1">/ and mapping them into higher order structures: dictionaries and tables</span>
+
+<span class="s1">/ Lists (or arrays if you prefer) are simple ordered collections</span>
+<span class="s1">/ they are defined using parentheses () and semi-colons (;)</span>
+<span class="s1">(1;2;3) / =&gt; 1 2 3</span>
+<span class="s1">(-10.0;3.14159e;1b;`abc;&quot;c&quot;)</span>
+<span class="s1">/ =&gt; -10f</span>
+<span class="s1">/ =&gt; 3.14159e</span>
+<span class="s1">/ =&gt; 1b</span>
+<span class="s1">/ =&gt; `abc</span>
+<span class="s1">/ =&gt; &quot;c&quot;  (mixed type lists are displayed on multiple lines)</span>
+<span class="s1">((1;2;3);(4;5;6);(7;8;9))</span>
+<span class="s1">/ =&gt; 1 2 3</span>
+<span class="s1">/ =&gt; 4 5 6</span>
+<span class="s1">/ =&gt; 7 8 9</span>
+
+<span class="s1">/ Lists of uniform type can also be defined more concisely</span>
+<span class="s1">1 2 3 / =&gt; 1 2 3</span>
+<span class="s1">`list`of`syms / =&gt; `list`of`syms</span>
+<span class="s1">`list`of`syms ~ (`list;`of;`syms) / =&gt; 1b</span>
+
+<span class="s1">/ List length</span>
+<span class="s1">count (1;2;3) / =&gt; 3</span>
+<span class="s1">count &quot;I am a string&quot; / =&gt; 13 (string are lists of char)</span>
+
+<span class="s1">/ Empty lists are defined with parentheses</span>
+<span class="s1">l:()</span>
+<span class="s1">count l / =&gt; 0</span>
+
+<span class="s1">/ Simple variables and single item lists are not equivalent</span>
+<span class="s1">/ parentheses syntax cannot create a single item list (they indicate precedence)</span>
+<span class="s1">(1)~1 / =&gt; 1b</span>
+<span class="s1">/ single item lists can be created using enlist</span>
+<span class="s1">singleton:enlist 1</span>
+<span class="s1">/ or appending to an empty list</span>
+<span class="s1">singleton:(),1</span>
+<span class="s1">1~(),1 / =&gt; 0b</span>
+
+<span class="s1">/ Speaking of appending, comma (,) is used for this, not plus (+)</span>
+<span class="s1">1 2 3,4 5 6 / =&gt; 1 2 3 4 5 6</span>
+<span class="s1">&quot;hello &quot;,&quot;there&quot; / =&gt; &quot;hello there&quot;</span>
+
+<span class="s1">/ Indexing uses square brackets </span><span class="cp">[]</span><span class="s1"></span>
+<span class="s1">l:1 2 3 4</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="s1"> / =&gt; 1</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span><span class="s1"> / =&gt; 2</span>
+<span class="s1">/ indexing out of bounds returns a null value rather than an error</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">5</span><span class="cp">]</span><span class="s1"> / =&gt; 0N</span>
+<span class="s1">/ and indexed assignment</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="s1">:5</span>
+<span class="s1">l / =&gt; 5 2 3 4</span>
+
+<span class="s1">/ Lists can also be used for indexing and indexed assignment</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">1</span> <span class="mi">3</span><span class="cp">]</span><span class="s1"> / =&gt; 2 4</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">1</span> <span class="mi">3</span><span class="cp">]</span><span class="s1">: 1 3</span>
+<span class="s1">l / =&gt; 5 1 3 3</span>
+
+<span class="s1">/ Lists can be untyped/mixed type</span>
+<span class="s1">l:(1;2;`hi)</span>
+<span class="s1">/ but once they are uniformly typed, q will enforce this</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1">:3</span>
+<span class="s1">l / =&gt; 1 2 3</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1">:`hi / throws a type error</span>
+<span class="s1">/ this makes sense in the context of lists as table columns (more later)</span>
+
+<span class="s1">/ For a nested list we can index at depth</span>
+<span class="s1">l:((1;2;3);(4;5;6);(7;8;9))</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span><span class="s1"> / =&gt; 5</span>
+
+<span class="s1">/ We can elide the indexes to return entire rows or columns</span>
+<span class="s1">l</span><span class="cp">[</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span><span class="s1"> / =&gt; 2 5 8</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="cp">]</span><span class="s1"> / =&gt; 4 5 6</span>
+
+<span class="s1">/ All the functions mentioned in the previous section work on lists natively</span>
+<span class="s1">1+(1;2;3) / =&gt; 2 3 4 (single variable and list)</span>
+<span class="s1">(1;2;3) - (3;2;1) / =&gt; -2 0 2 (list and list)</span>
+
+<span class="s1">/ And there are many more that are designed specifically for lists</span>
+<span class="s1">avg 1 2 3 / =&gt; 2f</span>
+<span class="s1">sum 1 2 3 / =&gt; 6</span>
+<span class="s1">sums 1 2 3 / =&gt; 1 3 6 (running sum)</span>
+<span class="s1">last 1 2 3 / =&gt; 3</span>
+<span class="s1">1 rotate 1 2 3 / =&gt; 2 3 1</span>
+<span class="s1">/ etc.</span>
+<span class="s1">/ Using and combining these functions to manipulate lists is where much of the</span>
+<span class="s1">/ power and expressiveness of the language comes from</span>
+
+<span class="s1">/ Take (#), drop (_) and find (?) are also useful working with lists</span>
+<span class="s1">l:1 2 3 4 5 6 7 8 9</span>
+<span class="s1">l:1+til 9 / til is a useful shortcut for generating ranges</span>
+<span class="s1">/ take the first 5 elements</span>
+<span class="s1">5#l / =&gt; 1 2 3 4 5</span>
+<span class="s1">/ drop the first 5</span>
+<span class="s1">5_l / =&gt; 6 7 8 9</span>
+<span class="s1">/ take the last 5</span>
+<span class="s1">-5#l / =&gt; 5 6 7 8 9</span>
+<span class="s1">/ drop the last 5</span>
+<span class="s1">-5_l / =&gt; 1 2 3 4</span>
+<span class="s1">/ find the first occurrence of 4</span>
+<span class="s1">l?4 / =&gt; 3</span>
+<span class="s1">l</span><span class="cp">[</span><span class="mi">3</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+
+<span class="s1">/ Dictionaries in q are a generalization of lists</span>
+<span class="s1">/ they map a list to another list (of equal length)</span>
+<span class="s1">/ the bang (!) symbol is used for defining a dictionary</span>
+<span class="s1">d:(`a;`b;`c)!(1;2;3)</span>
+<span class="s1">/ or more simply with concise list syntax</span>
+<span class="s1">d:`a`b`c!1 2 3</span>
+<span class="s1">/ the keyword key returns the first list</span>
+<span class="s1">key d / =&gt; `a`b`c</span>
+<span class="s1">/ and value the second</span>
+<span class="s1">value d / =&gt; 1 2 3</span>
+
+<span class="s1">/ Indexing is identical to lists</span>
+<span class="s1">/ with the first list as a key instead of the position</span>
+<span class="s1">d</span><span class="cp">[</span><span class="sb">`a] / =&gt; 1</span>
+<span class="sb">d[`</span><span class="nx">b</span><span class="cp">]</span><span class="s1"> / =&gt; 2</span>
+
+<span class="s1">/ As is assignment</span>
+<span class="s1">d</span><span class="cp">[</span><span class="sb">`c]:4</span>
+<span class="sb">d</span>
+<span class="sb">/ =&gt; a| 1</span>
+<span class="sb">/ =&gt; b| 2</span>
+<span class="sb">/ =&gt; c| 4</span>
+
+<span class="sb">/ Arithmetic and comparison work natively, just like lists</span>
+<span class="sb">e:(`</span><span class="nx">a</span><span class="p">;</span><span class="sb">`b;`</span><span class="nx">c</span><span class="p">)</span><span class="o">!</span><span class="p">(</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">)</span>
+<span class="nx">d</span><span class="o">+</span><span class="nx">e</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">|</span> <span class="mi">3</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="o">|</span> <span class="mi">5</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="o">|</span> <span class="mi">8</span>
+<span class="nx">d</span><span class="o">-</span><span class="mi">2</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">|</span> <span class="o">-</span><span class="mi">1</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="o">|</span> <span class="mi">0</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="o">|</span> <span class="mi">2</span>
+<span class="nx">d</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">|</span> <span class="mi">0</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="o">|</span> <span class="mi">1</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="o">|</span> <span class="mi">1</span>
+
+<span class="o">/</span> <span class="ow">And</span> <span class="nx">the</span> <span class="k">take</span><span class="p">,</span> <span class="nx">drop</span> <span class="ow">and</span> <span class="nx">find</span> <span class="nx">operators</span> <span class="nx">are</span> <span class="nx">remarkably</span> <span class="nx">similar</span> <span class="nx">too</span>
+<span class="sb">`a`</span><span class="nx">b</span><span class="vi">#d</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">|</span> <span class="mi">1</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="o">|</span> <span class="mi">2</span>
+<span class="sb">`a`</span><span class="nx">b</span> <span class="nx">_</span> <span class="nx">d</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c</span><span class="o">|</span> <span class="mi">4</span>
+<span class="nx">d</span><span class="o">?</span><span class="mi">2</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="sb">`b</span>
+
+<span class="sb">/ Tables in q are basically a subset of dictionaries</span>
+<span class="sb">/ a table is a dictionary where all values must be lists of the same length</span>
+<span class="sb">/ as such tables in q are column oriented (unlike most RDBMS)</span>
+<span class="sb">/ the flip keyword is used to convert a dictionary to a table</span>
+<span class="sb">/ i.e. flip the indices</span>
+<span class="sb">flip `</span><span class="nx">c1</span><span class="sb">`c2`</span><span class="nx">c3</span><span class="o">!</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">;</span><span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">)</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c1</span> <span class="nx">c2</span> <span class="nx">c3</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="o">--------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">7</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">2</span>  <span class="mi">5</span>  <span class="mi">8</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">3</span>  <span class="mi">6</span>  <span class="mi">9</span>
+<span class="o">/</span> <span class="nx">we</span> <span class="nx">can</span> <span class="nx">also</span> <span class="kd">define</span> <span class="nf">tables</span> <span class="nx">using</span> <span class="nx">this</span> <span class="nx">syntax</span>
+<span class="nx">t</span><span class="p">:(</span><span class="err">[]</span><span class="na">c1</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span><span class="nx">c2</span><span class="p">:</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">;</span><span class="nx">c3</span><span class="p">:</span><span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">)</span>
+<span class="nx">t</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nx">c1</span> <span class="nx">c2</span> <span class="nx">c3</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="o">--------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">1</span>  <span class="mi">4</span>  <span class="mi">7</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">2</span>  <span class="mi">5</span>  <span class="mi">8</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="mi">3</span>  <span class="mi">6</span>  <span class="mi">9</span>
+
+<span class="o">/</span> <span class="nx">Tables</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">indexed</span> <span class="ow">and</span> <span class="n">manipulated</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">similar</span> <span class="nx">way</span> <span class="k">to</span> <span class="nx">dicts</span> <span class="ow">and</span> <span class="nx">lists</span>
+<span class="nx">t</span><span class="err">[</span><span class="sb">`c1]</span>
+<span class="sb">/ =&gt; 1 2 3</span>
+<span class="sb">/ table rows are returned as dictionaries</span>
+<span class="sb">t[1]</span>
+<span class="sb">/ =&gt; c1| 2</span>
+<span class="sb">/ =&gt; c2| 5</span>
+<span class="sb">/ =&gt; c3| 8</span>
+
+<span class="sb">/ meta returns table type information</span>
+<span class="sb">meta t</span>
+<span class="sb">/ =&gt; c | t f a</span>
+<span class="sb">/ =&gt; --| -----</span>
+<span class="sb">/ =&gt; c1| j</span>
+<span class="sb">/ =&gt; c2| j</span>
+<span class="sb">/ =&gt; c3| j</span>
+<span class="sb">/ now we see why type is enforced in lists (to protect column types)</span>
+<span class="sb">t[1;`</span><span class="nx">c1</span><span class="cp">]</span><span class="s1">:3</span>
+<span class="s1">t</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="sb">`c1]:3.0 / throws a type error</span>
+
+<span class="sb">/ Most traditional databases have primary key columns</span>
+<span class="sb">/ in q we have keyed tables, where one table containing key columns</span>
+<span class="sb">/ is mapped to another table using bang (!)</span>
+<span class="sb">k:([]id:1 2 3)</span>
+<span class="sb">k!t</span>
+<span class="sb">/ =&gt; id| c1 c2 c3</span>
+<span class="sb">/ =&gt; --| --------</span>
+<span class="sb">/ =&gt; 1 | 1  4  7</span>
+<span class="sb">/ =&gt; 2 | 3  5  8</span>
+<span class="sb">/ =&gt; 3 | 3  6  9</span>
+
+<span class="sb">/ We can also use this shortcut for defining keyed tables</span>
+<span class="sb">kt:([id:1 2 3]c1:1 2 3;c2:4 5 6;c3:7 8 9)</span>
+
+<span class="sb">/ Records can then be retrieved based on this key</span>
+<span class="sb">kt[1]</span>
+<span class="sb">/ =&gt; c1| 1</span>
+<span class="sb">/ =&gt; c2| 4</span>
+<span class="sb">/ =&gt; c3| 7</span>
+<span class="sb">kt[`</span><span class="nx">id</span><span class="o">!</span><span class="mi">1</span><span class="cp">]</span><span class="s1"></span>
+<span class="s1">/ =&gt; c1| 1</span>
+<span class="s1">/ =&gt; c2| 4</span>
+<span class="s1">/ =&gt; c3| 7</span>
+
+
+<span class="s1">////////////////////////////////////</span>
+<span class="s1">////////     Functions      ////////</span>
+<span class="s1">////////////////////////////////////</span>
+
+<span class="s1">/ In q the function is similar to a mathematical map, mapping inputs to outputs</span>
+<span class="s1">/ curly braces {} are used for function definition</span>
+<span class="s1">/ and square brackets </span><span class="cp">[]</span><span class="s1"> for calling functions (just like list indexing)</span>
+<span class="s1">/ a very minimal function</span>
+<span class="s1">f:{x+x}</span>
+<span class="s1">f</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+
+<span class="s1">/ Functions can be anonymous and called at point of definition</span>
+<span class="s1">{x+x}</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+
+<span class="s1">/ By default the last expression is returned</span>
+<span class="s1">/ colon (:) can be used to specify return</span>
+<span class="s1">{x+x}</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+<span class="s1">{:x+x}</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+<span class="s1">/ semi-colon (;) separates expressions</span>
+<span class="s1">{r:x+x;:r}</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 4</span>
+
+<span class="s1">/ Function arguments can be specified explicitly (separated by ;)</span>
+<span class="s1">{</span><span class="cp">[</span><span class="nx">arg1</span><span class="p">;</span><span class="nx">arg2</span><span class="cp">]</span><span class="s1"> arg1+arg2}</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 3</span>
+<span class="s1">/ or if omitted will default to x, y and z</span>
+<span class="s1">{x+y+z}</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="cp">]</span><span class="s1"> / =&gt; 6</span>
+
+<span class="s1">/ Built in functions are no different, and can be called the same way (with </span><span class="cp">[]</span><span class="s1">)</span>
+<span class="s1">+</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 3</span>
+<span class="s1">&lt;</span><span class="cp">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="cp">]</span><span class="s1"> / =&gt; 1b</span>
+
+<span class="s1">/ Functions are first class in q, so can be returned, stored in lists etc.</span>
+<span class="s1">{:{x+y}}</span><span class="cp">[]</span><span class="s1"> / =&gt; {x+y}</span>
+<span class="s1">(1;&quot;hi&quot;;{x+y})</span>
+<span class="s1">/ =&gt; 1</span>
+<span class="s1">/ =&gt; &quot;hi&quot;</span>
+<span class="s1">/ =&gt; {x+y}</span>
+
+<span class="s1">/ There is no overloading and no keyword arguments for custom q functions</span>
+<span class="s1">/ however using a dictionary as a single argument can overcome this</span>
+<span class="s1">/ allows for optional arguments or differing functionality</span>
+<span class="s1">d:`arg1`arg2`arg3!(1.0;2;&quot;my function argument&quot;)</span>
+<span class="s1">{x</span><span class="cp">[</span><span class="sb">`arg1]+x[`</span><span class="nx">arg2</span><span class="cp">]</span><span class="s1">}</span><span class="cp">[</span><span class="nx">d</span><span class="cp">]</span><span class="s1"> / =&gt; 3f</span>
+
+<span class="s1">/ Functions in q see the global scope</span>
+<span class="s1">a:1</span>
+<span class="s1">{:a}</span><span class="cp">[]</span><span class="s1"> / =&gt; 1</span>
+
+<span class="s1">/ However local scope obscures this</span>
+<span class="s1">a:1</span>
+<span class="s1">{a:2;:a}</span><span class="cp">[]</span><span class="s1"> / =&gt; 2</span>
+<span class="s1">a / =&gt; 1</span>
+
+<span class="s1">/ Functions cannot see nested scopes (only local and global)</span>
+<span class="s1">{local:1;{:local}</span><span class="cp">[]</span><span class="s1">}</span><span class="cp">[]</span><span class="s1"> / throws error as local is not defined in inner function</span>
+
+<span class="s1">/ A function can have one or more of its arguments fixed (projection)</span>
+<span class="s1">f:+</span><span class="cp">[</span><span class="mi">4</span><span class="cp">]</span><span class="s1"></span>
+<span class="s1">f</span><span class="cp">[</span><span class="mi">4</span><span class="cp">]</span><span class="s1"> / =&gt; 8</span>
+<span class="s1">f</span><span class="cp">[</span><span class="mi">5</span><span class="cp">]</span><span class="s1"> / =&gt; 9</span>
+<span class="s1">f</span><span class="cp">[</span><span class="mi">6</span><span class="cp">]</span><span class="s1"> / =&gt; 10</span>
+
+
+<span class="s1">////////////////////////////////////</span>
+<span class="s1">//////////     q-sql      //////////</span>
+<span class="s1">////////////////////////////////////</span>
+
+<span class="s1">/ q has its own syntax for manipulating tables, similar to standard SQL</span>
+<span class="s1">/ This contains the usual suspects of select, insert, update etc.</span>
+<span class="s1">/ and some new functionality not typically available</span>
+<span class="s1">/ q-sql has two significant differences (other than syntax) to normal SQL:</span>
+<span class="s1">/ - q tables have well defined record orders</span>
+<span class="s1">/ - tables are stored as a collection of columns</span>
+<span class="s1">/   (so vectorized column operations are fast)</span>
+<span class="s1">/ a full description of q-sql is a little beyond the scope of this intro</span>
+<span class="s1">/ so we will just cover enough of the basics to get you going</span>
+
+<span class="s1">/ First define ourselves a table</span>
+<span class="s1">t:(</span><span class="cp">[]</span><span class="s1">name:`Arthur`Thomas`Polly;age:35 32 52;height:180 175 160;sex:`m`m`f)</span>
+
+<span class="s1">/ equivalent of SELECT * FROM t</span>
+<span class="s1">select from t / (must be lower case, and the wildcard is not necessary)</span>
+<span class="s1">/ =&gt; name   age height sex</span>
+<span class="s1">/ =&gt; ---------------------</span>
+<span class="s1">/ =&gt; Arthur 35  180    m</span>
+<span class="s1">/ =&gt; Thomas 32  175    m</span>
+<span class="s1">/ =&gt; Polly  52  160    f</span>
+
+<span class="s1">/ Select specific columns</span>
+<span class="s1">select name,age from t</span>
+<span class="s1">/ =&gt; name   age</span>
+<span class="s1">/ =&gt; ----------</span>
+<span class="s1">/ =&gt; Arthur 35</span>
+<span class="s1">/ =&gt; Thomas 32</span>
+<span class="s1">/ =&gt; Polly  52</span>
+
+<span class="s1">/ And name them (equivalent of using AS in standard SQL)</span>
+<span class="s1">select charactername:name, currentage:age from t</span>
+<span class="s1">/ =&gt; charactername currentage</span>
+<span class="s1">/ =&gt; ------------------------</span>
+<span class="s1">/ =&gt; Arthur        35</span>
+<span class="s1">/ =&gt; Thomas        32</span>
+<span class="s1">/ =&gt; Polly         52</span>
+
+<span class="s1">/ This SQL syntax is integrated with the q language</span>
+<span class="s1">/ so q can be used seamlessly in SQL statements</span>
+<span class="s1">select name, feet:floor height*0.032, inches:12*(height*0.032) mod 1 from t</span>
+<span class="s1">/ =&gt; name   feet inches</span>
+<span class="s1">/ =&gt; ------------------</span>
+<span class="s1">/ =&gt; Arthur 5    9.12</span>
+<span class="s1">/ =&gt; Thomas 5    7.2</span>
+<span class="s1">/ =&gt; Polly  5    1.44</span>
+
+<span class="s1">/ Including custom functions</span>
+<span class="s1">select name, growth:{</span><span class="cp">[</span><span class="nx">h</span><span class="p">;</span><span class="nx">a</span><span class="cp">]</span><span class="s1">h%a}</span><span class="cp">[</span><span class="nx">height</span><span class="p">;</span><span class="nx">age</span><span class="cp">]</span><span class="s1"> from t</span>
+<span class="s1">/ =&gt; name   growth</span>
+<span class="s1">/ =&gt; ---------------</span>
+<span class="s1">/ =&gt; Arthur 5.142857</span>
+<span class="s1">/ =&gt; Thomas 5.46875</span>
+<span class="s1">/ =&gt; Polly  3.076923</span>
+
+<span class="s1">/ The where clause can contain multiple statements separated by commas</span>
+<span class="s1">select from t where age&gt;33,height&gt;175</span>
+<span class="s1">/ =&gt; name   age height sex</span>
+<span class="s1">/ =&gt; ---------------------</span>
+<span class="s1">/ =&gt; Arthur 35  180    m</span>
+
+<span class="s1">/ The where statements are executed sequentially (not the same as logical AND)</span>
+<span class="s1">select from t where age&lt;40,height=min height</span>
+<span class="s1">/ =&gt; name   age height sex</span>
+<span class="s1">/ =&gt; ---------------------</span>
+<span class="s1">/ =&gt; Thomas 32  175    m</span>
+<span class="s1">select from t where (age&lt;40)&amp;(height=min height)</span>
+<span class="s1">/ =&gt; name age height sex</span>
+<span class="s1">/ =&gt; -------------------</span>
+
+<span class="s1">/ The by clause falls between select and from</span>
+<span class="s1">/ and is equivalent to SQL&#39;</span><span class="nt">s</span> <span class="nt">GROUP</span> <span class="nt">BY</span>
+<span class="nt">select</span> <span class="nt">avg</span> <span class="nt">height</span> <span class="nt">by</span> <span class="nt">sex</span> <span class="nt">from</span> <span class="nt">t</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">sex</span><span class="o">|</span> <span class="nt">height</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---</span><span class="o">|</span> <span class="nt">------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">f</span>  <span class="o">|</span> <span class="nt">160</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">m</span>  <span class="o">|</span> <span class="nt">177</span><span class="p">.</span><span class="nc">5</span>
+
+<span class="o">/</span> <span class="nt">If</span> <span class="nt">no</span> <span class="nt">aggreation</span> <span class="nt">function</span> <span class="nt">is</span> <span class="nt">specified</span><span class="o">,</span> <span class="nt">last</span> <span class="nt">is</span> <span class="nt">assumed</span>
+<span class="nt">select</span> <span class="nt">by</span> <span class="nt">sex</span> <span class="nt">from</span> <span class="nt">t</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">sex</span><span class="o">|</span> <span class="nt">name</span>   <span class="nt">age</span> <span class="nt">height</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---</span><span class="o">|</span> <span class="nt">-----------------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">f</span>  <span class="o">|</span> <span class="nt">Polly</span>  <span class="nt">52</span>  <span class="nt">160</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">m</span>  <span class="o">|</span> <span class="nt">Thomas</span> <span class="nt">32</span>  <span class="nt">175</span>
+
+<span class="o">/</span> <span class="nt">Update</span> <span class="nt">has</span> <span class="nt">the</span> <span class="nt">same</span> <span class="nt">basic</span> <span class="nt">form</span> <span class="nt">as</span> <span class="nt">select</span>
+<span class="nt">update</span> <span class="nt">sex</span><span class="o">:</span><span class="err">`</span><span class="nt">male</span> <span class="nt">from</span> <span class="nt">t</span> <span class="nt">where</span> <span class="nt">sex</span><span class="o">=</span><span class="err">`</span><span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">name</span>   <span class="nt">age</span> <span class="nt">height</span> <span class="nt">sex</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">----------------------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Arthur</span> <span class="nt">35</span>  <span class="nt">180</span>    <span class="nt">male</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Thomas</span> <span class="nt">32</span>  <span class="nt">175</span>    <span class="nt">male</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Polly</span>  <span class="nt">52</span>  <span class="nt">160</span>    <span class="nt">f</span>
+
+<span class="o">/</span> <span class="nt">As</span> <span class="nt">does</span> <span class="nt">delete</span>
+<span class="nt">delete</span> <span class="nt">from</span> <span class="nt">t</span> <span class="nt">where</span> <span class="nt">sex</span><span class="o">=</span><span class="err">`</span><span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">name</span>  <span class="nt">age</span> <span class="nt">height</span> <span class="nt">sex</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">--------------------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Polly</span> <span class="nt">52</span>  <span class="nt">160</span>    <span class="nt">f</span>
+
+<span class="o">/</span> <span class="nt">None</span> <span class="nt">of</span> <span class="nt">these</span> <span class="nt">sql</span> <span class="nt">operations</span> <span class="nt">are</span> <span class="nt">carried</span> <span class="nt">out</span> <span class="nt">in</span> <span class="nt">place</span>
+<span class="nt">t</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">name</span>   <span class="nt">age</span> <span class="nt">height</span> <span class="nt">sex</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---------------------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Arthur</span> <span class="nt">35</span>  <span class="nt">180</span>    <span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Thomas</span> <span class="nt">32</span>  <span class="nt">175</span>    <span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Polly</span>  <span class="nt">52</span>  <span class="nt">160</span>    <span class="nt">f</span>
+
+<span class="o">/</span> <span class="nt">Insert</span> <span class="nt">however</span> <span class="nt">is</span> <span class="nt">in</span> <span class="nt">place</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">takes</span> <span class="nt">a</span> <span class="nt">table</span> <span class="nt">name</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">new</span> <span class="nt">data</span>
+<span class="err">`</span><span class="nt">t</span> <span class="nt">insert</span> <span class="o">(</span><span class="err">`</span><span class="nt">John</span><span class="o">;</span><span class="nt">25</span><span class="o">;</span><span class="nt">178</span><span class="o">;</span><span class="err">`</span><span class="nt">m</span><span class="o">)</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="o">,</span><span class="nt">3</span>
+<span class="nt">t</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">name</span>   <span class="nt">age</span> <span class="nt">height</span> <span class="nt">sex</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---------------------</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Arthur</span> <span class="nt">35</span>  <span class="nt">180</span>    <span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Thomas</span> <span class="nt">32</span>  <span class="nt">175</span>    <span class="nt">m</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">Polly</span>  <span class="nt">52</span>  <span class="nt">160</span>    <span class="nt">f</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">John</span>   <span class="nt">25</span>  <span class="nt">178</span>    <span class="nt">m</span>
+
+<span class="o">/</span> <span class="nt">Upsert</span> <span class="nt">is</span> <span class="nt">similar</span> <span class="o">(</span><span class="nt">but</span> <span class="nt">doesn</span><span class="s1">&#39;t have to be in-place)</span>
+<span class="s1">t upsert (`Chester;58;179;`m)</span>
+<span class="s1">/ =&gt; name    age height sex</span>
+<span class="s1">/ =&gt; ----------------------</span>
+<span class="s1">/ =&gt; Arthur  35  180    m</span>
+<span class="s1">/ =&gt; Thomas  32  175    m</span>
+<span class="s1">/ =&gt; Polly   52  160    f</span>
+<span class="s1">/ =&gt; John    25  178    m</span>
+<span class="s1">/ =&gt; Chester 58  179    m</span>
+
+<span class="s1">/ it will also upsert dicts or tables</span>
+<span class="s1">t upsert `name`age`height`sex!(`Chester;58;179;`m)</span>
+<span class="s1">t upsert (`Chester;58;179;`m)</span>
+<span class="s1">/ =&gt; name    age height sex</span>
+<span class="s1">/ =&gt; ----------------------</span>
+<span class="s1">/ =&gt; Arthur  35  180    m</span>
+<span class="s1">/ =&gt; Thomas  32  175    m</span>
+<span class="s1">/ =&gt; Polly   52  160    f</span>
+<span class="s1">/ =&gt; John    25  178    m</span>
+<span class="s1">/ =&gt; Chester 58  179    m</span>
+
+<span class="s1">/ And if our table is keyed</span>
+<span class="s1">kt:`name xkey t</span>
+<span class="s1">/ upsert will replace records where required</span>
+<span class="s1">kt upsert (</span><span class="cp">[]</span><span class="s1">name:`Thomas`Chester;age:33 58;height:175 179;sex:`f`m)</span>
+<span class="s1">/ =&gt; name   | age height sex</span>
+<span class="s1">/ =&gt; -------| --------------</span>
+<span class="s1">/ =&gt; Arthur | 35  180    m</span>
+<span class="s1">/ =&gt; Thomas | 33  175    f</span>
+<span class="s1">/ =&gt; Polly  | 52  160    f</span>
+<span class="s1">/ =&gt; John   | 25  178    m</span>
+<span class="s1">/ =&gt; Chester| 58  179    m</span>
+
+<span class="s1">/ There is no ORDER BY clause in q-sql, instead use xasc/xdesc</span>
+<span class="s1">`name xasc t</span>
+<span class="s1">/ =&gt; name   age height sex</span>
+<span class="s1">/ =&gt; ---------------------</span>
+<span class="s1">/ =&gt; Arthur 35  180    m</span>
+<span class="s1">/ =&gt; John   25  178    m</span>
+<span class="s1">/ =&gt; Polly  52  160    f</span>
+<span class="s1">/ =&gt; Thomas 32  175    m</span>
+
+<span class="s1">/ Most of the standard SQL joins are present in q-sql, plus a few new friends</span>
+<span class="s1">/ see http://code.kx.com/q4m3/9_Queries_q-sql/#99-joins</span>
+<span class="s1">/ the two most important (commonly used) are lj and aj</span>
+
+<span class="s1">/ lj is basically the same as SQL LEFT JOIN</span>
+<span class="s1">/ where the join is carried out on the key columns of the left table</span>
+<span class="s1">le:(</span><span class="cp">[</span><span class="nx">sex</span><span class="p">:</span><span class="sb">`m`</span><span class="nx">f</span><span class="cp">]</span><span class="s1">lifeexpectancy:78 85)</span>
+<span class="s1">t lj le</span>
+<span class="s1">/ =&gt; name   age height sex lifeexpectancy</span>
+<span class="s1">/ =&gt; ------------------------------------</span>
+<span class="s1">/ =&gt; Arthur 35  180    m   78</span>
+<span class="s1">/ =&gt; Thomas 32  175    m   78</span>
+<span class="s1">/ =&gt; Polly  52  160    f   85</span>
+<span class="s1">/ =&gt; John   25  178    m   78</span>
+
+<span class="s1">/ aj is an asof join.  This is not a standard SQL join, and can be very powerful</span>
+<span class="s1">/ The canonical example of this is joining financial trades and quotes tables</span>
+<span class="s1">trades:(</span><span class="cp">[]</span><span class="s1">time:10:01:01 10:01:03 10:01:04;sym:`msft`ibm`ge;qty:100 200 150)</span>
+<span class="s1">quotes:(</span><span class="cp">[]</span><span class="s1">time:10:01:00 10:01:01 10:01:01 10:01:03;</span>
+<span class="s1">          sym:`ibm`msft`msft`ibm; px:100 99 101 98)</span>
+<span class="s1">aj</span><span class="cp">[</span><span class="sb">`time`</span><span class="nx">sym</span><span class="p">;</span><span class="nx">trades</span><span class="p">;</span><span class="nx">quotes</span><span class="cp">]</span><span class="s1"></span>
+<span class="s1">/ =&gt; time     sym  qty px</span>
+<span class="s1">/ =&gt; ---------------------</span>
+<span class="s1">/ =&gt; 10:01:01 msft 100 101</span>
+<span class="s1">/ =&gt; 10:01:03 ibm  200 98</span>
+<span class="s1">/ =&gt; 10:01:04 ge   150</span>
+<span class="s1">/ for each row in the trade table, the last (prevailing) quote (px) for that sym</span>
+<span class="s1">/ is joined on.</span>
+<span class="s1">/ see http://code.kx.com/q4m3/9_Queries_q-sql/#998-as-of-joins</span>
+
+<span class="s1">////////////////////////////////////</span>
+<span class="s1">/////     Extra/Advanced      //////</span>
+<span class="s1">////////////////////////////////////</span>
+
+<span class="s1">////// Adverbs //////</span>
+<span class="s1">/ You may have noticed the total lack of loops to this point</span>
+<span class="s1">/ This is not a mistake!</span>
+<span class="s1">/ q is a vector language so explicit loops (for, while etc.) are not encouraged</span>
+<span class="s1">/ where possible functionality should be vectorized (i.e. operations on lists)</span>
+<span class="s1">/ adverbs supplement this, modifying the behaviour of functions</span>
+<span class="s1">/ and providing loop type functionality when required</span>
+<span class="s1">/ (in q functions are sometimes referred to as verbs, hence adverbs)</span>
+<span class="s1">/ the &quot;each&quot; adverb modifies a function to treat a list as individual variables</span>
+<span class="s1">first each (1 2 3;4 5 6;7 8 9)</span>
+<span class="s1">/ =&gt; 1 4 7</span>
+
+<span class="s1">/ each-left (\:) and each-right (/:) modify a two-argument function</span>
+<span class="s1">/ to treat one of the arguments and individual variables instead of a list</span>
+<span class="s1">1 2 3 +\: 11 22 33</span>
+<span class="s1">/ =&gt; 12 23 34</span>
+<span class="s1">/ =&gt; 13 24 35</span>
+<span class="s1">/ =&gt; 14 25 36</span>
+<span class="s1">1 2 3 +/: 11 22 33</span>
+<span class="s1">/ =&gt; 12 13 14</span>
+<span class="s1">/ =&gt; 23 24 25</span>
+<span class="s1">/ =&gt; 34 35 36</span>
+
+<span class="s1">/ The true alternatives to loops in q are the adverbs scan (\) and over (/)</span>
+<span class="s1">/ their behaviour differs based on the number of arguments the function they</span>
+<span class="s1">/ are modifying receives.  Here I&#39;</span><span class="nt">ll</span> <span class="nt">summarise</span> <span class="nt">some</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">most</span> <span class="nt">useful</span> <span class="nt">cases</span>
+<span class="o">/</span> <span class="nt">a</span> <span class="nt">single</span> <span class="nt">argument</span> <span class="nt">function</span> <span class="nt">modified</span> <span class="nt">by</span> <span class="nt">scan</span> <span class="nt">given</span> <span class="nt">2</span> <span class="nt">args</span> <span class="nt">behaves</span> <span class="nt">like</span> <span class="s2">&quot;do&quot;</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">*</span> <span class="err">2</span><span class="p">}</span><span class="err">\</span><span class="cp">[</span><span class="mi">5</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span> <span class="nt">2</span> <span class="nt">4</span> <span class="nt">8</span> <span class="nt">16</span> <span class="nt">32</span> <span class="o">(</span><span class="nt">i</span><span class="p">.</span><span class="nc">e</span><span class="o">.</span> <span class="nt">multiply</span> <span class="nt">by</span> <span class="nt">2</span><span class="o">,</span> <span class="nt">5</span> <span class="nt">times</span><span class="o">)</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">*</span> <span class="err">2</span><span class="p">}</span><span class="o">/</span><span class="cp">[</span><span class="mi">5</span><span class="p">;</span><span class="mi">1</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">32</span> <span class="o">(</span><span class="nt">using</span> <span class="nt">over</span> <span class="nt">only</span> <span class="nt">the</span> <span class="nt">final</span> <span class="nt">result</span> <span class="nt">is</span> <span class="nt">shown</span><span class="o">)</span>
+
+<span class="o">/</span> <span class="nt">If</span> <span class="nt">the</span> <span class="nt">first</span> <span class="nt">argument</span> <span class="nt">is</span> <span class="nt">a</span> <span class="nt">function</span><span class="o">,</span> <span class="nt">we</span> <span class="nt">have</span> <span class="nt">the</span> <span class="nt">equivalent</span> <span class="nt">of</span> <span class="s2">&quot;while&quot;</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">*</span> <span class="err">2</span><span class="p">}</span><span class="err">\</span><span class="cp">[</span><span class="p">{</span><span class="nx">x</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">};</span><span class="mi">1</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span> <span class="nt">2</span> <span class="nt">4</span> <span class="nt">8</span> <span class="nt">16</span> <span class="nt">32</span> <span class="nt">64</span> <span class="nt">128</span> <span class="o">(</span><span class="nt">iterates</span> <span class="nt">until</span> <span class="nt">returns</span> <span class="nt">0b</span><span class="o">)</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">*</span> <span class="err">2</span><span class="p">}</span><span class="o">/</span><span class="cp">[</span><span class="p">{</span><span class="nx">x</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">};</span><span class="mi">1</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">128</span> <span class="o">(</span><span class="nt">again</span> <span class="nt">returns</span> <span class="nt">only</span> <span class="nt">the</span> <span class="nt">final</span> <span class="nt">result</span><span class="o">)</span>
+
+<span class="o">/</span> <span class="nt">If</span> <span class="nt">the</span> <span class="nt">function</span> <span class="nt">takes</span> <span class="nt">two</span> <span class="nt">arguments</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">we</span> <span class="nt">pass</span> <span class="nt">a</span> <span class="nt">list</span><span class="o">,</span> <span class="nt">we</span> <span class="nt">have</span> <span class="s2">&quot;for&quot;</span>
+<span class="o">/</span> <span class="nt">where</span> <span class="nt">the</span> <span class="nt">result</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">previous</span> <span class="nt">execution</span> <span class="nt">is</span> <span class="nt">passed</span> <span class="nt">back</span> <span class="nt">into</span> <span class="nt">the</span> <span class="nt">next</span> <span class="nt">loop</span>
+<span class="o">/</span> <span class="nt">along</span> <span class="nt">with</span> <span class="nt">the</span> <span class="nt">next</span> <span class="nt">member</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">list</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">+</span> <span class="err">y</span><span class="p">}</span><span class="err">\</span><span class="cp">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span> <span class="nt">3</span> <span class="nt">6</span> <span class="nt">10</span> <span class="nt">15</span> <span class="o">(</span><span class="nt">i</span><span class="p">.</span><span class="nc">e</span><span class="o">.</span> <span class="nt">the</span> <span class="nt">running</span> <span class="nt">sum</span><span class="o">)</span>
+<span class="p">{</span><span class="err">x</span> <span class="err">+</span> <span class="err">y</span><span class="p">}</span><span class="o">/</span><span class="cp">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="cp">]</span> <span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">15</span> <span class="o">(</span><span class="nt">only</span> <span class="nt">the</span> <span class="nt">final</span> <span class="nt">result</span><span class="o">)</span>
+
+<span class="o">/</span> <span class="nt">There</span> <span class="nt">are</span> <span class="nt">other</span> <span class="nt">adverbs</span> <span class="nt">and</span> <span class="nt">uses</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">is</span> <span class="nt">only</span> <span class="nt">intended</span> <span class="nt">as</span> <span class="nt">quick</span> <span class="nt">overview</span>
+<span class="o">/</span> <span class="nt">http</span><span class="o">://</span><span class="nt">code</span><span class="p">.</span><span class="nc">kx</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">q4m3</span><span class="o">/</span><span class="nt">6_Functions</span><span class="o">/</span><span class="p">#</span><span class="nn">67-adverbs</span>
+
+<span class="o">//////</span> <span class="nt">Scripts</span> <span class="o">//////</span>
+<span class="o">/</span> <span class="nt">q</span> <span class="nt">scripts</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">loaded</span> <span class="nt">from</span> <span class="nt">a</span> <span class="nt">q</span> <span class="nt">session</span> <span class="nt">using</span> <span class="nt">the</span> <span class="s2">&quot;\l&quot;</span> <span class="nt">command</span>
+<span class="o">/</span> <span class="nt">for</span> <span class="nt">example</span> <span class="s2">&quot;\l learnkdb.q&quot;</span> <span class="nt">will</span> <span class="nt">load</span> <span class="nt">this</span> <span class="nt">script</span>
+<span class="o">/</span> <span class="nt">or</span> <span class="nt">from</span> <span class="nt">the</span> <span class="nt">command</span> <span class="nt">prompt</span> <span class="nt">passing</span> <span class="nt">the</span> <span class="nt">script</span> <span class="nt">as</span> <span class="nt">an</span> <span class="nt">argument</span>
+<span class="o">/</span> <span class="nt">for</span> <span class="nt">example</span> <span class="s2">&quot;q learnkdb.q&quot;</span>
+
+<span class="o">//////</span> <span class="nt">On-disk</span> <span class="nt">data</span> <span class="o">//////</span>
+<span class="o">/</span> <span class="nt">Tables</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">persisted</span> <span class="nt">to</span> <span class="nt">disk</span> <span class="nt">in</span> <span class="nt">several</span> <span class="nt">formats</span>
+<span class="o">/</span> <span class="nt">the</span> <span class="nt">two</span> <span class="nt">most</span> <span class="nt">fundamental</span> <span class="nt">are</span> <span class="nt">serialized</span> <span class="nt">and</span> <span class="nt">splayed</span>
+<span class="nt">t</span><span class="o">:(</span><span class="cp">[]</span><span class="nt">a</span><span class="p">:</span><span class="nd">1</span> <span class="nt">2</span> <span class="nt">3</span><span class="o">;</span><span class="nt">b</span><span class="p">:</span><span class="nd">1</span> <span class="nt">2</span> <span class="nt">3f</span><span class="o">)</span>
+<span class="err">`</span><span class="p">:</span><span class="nd">serialized</span> <span class="nt">set</span> <span class="nt">t</span> <span class="o">/</span> <span class="nt">saves</span> <span class="nt">the</span> <span class="nt">table</span> <span class="nt">as</span> <span class="nt">a</span> <span class="nt">single</span> <span class="nt">serialized</span> <span class="nt">file</span>
+<span class="err">`</span><span class="p">:</span><span class="nd">splayed</span><span class="o">/</span> <span class="nt">set</span> <span class="nt">t</span> <span class="o">/</span> <span class="nt">saves</span> <span class="nt">the</span> <span class="nt">table</span> <span class="nt">splayed</span> <span class="nt">into</span> <span class="nt">a</span> <span class="nt">directory</span>
+
+<span class="o">/</span> <span class="nt">the</span> <span class="nt">dir</span> <span class="nt">structure</span> <span class="nt">will</span> <span class="nt">now</span> <span class="nt">look</span> <span class="nt">something</span> <span class="nt">like</span><span class="o">:</span>
+<span class="o">/</span> <span class="nt">db</span><span class="o">/</span>
+<span class="o">/</span> <span class="err">?????????</span> <span class="nt">serialized</span>
+<span class="o">/</span> <span class="err">?????????</span> <span class="nt">splayed</span>
+<span class="o">/</span>     <span class="err">?????????</span> <span class="nt">a</span>
+<span class="o">/</span>     <span class="err">?????????</span> <span class="nt">b</span>
+
+<span class="o">/</span> <span class="nt">Loading</span> <span class="nt">this</span> <span class="nt">directory</span> <span class="o">(</span><span class="nt">as</span> <span class="nt">if</span> <span class="nt">it</span> <span class="nt">was</span> <span class="nt">as</span> <span class="nt">script</span><span class="o">,</span> <span class="nt">see</span> <span class="nt">above</span><span class="o">)</span>
+<span class="o">/</span> <span class="nt">loads</span> <span class="nt">these</span> <span class="nt">tables</span> <span class="nt">into</span> <span class="nt">the</span> <span class="nt">q</span> <span class="nt">session</span>
+<span class="err">\</span><span class="nt">l</span> <span class="o">.</span>
+<span class="o">/</span> <span class="nt">the</span> <span class="nt">serialized</span> <span class="nt">table</span> <span class="nt">will</span> <span class="nt">be</span> <span class="nt">loaded</span> <span class="nt">into</span> <span class="nt">memory</span>
+<span class="o">/</span> <span class="nt">however</span> <span class="nt">the</span> <span class="nt">splayed</span> <span class="nt">table</span> <span class="nt">will</span> <span class="nt">only</span> <span class="nt">be</span> <span class="nt">mapped</span><span class="o">,</span> <span class="nt">not</span> <span class="nt">loaded</span>
+<span class="o">/</span> <span class="nt">both</span> <span class="nt">tables</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">queried</span> <span class="nt">using</span> <span class="nt">q-sql</span>
+<span class="nt">select</span> <span class="nt">from</span> <span class="nt">serialized</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">a</span> <span class="nt">b</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span> <span class="nt">1</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">2</span> <span class="nt">2</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span> <span class="nt">3</span>
+<span class="nt">select</span> <span class="nt">from</span> <span class="nt">splayed</span> <span class="o">/</span> <span class="o">(</span><span class="nt">the</span> <span class="nt">columns</span> <span class="nt">are</span> <span class="nt">read</span> <span class="nt">from</span> <span class="nt">disk</span> <span class="nt">on</span> <span class="nt">request</span><span class="o">)</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">a</span> <span class="nt">b</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">---</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">1</span> <span class="nt">1</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">2</span> <span class="nt">2</span>
+<span class="o">/</span> <span class="o">=&gt;</span> <span class="nt">3</span> <span class="nt">3</span>
+<span class="o">/</span> <span class="nt">see</span> <span class="nt">http</span><span class="o">://</span><span class="nt">code</span><span class="p">.</span><span class="nc">kx</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">q4m3</span><span class="o">/</span><span class="nt">14_Introduction_to_Kdb</span><span class="o">+/</span> <span class="nt">for</span> <span class="nt">more</span>
+
+<span class="o">//////</span> <span class="nt">Frameworks</span> <span class="o">//////</span>
+<span class="o">/</span> <span class="nt">kdb</span><span class="o">+</span> <span class="nt">is</span> <span class="nt">typically</span> <span class="nt">used</span> <span class="nt">for</span> <span class="nt">data</span> <span class="nt">capture</span> <span class="nt">and</span> <span class="nt">analysis</span><span class="o">.</span>
+<span class="o">/</span> <span class="nt">This</span> <span class="nt">involves</span> <span class="nt">using</span> <span class="nt">an</span> <span class="nt">architecture</span> <span class="nt">with</span> <span class="nt">multiple</span> <span class="nt">processes</span>
+<span class="o">/</span> <span class="nt">working</span> <span class="nt">together</span><span class="o">.</span>  <span class="nt">kdb</span><span class="o">+</span> <span class="nt">frameworks</span> <span class="nt">are</span> <span class="nt">available</span> <span class="nt">to</span> <span class="nt">streamline</span> <span class="nt">the</span> <span class="nt">setup</span>
+<span class="o">/</span> <span class="nt">and</span> <span class="nt">configuration</span> <span class="nt">of</span> <span class="nt">this</span> <span class="nt">architecture</span> <span class="nt">and</span> <span class="nt">add</span> <span class="nt">additional</span> <span class="nt">functionality</span>
+<span class="o">/</span> <span class="nt">such</span> <span class="nt">as</span> <span class="nt">disaster</span> <span class="nt">recovery</span><span class="o">,</span> <span class="nt">logging</span><span class="o">,</span> <span class="nt">access</span><span class="o">,</span> <span class="nt">load</span> <span class="nt">balancing</span> <span class="nt">etc</span><span class="o">.</span>
+<span class="o">/</span> <span class="nt">https</span><span class="o">://</span><span class="nt">github</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">AquaQAnalytics</span><span class="o">/</span><span class="nt">TorQ</span>
+</pre></div>
+<h2>Want to know more?</h2>
+
+<ul>
+<li><a href="http://code.kx.com/q4m3/"><em>q for mortals</em> q language tutorial</a></li>
+<li><a href="http://code.kx.com/q4m3/14_Introduction_to_Kdb+/"><em>Introduction to Kdb+</em> on disk data tutorial</a></li>
+<li><a href="http://code.kx.com/q/ref/card/">q language reference</a></li>
+<li><a href="http://training.aquaq.co.uk/">Online training courses</a></li>
+<li><a href="https://github.com/AquaQAnalytics/TorQ">TorQ production framework</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/kdb+.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Matt Doherty, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/kdb+.html.markdown">4 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/picodoc">Matt Doherty</a>,
+        <a href="https://github.com/jonnypress">Jonny Press</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

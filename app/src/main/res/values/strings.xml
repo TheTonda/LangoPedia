@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LangoPedia</string>
+    <string name="action_About">About</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="back">Back</string>
+    <string name="search_language_database_here">Search Language Database Here...</string>
+</resources>

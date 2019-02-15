@@ -1,0 +1,544 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn kotlin in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/kotlin/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fkotlin%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dkotlin">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=kotlin</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/LearnKotlin.kt">LearnKotlin.kt</a>
+    </p>
+  <div id="doc">
+    <p>Kotlin is a statically typed programming language for the JVM, Android and the
+browser. It is 100% interoperable with Java.
+<a href="https://kotlinlang.org/">Read more here.</a></p>
+<div class="highlight"><pre><span></span><span class="c1">// Single-line comments start with //</span>
+<span class="cm">/*</span>
+<span class="cm">Multi-line comments look like this.</span>
+<span class="cm">*/</span>
+
+<span class="c1">// The &quot;package&quot; keyword works in the same way as in Java.</span>
+<span class="k">package</span> <span class="nn">com.learnxinyminutes.kotlin</span>
+
+<span class="cm">/*</span>
+<span class="cm">The entry point to a Kotlin program is a function named &quot;main&quot;.</span>
+<span class="cm">The function is passed an array containing any command-line arguments.</span>
+<span class="cm">Since Kotlin 1.3 the &quot;main&quot; function can also be defined without</span>
+<span class="cm">any parameters.</span>
+<span class="cm">*/</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
+    <span class="cm">/*</span>
+<span class="cm">    Declaring values is done using either &quot;var&quot; or &quot;val&quot;.</span>
+<span class="cm">    &quot;val&quot; declarations cannot be reassigned, whereas &quot;vars&quot; can.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooVal</span> <span class="p">=</span> <span class="m">10</span> <span class="c1">// we cannot later reassign fooVal to something else</span>
+    <span class="k">var</span> <span class="py">fooVar</span> <span class="p">=</span> <span class="m">10</span>
+    <span class="n">fooVar</span> <span class="p">=</span> <span class="m">20</span> <span class="c1">// fooVar can be reassigned</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    In most cases, Kotlin can determine what the type of a variable is,</span>
+<span class="cm">    so we don&#39;t have to explicitly specify it every time.</span>
+<span class="cm">    We can explicitly declare the type of a variable like so:</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">foo</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">7</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Strings can be represented in a similar way as in Java.</span>
+<span class="cm">    Escaping is done with a backslash.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooString</span> <span class="p">=</span> <span class="s">&quot;My String Is Here!&quot;</span>
+    <span class="k">val</span> <span class="py">barString</span> <span class="p">=</span> <span class="s">&quot;Printing on a new line?\nNo Problem!&quot;</span>
+    <span class="k">val</span> <span class="py">bazString</span> <span class="p">=</span> <span class="s">&quot;Do you want to add a tab?\tNo Problem!&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooString</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">barString</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">bazString</span><span class="p">)</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    A raw string is delimited by a triple quote (&quot;&quot;&quot;).</span>
+<span class="cm">    Raw strings can contain newlines and any other characters.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooRawString</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="k">fun</span> <span class="nf">helloWorld</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span> <span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="s">&quot;&quot;&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooRawString</span><span class="p">)</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Strings can contain template expressions.</span>
+<span class="cm">    A template expression starts with a dollar sign ($).</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooTemplateString</span> <span class="p">=</span> <span class="s">&quot;$fooString has ${fooString.length} characters&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooTemplateString</span><span class="p">)</span> <span class="c1">// =&gt; My String Is Here! has 18 characters</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    For a variable to hold null it must be explicitly specified as nullable.</span>
+<span class="cm">    A variable can be specified as nullable by appending a ? to its type.</span>
+<span class="cm">    We can access a nullable variable by using the ?. operator.</span>
+<span class="cm">    We can use the ?: operator to specify an alternative value to use</span>
+<span class="cm">    if a variable is null.</span>
+<span class="cm">    */</span>
+    <span class="k">var</span> <span class="py">fooNullable</span><span class="p">:</span> <span class="n">String</span><span class="p">?</span> <span class="p">=</span> <span class="s">&quot;abc&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooNullable</span><span class="o">?.</span><span class="n">length</span><span class="p">)</span> <span class="c1">// =&gt; 3</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooNullable</span><span class="o">?.</span><span class="n">length</span> <span class="o">?:</span> <span class="p">-</span><span class="m">1</span><span class="p">)</span> <span class="c1">// =&gt; 3</span>
+    <span class="n">fooNullable</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooNullable</span><span class="o">?.</span><span class="n">length</span><span class="p">)</span> <span class="c1">// =&gt; null</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooNullable</span><span class="o">?.</span><span class="n">length</span> <span class="o">?:</span> <span class="p">-</span><span class="m">1</span><span class="p">)</span> <span class="c1">// =&gt; -1</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Functions can be declared using the &quot;fun&quot; keyword.</span>
+<span class="cm">    Function arguments are specified in brackets after the function name.</span>
+<span class="cm">    Function arguments can optionally have a default value.</span>
+<span class="cm">    The function return type, if required, is specified after the arguments.</span>
+<span class="cm">    */</span>
+    <span class="k">fun</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s">&quot;world&quot;</span><span class="p">):</span> <span class="n">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Hello, $name!&quot;</span>
+    <span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">hello</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">))</span> <span class="c1">// =&gt; Hello, foo!</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">hello</span><span class="p">(</span><span class="n">name</span> <span class="p">=</span> <span class="s">&quot;bar&quot;</span><span class="p">))</span> <span class="c1">// =&gt; Hello, bar!</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">hello</span><span class="p">())</span> <span class="c1">// =&gt; Hello, world!</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    A function parameter may be marked with the &quot;vararg&quot; keyword</span>
+<span class="cm">    to allow a variable number of arguments to be passed to the function.</span>
+<span class="cm">    */</span>
+    <span class="k">fun</span> <span class="nf">varargExample</span><span class="p">(</span><span class="k">vararg</span> <span class="n">names</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Argument has ${names.size} elements&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">varargExample</span><span class="p">()</span> <span class="c1">// =&gt; Argument has 0 elements</span>
+    <span class="n">varargExample</span><span class="p">(</span><span class="m">1</span><span class="p">)</span> <span class="c1">// =&gt; Argument has 1 elements</span>
+    <span class="n">varargExample</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">)</span> <span class="c1">// =&gt; Argument has 3 elements</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    When a function consists of a single expression then the curly brackets can</span>
+<span class="cm">    be omitted. The body is specified after a = symbol.</span>
+<span class="cm">    */</span>
+    <span class="k">fun</span> <span class="nf">odd</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="n">x</span> <span class="p">%</span> <span class="m">2</span> <span class="p">==</span> <span class="m">1</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">odd</span><span class="p">(</span><span class="m">6</span><span class="p">))</span> <span class="c1">// =&gt; false</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">odd</span><span class="p">(</span><span class="m">7</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+
+    <span class="c1">// If the return type can be inferred then we don&#39;t need to specify it.</span>
+    <span class="k">fun</span> <span class="nf">even</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">=</span> <span class="n">x</span> <span class="p">%</span> <span class="m">2</span> <span class="p">==</span> <span class="m">0</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">even</span><span class="p">(</span><span class="m">6</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">even</span><span class="p">(</span><span class="m">7</span><span class="p">))</span> <span class="c1">// =&gt; false</span>
+
+    <span class="c1">// Functions can take functions as arguments and return functions.</span>
+    <span class="k">fun</span> <span class="nf">not</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Boolean</span><span class="p">):</span> <span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Boolean</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">n</span> <span class="p">-&gt;</span> <span class="p">!</span><span class="n">f</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+    <span class="p">}</span>
+    <span class="c1">// Named functions can be specified as arguments using the :: operator.</span>
+    <span class="k">val</span> <span class="py">notOdd</span> <span class="p">=</span> <span class="n">not</span><span class="p">(</span><span class="o">::</span><span class="n">odd</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">notEven</span> <span class="p">=</span> <span class="n">not</span><span class="p">(</span><span class="o">::</span><span class="n">even</span><span class="p">)</span>
+    <span class="c1">// Lambda expressions can be specified as arguments.</span>
+    <span class="k">val</span> <span class="py">notZero</span> <span class="p">=</span> <span class="n">not</span> <span class="p">{</span><span class="n">n</span> <span class="p">-&gt;</span> <span class="n">n</span> <span class="p">==</span> <span class="m">0</span><span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">    If a lambda has only one parameter</span>
+<span class="cm">    then its declaration can be omitted (along with the -&gt;).</span>
+<span class="cm">    The name of the single parameter will be &quot;it&quot;.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">notPositive</span> <span class="p">=</span> <span class="n">not</span> <span class="p">{</span><span class="n">it</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">0.</span><span class="p">.</span><span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;${notOdd(i)} ${notEven(i)} ${notZero(i)} ${notPositive(i)}&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// The &quot;class&quot; keyword is used to declare classes.</span>
+    <span class="k">class</span> <span class="nc">ExampleClass</span><span class="p">(</span><span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="nf">memberFunction</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span>
+        <span class="p">}</span>
+
+        <span class="k">infix</span> <span class="k">fun</span> <span class="nf">infixMemberFunction</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Int</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="p">*</span> <span class="n">y</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">    To create a new instance we call the constructor.</span>
+<span class="cm">    Note that Kotlin does not have a &quot;new&quot; keyword.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooExampleClass</span> <span class="p">=</span> <span class="n">ExampleClass</span><span class="p">(</span><span class="m">7</span><span class="p">)</span>
+    <span class="c1">// Member functions can be called using dot notation.</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooExampleClass</span><span class="p">.</span><span class="n">memberFunction</span><span class="p">(</span><span class="m">4</span><span class="p">))</span> <span class="c1">// =&gt; 11</span>
+    <span class="cm">/*</span>
+<span class="cm">    If a function has been marked with the &quot;infix&quot; keyword then it can be</span>
+<span class="cm">    called using infix notation.</span>
+<span class="cm">    */</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooExampleClass</span> <span class="n">infixMemberFunction</span> <span class="m">4</span><span class="p">)</span> <span class="c1">// =&gt; 28</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Data classes are a concise way to create classes that just hold data.</span>
+<span class="cm">    The &quot;hashCode&quot;/&quot;equals&quot; and &quot;toString&quot; methods are automatically generated.</span>
+<span class="cm">    */</span>
+    <span class="k">data</span> <span class="k">class</span> <span class="nc">DataClassExample</span> <span class="p">(</span><span class="k">val</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">z</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">fooData</span> <span class="p">=</span> <span class="n">DataClassExample</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooData</span><span class="p">)</span> <span class="c1">// =&gt; DataClassExample(x=1, y=2, z=4)</span>
+
+    <span class="c1">// Data classes have a &quot;copy&quot; function.</span>
+    <span class="k">val</span> <span class="py">fooCopy</span> <span class="p">=</span> <span class="n">fooData</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span> <span class="p">=</span> <span class="m">100</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooCopy</span><span class="p">)</span> <span class="c1">// =&gt; DataClassExample(x=1, y=100, z=4)</span>
+
+    <span class="c1">// Objects can be destructured into multiple variables.</span>
+    <span class="k">val</span> <span class="err">(</span><span class="py">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="p">=</span> <span class="n">fooCopy</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;$a $b $c&quot;</span><span class="p">)</span> <span class="c1">// =&gt; 1 100 4</span>
+
+    <span class="c1">// destructuring in &quot;for&quot; loop</span>
+    <span class="k">for</span> <span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">in</span> <span class="n">listOf</span><span class="p">(</span><span class="n">fooData</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;$a $b $c&quot;</span><span class="p">)</span> <span class="c1">// =&gt; 1 100 4</span>
+    <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">mapData</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="n">to</span> <span class="m">1</span><span class="p">,</span> <span class="s">&quot;b&quot;</span> <span class="n">to</span> <span class="m">2</span><span class="p">)</span>
+    <span class="c1">// Map.Entry is destructurable as well</span>
+    <span class="k">for</span> <span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">in</span> <span class="n">mapData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;$key -&gt; $value&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// The &quot;with&quot; function is similar to the JavaScript &quot;with&quot; statement.</span>
+    <span class="k">data</span> <span class="k">class</span> <span class="nc">MutableDataClassExample</span> <span class="p">(</span><span class="k">var</span> <span class="py">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="py">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">var</span> <span class="py">z</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">fooMutableData</span> <span class="p">=</span> <span class="n">MutableDataClassExample</span><span class="p">(</span><span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">9</span><span class="p">)</span>
+    <span class="n">with</span> <span class="p">(</span><span class="n">fooMutableData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="p">-=</span> <span class="m">2</span>
+        <span class="n">y</span> <span class="p">+=</span> <span class="m">2</span>
+        <span class="n">z</span><span class="p">--</span>
+    <span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooMutableData</span><span class="p">)</span> <span class="c1">// =&gt; MutableDataClassExample(x=5, y=6, z=8)</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    We can create a list using the &quot;listOf&quot; function.</span>
+<span class="cm">    The list will be immutable - elements cannot be added or removed.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooList</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooList</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="c1">// =&gt; 3</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooList</span><span class="p">.</span><span class="n">first</span><span class="p">())</span> <span class="c1">// =&gt; a</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooList</span><span class="p">.</span><span class="n">last</span><span class="p">())</span> <span class="c1">// =&gt; c</span>
+    <span class="c1">// Elements of a list can be accessed by their index.</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooList</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="c1">// =&gt; b</span>
+
+    <span class="c1">// A mutable list can be created using the &quot;mutableListOf&quot; function.</span>
+    <span class="k">val</span> <span class="py">fooMutableList</span> <span class="p">=</span> <span class="n">mutableListOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fooMutableList</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;d&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooMutableList</span><span class="p">.</span><span class="n">last</span><span class="p">())</span> <span class="c1">// =&gt; d</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooMutableList</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="c1">// =&gt; 4</span>
+
+    <span class="c1">// We can create a set using the &quot;setOf&quot; function.</span>
+    <span class="k">val</span> <span class="py">fooSet</span> <span class="p">=</span> <span class="n">setOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooSet</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooSet</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">))</span> <span class="c1">// =&gt; false</span>
+
+    <span class="c1">// We can create a map using the &quot;mapOf&quot; function.</span>
+    <span class="k">val</span> <span class="py">fooMap</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="n">to</span> <span class="m">8</span><span class="p">,</span> <span class="s">&quot;b&quot;</span> <span class="n">to</span> <span class="m">7</span><span class="p">,</span> <span class="s">&quot;c&quot;</span> <span class="n">to</span> <span class="m">9</span><span class="p">)</span>
+    <span class="c1">// Map values can be accessed by their key.</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">fooMap</span><span class="p">[</span><span class="s">&quot;a&quot;</span><span class="p">])</span> <span class="c1">// =&gt; 8</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Sequences represent lazily-evaluated collections.</span>
+<span class="cm">    We can create a sequence using the &quot;generateSequence&quot; function.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">fooSequence</span> <span class="p">=</span> <span class="n">generateSequence</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="p">{</span> <span class="n">it</span> <span class="p">+</span> <span class="m">1</span> <span class="p">})</span>
+    <span class="k">val</span> <span class="py">x</span> <span class="p">=</span> <span class="n">fooSequence</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="m">10</span><span class="p">).</span><span class="n">toList</span><span class="p">()</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span>
+
+    <span class="c1">// An example of using a sequence to generate Fibonacci numbers:</span>
+    <span class="k">fun</span> <span class="nf">fibonacciSequence</span><span class="p">():</span> <span class="n">Sequence</span><span class="p">&lt;</span><span class="n">Long</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="py">a</span> <span class="p">=</span> <span class="m">0L</span>
+        <span class="k">var</span> <span class="py">b</span> <span class="p">=</span> <span class="m">1L</span>
+
+        <span class="k">fun</span> <span class="nf">next</span><span class="p">():</span> <span class="n">Long</span> <span class="p">{</span>
+            <span class="k">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">a</span> <span class="p">+</span> <span class="n">b</span>
+            <span class="n">a</span> <span class="p">=</span> <span class="n">b</span>
+            <span class="n">b</span> <span class="p">=</span> <span class="n">result</span>
+            <span class="k">return</span> <span class="n">a</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">generateSequence</span><span class="p">(</span><span class="o">::</span><span class="n">next</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">val</span> <span class="py">y</span> <span class="p">=</span> <span class="n">fibonacciSequence</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">10</span><span class="p">).</span><span class="n">toList</span><span class="p">()</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1">// =&gt; [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]</span>
+
+    <span class="c1">// Kotlin provides higher-order functions for working with collections.</span>
+    <span class="k">val</span> <span class="py">z</span> <span class="p">=</span> <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">9</span><span class="p">).</span><span class="n">map</span> <span class="p">{</span><span class="n">it</span> <span class="p">*</span> <span class="m">3</span><span class="p">}</span>
+                  <span class="p">.</span><span class="n">filter</span> <span class="p">{</span><span class="n">it</span> <span class="p">&lt;</span> <span class="m">20</span><span class="p">}</span>
+                  <span class="p">.</span><span class="n">groupBy</span> <span class="p">{</span><span class="n">it</span> <span class="p">%</span> <span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">}</span>
+                  <span class="p">.</span><span class="n">mapKeys</span> <span class="p">{</span><span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">key</span><span class="p">)</span> <span class="s">&quot;even&quot;</span> <span class="k">else</span> <span class="s">&quot;odd&quot;</span><span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1">// =&gt; {odd=[3, 9, 15], even=[6, 12, 18]}</span>
+
+    <span class="c1">// A &quot;for&quot; loop can be used with anything that provides an iterator.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">c</span> <span class="k">in</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// &quot;while&quot; loops work in the same way as other languages.</span>
+    <span class="k">var</span> <span class="py">ctr</span> <span class="p">=</span> <span class="m">0</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">ctr</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">ctr</span><span class="p">)</span>
+        <span class="n">ctr</span><span class="p">++</span>
+    <span class="p">}</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">ctr</span><span class="p">)</span>
+        <span class="n">ctr</span><span class="p">++</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">ctr</span> <span class="p">&lt;</span> <span class="m">10</span><span class="p">)</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    &quot;if&quot; can be used as an expression that returns a value.</span>
+<span class="cm">    For this reason the ternary ?: operator is not needed in Kotlin.</span>
+<span class="cm">    */</span>
+    <span class="k">val</span> <span class="py">num</span> <span class="p">=</span> <span class="m">5</span>
+    <span class="k">val</span> <span class="py">message</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="p">%</span> <span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="s">&quot;even&quot;</span> <span class="k">else</span> <span class="s">&quot;odd&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;$num is $message&quot;</span><span class="p">)</span> <span class="c1">// =&gt; 5 is odd</span>
+
+    <span class="c1">// &quot;when&quot; can be used as an alternative to &quot;if-else if&quot; chains.</span>
+    <span class="k">val</span> <span class="py">i</span> <span class="p">=</span> <span class="m">10</span>
+    <span class="k">when</span> <span class="p">{</span>
+        <span class="n">i</span> <span class="p">&lt;</span> <span class="m">7</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;first block&quot;</span><span class="p">)</span>
+        <span class="n">fooString</span><span class="p">.</span><span class="n">startsWith</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;second block&quot;</span><span class="p">)</span>
+        <span class="k">else</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;else block&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// &quot;when&quot; can be used with an argument.</span>
+    <span class="k">when</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="m">0</span><span class="p">,</span> <span class="m">21</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;0 or 21&quot;</span><span class="p">)</span>
+        <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">20</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;in the range 1 to 20&quot;</span><span class="p">)</span>
+        <span class="k">else</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;none of the above&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// &quot;when&quot; can be used as a function that returns a value.</span>
+    <span class="k">var</span> <span class="py">result</span> <span class="p">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="m">0</span><span class="p">,</span> <span class="m">21</span> <span class="p">-&gt;</span> <span class="s">&quot;0 or 21&quot;</span>
+        <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">20</span> <span class="p">-&gt;</span> <span class="s">&quot;in the range 1 to 20&quot;</span>
+        <span class="k">else</span> <span class="p">-&gt;</span> <span class="s">&quot;none of the above&quot;</span>
+    <span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    We can check if an object is a particular type by using the &quot;is&quot; operator.</span>
+<span class="cm">    If an object passes a type check then it can be used as that type without</span>
+<span class="cm">    explicitly casting it.</span>
+<span class="cm">    */</span>
+    <span class="k">fun</span> <span class="nf">smartCastExample</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="p">:</span> <span class="n">Boolean</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="k">is</span> <span class="n">Boolean</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// x is automatically cast to Boolean</span>
+            <span class="k">return</span> <span class="n">x</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="k">is</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// x is automatically cast to Int</span>
+            <span class="k">return</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">0</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="k">is</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// x is automatically cast to String</span>
+            <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">isNotEmpty</span><span class="p">()</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">smartCastExample</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">smartCastExample</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">))</span> <span class="c1">// =&gt; false</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">smartCastExample</span><span class="p">(</span><span class="m">5</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">smartCastExample</span><span class="p">(</span><span class="m">0</span><span class="p">))</span> <span class="c1">// =&gt; false</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">smartCastExample</span><span class="p">(</span><span class="k">true</span><span class="p">))</span> <span class="c1">// =&gt; true</span>
+
+    <span class="c1">// Smartcast also works with when block</span>
+    <span class="k">fun</span> <span class="nf">smartCastWhenExample</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="p">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">is</span> <span class="n">Boolean</span> <span class="p">-&gt;</span> <span class="n">x</span>
+        <span class="k">is</span> <span class="n">Int</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="m">0</span>
+        <span class="k">is</span> <span class="n">String</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">isNotEmpty</span><span class="p">()</span>
+        <span class="k">else</span> <span class="p">-&gt;</span> <span class="k">false</span>
+    <span class="p">}</span>
+
+    <span class="cm">/*</span>
+<span class="cm">    Extensions are a way to add new functionality to a class.</span>
+<span class="cm">    This is similar to C# extension methods.</span>
+<span class="cm">    */</span>
+    <span class="k">fun</span> <span class="nf">String</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">c</span><span class="p">:</span> <span class="n">Char</span><span class="p">):</span> <span class="n">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span><span class="n">it</span> <span class="p">!=</span> <span class="n">c</span><span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="sc">&#39;l&#39;</span><span class="p">))</span> <span class="c1">// =&gt; Heo, word!</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">EnumExample</span><span class="p">.</span><span class="n">A</span><span class="p">)</span> <span class="c1">// =&gt; A</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">ObjectExample</span><span class="p">.</span><span class="n">hello</span><span class="p">())</span> <span class="c1">// =&gt; hello</span>
+
+    <span class="n">testOperator</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// Enum classes are similar to Java enum types.</span>
+<span class="k">enum</span> <span class="k">class</span> <span class="nc">EnumExample</span> <span class="p">{</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm">The &quot;object&quot; keyword can be used to create singleton objects.</span>
+<span class="cm">We cannot instantiate it but we can refer to its unique instance by its name.</span>
+<span class="cm">This is similar to Scala singleton objects.</span>
+<span class="cm">*/</span>
+<span class="k">object</span> <span class="nc">ObjectExample</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">hello</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;hello&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">useObject</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ObjectExample</span><span class="p">.</span><span class="n">hello</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">someRef</span><span class="p">:</span> <span class="n">Any</span> <span class="p">=</span> <span class="n">ObjectExample</span> <span class="c1">// we use objects name just as is</span>
+<span class="p">}</span>
+
+
+<span class="cm">/* The not-null assertion operator (!!) converts any value to a non-null type and</span>
+<span class="cm">throws an exception if the value is null.</span>
+<span class="cm">*/</span>
+<span class="k">var</span> <span class="py">b</span><span class="p">:</span> <span class="n">String</span><span class="p">?</span> <span class="p">=</span> <span class="s">&quot;abc&quot;</span>
+<span class="k">val</span> <span class="py">l</span> <span class="p">=</span> <span class="n">b</span><span class="o">!!</span><span class="p">.</span><span class="n">length</span>
+
+<span class="cm">/* You can add many custom operations using symbol like +, to particular instance</span>
+<span class="cm">by overloading the built-in kotlin operator, using &quot;operator&quot; keyword</span>
+
+<span class="cm">below is the sample class to add some operator, and the most basic example</span>
+<span class="cm">*/</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">SomeClass</span><span class="p">(</span><span class="k">var</span> <span class="py">savedValue</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">0</span><span class="p">)</span>
+
+<span class="c1">// instance += valueToAdd</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">plusAssign</span><span class="p">(</span><span class="n">valueToAdd</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">+=</span> <span class="n">valueToAdd</span>  
+<span class="p">}</span>
+
+<span class="c1">// -instance</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">unaryMinus</span><span class="p">()</span> <span class="p">=</span> <span class="n">SomeClass</span><span class="p">(-</span><span class="k">this</span><span class="p">.</span><span class="n">savedValue</span><span class="p">)</span>
+
+<span class="c1">// ++instance or instance++</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">inc</span><span class="p">()</span> <span class="p">=</span> <span class="n">SomeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">+</span> <span class="m">1</span><span class="p">)</span>
+
+<span class="c1">// instance * other</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">times</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">SomeClass</span><span class="p">)</span> <span class="p">=</span>
+  <span class="n">SomeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">*</span> <span class="n">other</span><span class="p">.</span><span class="n">savedValue</span><span class="p">)</span>
+
+<span class="c1">// an overload for multiply</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">times</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">=</span> <span class="n">SomeClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">*</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="c1">// other in instance</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">SomeClass</span><span class="p">)</span> <span class="p">=</span>
+  <span class="n">other</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">==</span> <span class="k">this</span><span class="p">.</span><span class="n">savedValue</span>
+
+<span class="c1">// instance[dummyIndex] = valueToSet</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="n">dummyIndex</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">valueToSet</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">=</span> <span class="n">valueToSet</span> <span class="p">+</span> <span class="n">dummyIndex</span>
+<span class="p">}</span>
+
+<span class="c1">// instance()</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">invoke</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">println</span><span class="p">(</span><span class="s">&quot;instance invoked by invoker&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cm">/* return type must be Integer,</span>
+<span class="cm">so that, it can be translated to &quot;returned value&quot; compareTo 0</span>
+
+<span class="cm">for equality (==,!=) using operator will violates overloading equals function,</span>
+<span class="cm">since it is already defined in Any class</span>
+<span class="cm">*/</span>
+<span class="k">operator</span> <span class="k">fun</span> <span class="nf">SomeClass</span><span class="p">.</span><span class="n">compareTo</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">SomeClass</span><span class="p">)</span> <span class="p">=</span>
+  <span class="k">this</span><span class="p">.</span><span class="n">savedValue</span> <span class="p">-</span> <span class="n">other</span><span class="p">.</span><span class="n">savedValue</span>
+
+<span class="k">fun</span> <span class="nf">testOperator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="py">x</span> <span class="p">=</span> <span class="n">SomeClass</span><span class="p">(</span><span class="m">4</span><span class="p">)</span>
+
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=4)&quot;</span>
+  <span class="n">x</span> <span class="p">+=</span> <span class="m">10</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=14)&quot;</span>
+  <span class="n">println</span><span class="p">(-</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=-14)&quot;</span>
+  <span class="n">println</span><span class="p">(++</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=15)&quot;</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span> <span class="p">*</span> <span class="n">SomeClass</span><span class="p">(</span><span class="m">3</span><span class="p">))</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=45)&quot;</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span> <span class="p">*</span> <span class="m">2</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=30)&quot;</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">SomeClass</span><span class="p">(</span><span class="m">15</span><span class="p">)</span> <span class="k">in</span> <span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; true</span>
+  <span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="m">10</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">// =&gt; &quot;SomeClass(savedValue=12)&quot;</span>
+  <span class="n">x</span><span class="p">()</span> <span class="c1">// =&gt; &quot;instance invoked by invoker&quot;</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">x</span> <span class="p">&gt;=</span> <span class="m">15</span><span class="p">)</span> <span class="c1">// =&gt; false</span>
+<span class="p">}</span>
+</pre></div>
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://kotlinlang.org/docs/tutorials/">Kotlin tutorials</a></li>
+<li><a href="https://play.kotlinlang.org/">Try Kotlin in your browser</a></li>
+<li><a href="http://kotlin.link/">A list of Kotlin resources</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/kotlin.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by S Webber, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/kotlin.html.markdown">9 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/s-webber">S Webber</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

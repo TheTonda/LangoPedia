@@ -1,0 +1,453 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn MIPS Assembly in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/mips/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fmips%2F&text=Learn+X+in+Y+minutes%2C+where+X%3DMIPS+Assembly">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=MIPS Assembly</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/MIPS.asm">MIPS.asm</a>
+    </p>
+  <div id="doc">
+    <p>The MIPS (Microprocessor without Interlocked Pipeline Stages) Assembly language
+is designed to work with the MIPS microprocessor paradigm designed by J. L. 
+Hennessy in 1981. These RISC processors are used in embedded systems such as 
+gateways and routers.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/MIPS_architecture">Read More</a></p>
+<div class="highlight"><pre><span></span><span class="c"># Comments are denoted with a &#39;#&#39;</span>
+
+<span class="c"># Everything that occurs after a &#39;#&#39; will be ignored by the assembler&#39;s lexer.</span>
+
+<span class="c"># Programs typically contain a .data and .text sections</span>
+
+<span class="na">.data</span> <span class="c"># Section where data is stored in memory (allocated in RAM), similar to</span>
+      <span class="c"># variables in higher level languages</span>
+
+  <span class="c"># Declarations follow a ( label: .type value(s) ) form of declaration</span>
+  <span class="nl">hello_world:</span> <span class="na">.asciiz</span> <span class="s">&quot;Hello World\n&quot;</span>      <span class="c"># Declare a null terminated string</span>
+  <span class="no">num1</span><span class="p">:</span> <span class="no">.word</span> <span class="mi">42</span>                            <span class="c"># Integers are referred to as words</span>
+                                            <span class="c"># (32 bit value)</span>
+
+  <span class="nl">arr1:</span> <span class="na">.word</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>                 <span class="c"># Array of words</span>
+  <span class="no">arr2</span><span class="p">:</span> <span class="no">.byte</span> <span class="err">&#39;</span><span class="no">a</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="no">b</span><span class="err">&#39;</span>                      <span class="c"># Array of chars (1 byte each)</span>
+  <span class="no">buffer</span><span class="p">:</span> <span class="no">.space</span> <span class="mi">60</span>                         <span class="c"># Allocates space in the RAM </span>
+                                            <span class="c"># (not cleared to 0)</span>
+
+  <span class="c"># Datatype sizes</span>
+  <span class="nl">_byte:</span> <span class="na">.byte</span> <span class="err">&#39;</span><span class="no">a</span><span class="err">&#39;</span>                          <span class="c"># 1 byte</span>
+  <span class="no">_halfword</span><span class="p">:</span> <span class="no">.half</span> <span class="mi">53</span>                       <span class="c"># 2 bytes</span>
+  <span class="no">_word</span><span class="p">:</span> <span class="no">.word</span> <span class="mi">3</span>                            <span class="c"># 4 bytes</span>
+  <span class="no">_float</span><span class="p">:</span> <span class="no">.float</span> <span class="mi">3</span><span class="no">.14</span>                       <span class="c"># 4 bytes</span>
+  <span class="no">_double</span><span class="p">:</span> <span class="no">.double</span> <span class="mi">7</span><span class="no">.0</span>                      <span class="c"># 8 bytes</span>
+
+  <span class="na">.align</span> <span class="mi">2</span>                                  <span class="c"># Memory alignment of data, where </span>
+                                            <span class="c"># number indicates byte alignment in</span>
+                                            <span class="c"># powers of 2. (.align 2 represents </span>
+                                            <span class="c"># word alignment since 2^2 = 4 bytes)</span>
+
+<span class="na">.text</span>                                       <span class="c"># Section that contains instructions</span>
+                                            <span class="c"># and program logic</span>
+<span class="no">.globl</span> <span class="no">_main</span>                                <span class="c"># Declares an instruction label as</span>
+                                            <span class="c"># global, making it accessible to</span>
+                                            <span class="c"># other files</span>
+
+  <span class="nl">_main:</span>                                    <span class="c"># MIPS programs execute instructions</span>
+                                            <span class="c"># sequentially, where the code under</span>
+                                            <span class="c"># this label will be executed firsts</span>
+
+    <span class="c"># Let&#39;s print &quot;hello world&quot;</span>
+    <span class="nf">la</span> <span class="no">$a0</span><span class="p">,</span> <span class="no">hello_world</span>                     <span class="c"># Load address of string stored in</span>
+                                            <span class="c"># memory</span>
+    <span class="no">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">4</span>                               <span class="c"># Load the syscall value (indicating</span>
+                                            <span class="c"># type of functionality)</span>
+    <span class="no">syscall</span>                                 <span class="c"># Perform the specified syscall with</span>
+                                            <span class="c"># the given argument ($a0)</span>
+
+    <span class="c"># Registers (used to hold data during program execution)</span>
+    <span class="c"># $t0 - $t9                             # Temporary registers used for </span>
+                                            <span class="c"># intermediate calculations inside </span>
+                                            <span class="c"># subroutines (not saved across </span>
+                                            <span class="c"># function calls)</span>
+
+    <span class="c"># $s0 - $s7                             # Saved registers where values are </span>
+                                            <span class="c"># saved across subroutine calls. </span>
+                                            <span class="c"># Typically saved in stack</span>
+
+    <span class="c"># $a0 - $a3                             # Argument registers for passing in </span>
+                                            <span class="c"># arguments for subroutines</span>
+    <span class="c"># $v0 - $v1                             # Return registers for returning </span>
+                                            <span class="c"># values to caller function</span>
+
+    <span class="c"># Types of load/store instructions</span>
+    <span class="nf">la</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">label</span>                           <span class="c"># Copy the address of a value in</span>
+                                            <span class="c"># memory specified by the label into </span>
+                                            <span class="c"># register $t0</span>
+    <span class="no">lw</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">label</span>                           <span class="c"># Copy a word value from memory</span>
+    <span class="no">lw</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">4</span><span class="p">(</span><span class="no">$s0</span><span class="p">)</span>                          <span class="c"># Copy a word value from an address</span>
+                                            <span class="c"># stored in a register with an offset </span>
+                                            <span class="c"># of 4 bytes (addr + 4)</span>
+    <span class="no">lb</span> <span class="no">$t2</span><span class="p">,</span> <span class="no">label</span>                           <span class="c"># Copy a byte value to the lower order</span>
+                                            <span class="c"># portion of the register $t2</span>
+    <span class="no">lb</span> <span class="no">$t2</span><span class="p">,</span> <span class="mi">0</span><span class="p">(</span><span class="no">$s0</span><span class="p">)</span>                          <span class="c"># Copy a byte value from the source</span>
+                                            <span class="c"># address in $s0 with offset 0</span>
+    <span class="c"># Same idea with &#39;lh&#39; for halfwords</span>
+
+    <span class="nf">sw</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">label</span>                           <span class="c"># Store word value into memory address </span>
+                                            <span class="c"># mapped by label</span>
+    <span class="no">sw</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="no">$s0</span><span class="p">)</span>                          <span class="c"># Store word value into address </span>
+                                            <span class="c"># specified in $s0 and offset of 8 bytes</span>
+    <span class="c"># Same idea using &#39;sb&#39; and &#39;sh&#39; for bytes and halfwords. &#39;sa&#39; does not exist</span>
+
+<span class="c">### Math ###</span>
+  <span class="nl">_math:</span>
+    <span class="c"># Remember to load your values into a register</span>
+    <span class="nf">lw</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">num</span>                             <span class="c"># From the data section</span>
+    <span class="no">li</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">5</span>                               <span class="c"># Or from an immediate (constant)</span>
+    <span class="no">li</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">6</span>
+    <span class="nf">add</span> <span class="no">$t2</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                       <span class="c"># $t2 = $t0 + $t1</span>
+    <span class="no">sub</span> <span class="no">$t2</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                       <span class="c"># $t2 = $t0 - $t1</span>
+    <span class="no">mul</span> <span class="no">$t2</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                       <span class="c"># $t2 = $t0 * $t1</span>
+    <span class="no">div</span> <span class="no">$t2</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                       <span class="c"># $t2 = $t0 / $t1 (Might not be </span>
+                                            <span class="c"># supported in some versons of MARS)</span>
+    <span class="no">div</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                            <span class="c"># Performs $t0 / $t1. Get the quotient</span>
+                                            <span class="c"># using &#39;mflo&#39; and remainder using &#39;mfhi&#39;</span>
+
+    <span class="c"># Bitwise Shifting</span>
+    <span class="nf">sll</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">2</span>                         <span class="c"># Bitwise shift to the left with </span>
+                                            <span class="c"># immediate (constant value) of 2</span>
+    <span class="no">sllv</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                      <span class="c"># Shift left by a variable amount in</span>
+                                            <span class="c"># register</span>
+    <span class="no">srl</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">5</span>                         <span class="c"># Bitwise shift to the right (does </span>
+                                            <span class="c"># not sign preserve, sign-extends with 0)</span>
+    <span class="no">srlv</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                      <span class="c"># Shift right by a variable amount in</span>
+                                            <span class="c"># a register</span>
+    <span class="no">sra</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">7</span>                         <span class="c"># Bitwise arithmetic shift to the right </span>
+                                            <span class="c"># (preserves sign)</span>
+    <span class="no">srav</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                      <span class="c"># Shift right by a variable amount </span>
+                                            <span class="c"># in a register</span>
+
+    <span class="c"># Bitwise operators</span>
+    <span class="nf">and</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                       <span class="c"># Bitwise AND</span>
+    <span class="no">andi</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">0xFFF</span>                    <span class="c"># Bitwise AND with immediate</span>
+    <span class="no">or</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                        <span class="c"># Bitwise OR</span>
+    <span class="no">ori</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">0xFFF</span>                     <span class="c"># Bitwise OR with immediate</span>
+    <span class="no">xor</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                       <span class="c"># Bitwise XOR</span>
+    <span class="no">xori</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">0xFFF</span>                    <span class="c"># Bitwise XOR with immediate</span>
+    <span class="no">nor</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t2</span>                       <span class="c"># Bitwise NOR</span>
+
+<span class="c">## BRANCHING ##</span>
+  <span class="nl">_branching:</span>
+    <span class="c"># The basic format of these branching instructions typically follow &lt;instr&gt;</span>
+    <span class="c"># &lt;reg1&gt; &lt;reg2&gt; &lt;label&gt; where label is the label we want to jump to if the</span>
+    <span class="c"># given conditional evaluates to true</span>
+    <span class="c"># Sometimes it is easier to write the conditional logic backwards, as seen</span>
+    <span class="c"># in the simple if statement example below</span>
+
+    <span class="nf">beq</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">reg_eq</span>                    <span class="c"># Will branch to reg_eq if</span>
+                                            <span class="c"># $t0 == $t1, otherwise</span>
+                                            <span class="c"># execute the next line</span>
+    <span class="no">bne</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">reg_neq</span>                   <span class="c"># Branches when $t0 != $t1</span>
+    <span class="no">b</span> <span class="no">branch_target</span>                         <span class="c"># Unconditional branch, will always execute</span>
+    <span class="no">beqz</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">req_eq_zero</span>                   <span class="c"># Branches when $t0 == 0</span>
+    <span class="no">bnez</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">req_neq_zero</span>                  <span class="c"># Branches when $t0 != 0</span>
+    <span class="no">bgt</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">t0_gt_t1</span>                  <span class="c"># Branches when $t0 &gt; $t1</span>
+    <span class="no">bge</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">t0_gte_t1</span>                 <span class="c"># Branches when $t0 &gt;= $t1</span>
+    <span class="no">bgtz</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">t0_gt0</span>                        <span class="c"># Branches when $t0 &gt; 0</span>
+    <span class="no">blt</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">t0_gt_t1</span>                  <span class="c"># Branches when $t0 &lt; $t1</span>
+    <span class="no">ble</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">t0_gte_t1</span>                 <span class="c"># Branches when $t0 &lt;= $t1</span>
+    <span class="no">bltz</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">t0_lt0</span>                        <span class="c"># Branches when $t0 &lt; 0</span>
+    <span class="no">slt</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span>                       <span class="c"># Instruction that sends a signal when</span>
+                                            <span class="c"># $t0 &lt; $t1 with reuslt in $s0 (1 for true)</span>
+
+    <span class="c"># Simple if statement</span>
+    <span class="c"># if (i == j)</span>
+    <span class="c">#     f = g + h;</span>
+    <span class="c">#  f = f - i;</span>
+
+    <span class="c"># Let $s0 = f, $s1 = g, $s2 = h, $s3 = i, $s4 = j</span>
+    <span class="nf">bne</span> <span class="no">$s3</span><span class="p">,</span> <span class="no">$s4</span><span class="p">,</span> <span class="no">L1</span> <span class="c"># if (i !=j)</span>
+    <span class="no">add</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s1</span><span class="p">,</span> <span class="no">$s2</span> <span class="c"># f = g + h</span>
+
+    <span class="nl">L1:</span>
+      <span class="nf">sub</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s3</span> <span class="c"># f = f - i</span>
+
+    <span class="c"># Below is an example of finding the max of 3 numbers</span>
+    <span class="c"># A direct translation in Java from MIPS logic:</span>
+    <span class="c"># if (a &gt; b)</span>
+    <span class="c">#   if (a &gt; c)</span>
+    <span class="c">#     max = a;</span>
+    <span class="c">#   else</span>
+    <span class="c">#     max = c;</span>
+    <span class="c"># else</span>
+    <span class="c">#     max = b;</span>
+    <span class="c">#   else</span>
+    <span class="c">#     max = c;</span>
+
+    <span class="c"># Let $s0 = a, $s1 = b, $s2 = c, $v0 = return register</span>
+    <span class="nf">ble</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s1</span><span class="p">,</span> <span class="no">a_LTE_b</span>                   <span class="c"># if (a &lt;= b) branch(a_LTE_b)</span>
+    <span class="no">ble</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s2</span><span class="p">,</span> <span class="no">max_C</span>                     <span class="c"># if (a &gt; b &amp;&amp; a &lt;=c) branch(max_C)</span>
+    <span class="no">move</span> <span class="no">$v0</span><span class="p">,</span> <span class="no">$s1</span>                           <span class="c"># else [a &gt; b &amp;&amp; a &gt; c] max = a</span>
+    <span class="no">j</span> <span class="no">done</span>                                  <span class="c"># Jump to the end of the program</span>
+
+    <span class="nl">a_LTE_b:</span>                                <span class="c"># Label for when a &lt;= b</span>
+      <span class="nf">ble</span> <span class="no">$s1</span><span class="p">,</span> <span class="no">$s2</span><span class="p">,</span> <span class="no">max_C</span>                   <span class="c"># if (a &lt;= b &amp;&amp; b &lt;= c) branch(max_C)</span>
+      <span class="no">move</span> <span class="no">$v0</span><span class="p">,</span> <span class="no">$s1</span>                         <span class="c"># if (a &lt;= b &amp;&amp; b &gt; c) max = b</span>
+      <span class="no">j</span> <span class="no">done</span>                                <span class="c"># Jump to done</span>
+
+    <span class="nl">max_C:</span>
+      <span class="nf">move</span> <span class="no">$v0</span><span class="p">,</span> <span class="no">$s2</span>                         <span class="c"># max = c</span>
+
+    <span class="nl">done:</span>                                   <span class="c"># End of program</span>
+
+<span class="c">## LOOPS ##</span>
+  <span class="nl">_loops:</span>
+    <span class="c"># The basic structure of loops is having an exit condition and a jump </span>
+    <span class="nf">instruction</span> <span class="no">to</span> <span class="no">continue</span> <span class="no">its</span> <span class="no">execution</span>
+    <span class="nf">li</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="nl">while:</span>
+      <span class="nf">bgt</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="no">end_while</span>                <span class="c"># While $t0 is less than 10, keep iterating</span>
+      <span class="no">addi</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">1</span>                      <span class="c"># Increment the value</span>
+      <span class="no">j</span> <span class="no">while</span>                               <span class="c"># Jump back to the beginning of the loop</span>
+    <span class="no">end_while</span><span class="p">:</span>
+
+    <span class="c"># 2D Matrix Traversal</span>
+    <span class="c"># Assume that $a0 stores the address of an integer matrix which is 3 x 3</span>
+    <span class="nf">li</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">0</span>                               <span class="c"># Counter for i</span>
+    <span class="no">li</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">0</span>                               <span class="c"># Counter for j</span>
+    <span class="no">matrix_row</span><span class="p">:</span>
+      <span class="nf">bgt</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="no">matrix_row_end</span>
+
+      <span class="nl">matrix_col:</span>
+        <span class="nf">bgt</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="no">matrix_col_end</span>
+
+        <span class="c"># Do stuff</span>
+
+        <span class="nf">addi</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">1</span>                  <span class="c"># Increment the col counter</span>
+      <span class="no">matrix_col_end</span><span class="p">:</span>
+
+      <span class="c"># Do stuff</span>
+
+      <span class="nf">addi</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="nl">matrix_row_end:</span>
+
+<span class="c">## FUNCTIONS ##</span>
+  <span class="nl">_functions:</span>
+    <span class="c"># Functions are callable procedures that can accept arguments and return </span>
+    <span class="nf">values</span> <span class="no">all</span> <span class="no">denoted</span> <span class="no">with</span> <span class="no">labels</span><span class="p">,</span> <span class="no">like</span> <span class="no">above</span>
+
+    <span class="nl">main:</span>                                 <span class="c"># Programs begin with main func</span>
+      <span class="nf">jal</span> <span class="no">return_1</span>                        <span class="c"># jal will store the current PC in $ra</span>
+                                          <span class="c"># and then jump to return_1</span>
+
+      <span class="c"># What if we want to pass in args?</span>
+      <span class="c"># First we must pass in our parameters to the argument registers</span>
+      <span class="nf">li</span> <span class="no">$a0</span><span class="p">,</span> <span class="mi">1</span>
+      <span class="nf">li</span> <span class="no">$a1</span><span class="p">,</span> <span class="mi">2</span>
+      <span class="nf">jal</span> <span class="no">sum</span>                             <span class="c"># Now we can call the function</span>
+
+      <span class="c"># How about recursion?</span>
+      <span class="c"># This is a bit more work since we need to make sure we save and restore</span>
+      <span class="c"># the previous PC in $ra since jal will automatically overwrite on each call</span>
+      <span class="nf">li</span> <span class="no">$a0</span><span class="p">,</span> <span class="mi">3</span>
+      <span class="nf">jal</span> <span class="no">fact</span>
+
+      <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">10</span>
+      <span class="nf">syscall</span>
+
+    <span class="c"># This function returns 1</span>
+    <span class="nl">return_1:</span>
+      <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">1</span>                           <span class="c"># Load val in return register $v0</span>
+      <span class="no">jr</span> <span class="no">$ra</span>                              <span class="c"># Jump back to old PC to continue exec</span>
+
+
+    <span class="c"># Function with 2 args</span>
+    <span class="nl">sum:</span>
+      <span class="nf">add</span> <span class="no">$v0</span><span class="p">,</span> <span class="no">$a0</span><span class="p">,</span> <span class="no">$a1</span>
+      <span class="nf">jr</span> <span class="no">$ra</span>                              <span class="c"># Return</span>
+
+    <span class="c"># Recursive function to find factorial</span>
+    <span class="nl">fact:</span>
+      <span class="nf">addi</span> <span class="no">$sp</span><span class="p">,</span> <span class="no">$sp</span><span class="p">,</span> <span class="p">-</span><span class="mi">8</span>                   <span class="c"># Allocate space in stack</span>
+      <span class="no">sw</span> <span class="no">$s0</span><span class="p">,</span> <span class="p">(</span><span class="no">$sp</span><span class="p">)</span>                       <span class="c"># Store reg that holds current num</span>
+      <span class="no">sw</span> <span class="no">$ra</span><span class="p">,</span> <span class="mi">4</span><span class="p">(</span><span class="no">$sp</span><span class="p">)</span>                      <span class="c"># Store previous PC</span>
+
+      <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">1</span>                           <span class="c"># Init return value</span>
+      <span class="no">beq</span> <span class="no">$a0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">fact_done</span>               <span class="c"># Finish if param is 0</span>
+
+      <span class="c"># Otherwise, continue recursion</span>
+      <span class="nf">move</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$a0</span>                       <span class="c"># Copy $a0 to $s0</span>
+      <span class="no">sub</span> <span class="no">$a0</span><span class="p">,</span> <span class="no">$a0</span><span class="p">,</span> <span class="mi">1</span>
+      <span class="nf">jal</span> <span class="no">fact</span>
+
+      <span class="nf">mul</span> <span class="no">$v0</span><span class="p">,</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$v0</span>                   <span class="c"># Multiplication is done</span>
+
+      <span class="nl">fact_done:</span>
+        <span class="nf">lw</span> <span class="no">$s0</span><span class="p">,</span> <span class="p">(</span><span class="no">$sp</span><span class="p">)</span>
+        <span class="nf">lw</span> <span class="no">$ra</span><span class="p">,</span> <span class="p">(</span><span class="no">$sp</span><span class="p">)</span>                     <span class="c"># Restore the PC</span>
+        <span class="no">addi</span> <span class="no">$sp</span><span class="p">,</span> <span class="no">$sp</span><span class="p">,</span> <span class="mi">8</span>
+
+        <span class="nf">jr</span> <span class="no">$ra</span>
+
+<span class="c">## MACROS ##</span>
+  <span class="nl">_macros:</span>
+    <span class="c"># Macros are extremly useful for substituting repeated code blocks with a</span>
+    <span class="c"># single label for better readability</span>
+    <span class="c"># These are in no means substitutes for functions</span>
+    <span class="c"># These must be declared before it is used</span>
+
+    <span class="c"># Macro for printing new lines (since these can be very repetitive)</span>
+    <span class="na">.macro</span> <span class="no">println</span><span class="p">()</span>
+      <span class="nf">la</span> <span class="no">$a0</span><span class="p">,</span> <span class="no">newline</span>                     <span class="c"># New line string stored here</span>
+      <span class="no">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">4</span>
+      <span class="nf">syscall</span>
+    <span class="na">.end_macro</span>
+
+    <span class="nf">println</span><span class="p">()</span>                             <span class="c"># Assembler will copy that block of</span>
+                                          <span class="c"># code here before running</span>
+
+    <span class="c"># Parameters can be passed in through macros.</span>
+    <span class="c"># These are denoted by a &#39;%&#39; sign with any name you choose</span>
+    <span class="na">.macro</span> <span class="no">print_int</span><span class="p">(</span><span class="err">%</span><span class="no">num</span><span class="p">)</span>
+      <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">1</span>
+      <span class="nf">lw</span> <span class="no">$a0</span><span class="p">,</span> <span class="nv">%num</span>
+      <span class="nf">syscall</span>
+    <span class="na">.end_macro</span>
+
+    <span class="nf">li</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="nf">print_int</span><span class="p">(</span><span class="no">$t0</span><span class="p">)</span>
+
+    <span class="c"># We can also pass in immediates for macros</span>
+    <span class="na">.macro</span> <span class="no">immediates</span><span class="p">(</span><span class="err">%</span><span class="no">a</span><span class="p">,</span> <span class="err">%</span><span class="no">b</span><span class="p">)</span>
+      <span class="nf">add</span> <span class="no">$t0</span><span class="p">,</span> <span class="nv">%a</span><span class="p">,</span> <span class="nv">%b</span>
+    <span class="na">.end_macro</span>
+
+    <span class="nf">immediates</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="c"># Along with passing in labels</span>
+    <span class="na">.macro</span> <span class="no">print</span><span class="p">(</span><span class="err">%</span><span class="no">string</span><span class="p">)</span>
+      <span class="nf">la</span> <span class="no">$a0</span><span class="p">,</span> <span class="nv">%string</span>
+      <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">4</span>
+      <span class="nf">syscall</span>
+    <span class="na">.end_macro</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="no">hello_world</span><span class="p">)</span>
+
+<span class="c">## ARRAYS ##</span>
+<span class="na">.data</span>
+  <span class="nl">list:</span> <span class="na">.word</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span>                 <span class="c"># This is an array of words</span>
+  <span class="no">char_arr</span><span class="p">:</span> <span class="no">.asciiz</span> <span class="s">&quot;hello&quot;</span>                 <span class="c"># This is a char array</span>
+  <span class="no">buffer</span><span class="p">:</span> <span class="no">.space</span> <span class="mi">128</span>                        <span class="c"># Allocates a block in memory, does</span>
+                                            <span class="c"># not automatically clear</span>
+                                            <span class="c"># These blocks of memory are aligned</span>
+                                            <span class="c"># next each other</span>
+
+<span class="na">.text</span>
+  <span class="nf">la</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">list</span>                              <span class="c"># Load address of list</span>
+  <span class="no">li</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">0</span>                                 <span class="c"># Counter</span>
+  <span class="no">li</span> <span class="no">$t1</span><span class="p">,</span> <span class="mi">5</span>                                 <span class="c"># Length of the list</span>
+
+  <span class="nl">loop:</span>
+    <span class="nf">bgt</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t1</span><span class="p">,</span> <span class="no">end_loop</span>
+
+    <span class="nf">lw</span> <span class="no">$a0</span><span class="p">,</span> <span class="p">(</span><span class="no">$s0</span><span class="p">)</span>
+    <span class="nf">li</span> <span class="no">$v0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="nf">syscall</span>                                 <span class="c"># Print the number</span>
+
+    <span class="nf">addi</span> <span class="no">$s0</span><span class="p">,</span> <span class="no">$s0</span><span class="p">,</span> <span class="mi">4</span>                        <span class="c"># Size of a word is 4 bytes</span>
+    <span class="no">addi</span> <span class="no">$t0</span><span class="p">,</span> <span class="no">$t0</span><span class="p">,</span> <span class="mi">1</span>                        <span class="c"># Increment</span>
+    <span class="no">j</span> <span class="no">loop</span>
+  <span class="nl">end_loop:</span>
+
+<span class="c">## INCLUDE ##</span>
+<span class="c"># You do this to import external files into your program (behind the scenes, </span>
+<span class="c"># it really just takes whatever code that is in that file and places it where</span>
+<span class="c"># the include statement is)</span>
+<span class="na">.include</span> <span class="s">&quot;somefile.asm&quot;</span>
+</pre></div>
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/mips.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Stanley Lim, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/mips.html.markdown">3 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/Spiderpig86">Stanley Lim</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

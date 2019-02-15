@@ -1,0 +1,334 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn make in Y Minutes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/make/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fmake%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dmake">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=make</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/Makefile">Makefile</a>
+    </p>
+  <div id="doc">
+    <p>A Makefile defines a graph of rules for creating a target (or targets).
+Its purpose is to do the minimum amount of work needed to update a
+target to the most recent version of the source. Famously written over a
+weekend by Stuart Feldman in 1976, it is still widely used (particularly
+on Unix and Linux) despite many competitors and criticisms.</p>
+
+<p>There are many varieties of make in existence, however this article
+assumes that we are using GNU make which is the standard on Linux.</p>
+<div class="highlight"><pre><span></span><span class="c"># Comments can be written like this.</span>
+
+<span class="c"># File should be named Makefile and then can be run as `make &lt;target&gt;`.</span>
+<span class="c"># Otherwise we use `make -f &quot;filename&quot; &lt;target&gt;`.</span>
+
+<span class="c"># Warning - only use TABS to indent in Makefiles, never spaces!</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Basics</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># Rules are of the format</span>
+<span class="c"># target: &lt;prerequisite&gt;</span>
+<span class="c"># where prerequisites are optional.</span>
+
+<span class="c"># A rule - this rule will only run if file0.txt doesn&#39;t exist.</span>
+<span class="nf">file0.txt</span><span class="o">:</span>
+    <span class="nb">echo</span> <span class="s2">&quot;foo&quot;</span> &gt; file0.txt
+<span class="c">    # Even comments in these &#39;recipe&#39; sections get passed to the shell.</span>
+<span class="c">    # Try `make file0.txt` or simply `make` - first rule is the default.</span>
+
+<span class="c"># This rule will only run if file0.txt is newer than file1.txt.</span>
+<span class="nf">file1.txt</span><span class="o">:</span> <span class="n">file</span>0.<span class="n">txt</span>
+    cat file0.txt &gt; file1.txt
+<span class="c">    # use the same quoting rules as in the shell.</span>
+    @cat file0.txt &gt;&gt; file1.txt
+<span class="c">    # @ stops the command from being echoed to stdout.</span>
+    -@echo <span class="s1">&#39;hello&#39;</span>
+<span class="c">    # - means that make will keep going in the case of an error.</span>
+<span class="c">    # Try `make file1.txt` on the commandline.</span>
+
+<span class="c"># A rule can have multiple targets and multiple prerequisites</span>
+<span class="nf">file2.txt file3.txt</span><span class="o">:</span> <span class="n">file</span>0.<span class="n">txt</span> <span class="n">file</span>1.<span class="n">txt</span>
+    touch file2.txt
+    touch file3.txt
+
+<span class="c"># Make will complain about multiple recipes for the same rule. Empty</span>
+<span class="c"># recipes don&#39;t count though and can be used to add new dependencies.</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Phony Targets</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># A phony target. Any target that isn&#39;t a file.</span>
+<span class="c"># It will never be up to date so make will always try to run it.</span>
+<span class="nf">all</span><span class="o">:</span> <span class="n">maker</span> <span class="n">process</span>
+
+<span class="c"># We can declare things out of order.</span>
+<span class="nf">maker</span><span class="o">:</span>
+    touch ex0.txt ex1.txt
+
+<span class="c"># Can avoid phony rules breaking when a real file has the same name by</span>
+<span class="nf">.PHONY</span><span class="o">:</span> <span class="n">all</span> <span class="n">maker</span> <span class="n">process</span>
+<span class="c"># This is a special target. There are several others.</span>
+
+<span class="c"># A rule with a dependency on a phony target will always run</span>
+<span class="nf">ex0.txt ex1.txt</span><span class="o">:</span> <span class="n">maker</span>
+
+<span class="c"># Common phony targets are: all make clean install ...</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Automatic Variables &amp; Wildcards</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="nf">process</span><span class="o">:</span> <span class="n">file</span>*.<span class="n">txt</span>  <span class="c">#using a wildcard to match filenames</span>
+    @echo $^    <span class="c1"># $^ is a variable containing the list of prerequisites</span>
+    @echo <span class="nv">$@</span>    <span class="c1"># prints the target name</span>
+<span class="c">    #(for multiple target rules, $@ is whichever caused the rule to run)</span>
+    @echo $&lt;    <span class="c1"># the first prerequisite listed</span>
+    @echo <span class="nv">$?</span>    <span class="c1"># only the dependencies that are out of date</span>
+    @echo $+    <span class="c1"># all dependencies including duplicates (unlike normal)</span>
+<span class="c">    #@echo $|   # all of the &#39;order only&#39; prerequisites</span>
+
+<span class="c"># Even if we split up the rule dependency definitions, $^ will find them</span>
+<span class="nf">process</span><span class="o">:</span> <span class="n">ex</span>1.<span class="n">txt</span> <span class="n">file</span>0.<span class="n">txt</span>
+<span class="c"># ex1.txt will be found but file0.txt will be deduplicated.</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Patterns</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># Can teach make how to convert certain files into other files.</span>
+
+<span class="nf">%.png</span><span class="o">:</span> %.<span class="n">svg</span>
+    inkscape --export-png $^
+
+<span class="c"># Pattern rules will only do anything if make decides to create the</span>
+<span class="c"># target.</span>
+
+<span class="c"># Directory paths are normally ignored when matching pattern rules. But</span>
+<span class="c"># make will try to use the most appropriate rule available.</span>
+<span class="nf">small/%.png</span><span class="o">:</span> %.<span class="n">svg</span>
+    inkscape --export-png --export-dpi <span class="m">30</span> $^
+
+<span class="c"># make will use the last version for a pattern rule that it finds.</span>
+<span class="nf">%.png</span><span class="o">:</span> %.<span class="n">svg</span>
+    @echo this rule is chosen
+
+<span class="c"># However make will use the first pattern rule that can make the target</span>
+<span class="nf">%.png</span><span class="o">:</span> %.<span class="n">ps</span>
+    @echo this rule is not chosen <span class="k">if</span> *.svg and *.ps are both present
+
+<span class="c"># make already has some pattern rules built-in. For instance, it knows</span>
+<span class="c"># how to turn *.c files into *.o files.</span>
+
+<span class="c"># Older makefiles might use suffix rules instead of pattern rules</span>
+<span class="nf">.png.ps</span><span class="o">:</span>
+    @echo this rule is similar to a pattern rule.
+
+<span class="c"># Tell make about the suffix rule</span>
+<span class="nf">.SUFFIXES</span><span class="o">:</span> .<span class="n">png</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Variables</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># aka. macros</span>
+
+<span class="c"># Variables are basically all string types</span>
+
+<span class="nv">name</span> <span class="o">=</span> Ted
+<span class="nv">name2</span><span class="o">=</span><span class="s2">&quot;Sarah&quot;</span>
+
+<span class="nf">echo</span><span class="o">:</span>
+    @echo <span class="k">$(</span>name<span class="k">)</span>
+    @echo <span class="si">${</span><span class="nv">name2</span><span class="si">}</span>
+    @echo <span class="nv">$name</span>    <span class="c1"># This won&#39;t work, treated as $(n)ame.</span>
+    @echo <span class="k">$(</span>name3<span class="k">)</span> <span class="c1"># Unknown variables are treated as empty strings.</span>
+
+<span class="c"># There are 4 places to set variables.</span>
+<span class="c"># In order of priority from highest to lowest:</span>
+<span class="c"># 1: commandline arguments</span>
+<span class="c"># 2: Makefile</span>
+<span class="c"># 3: shell environment variables - make imports these automatically.</span>
+<span class="c"># 4: make has some predefined variables</span>
+
+<span class="nv">name4</span> <span class="o">?=</span> Jean
+<span class="c"># Only set the variable if environment variable is not already defined.</span>
+
+<span class="err">override</span> <span class="nv">name5</span> <span class="o">=</span> David
+<span class="c"># Stops commandline arguments from changing this variable.</span>
+
+<span class="nv">name4</span> <span class="o">+=</span>grey
+<span class="c"># Append values to variable (includes a space).</span>
+
+<span class="c"># Pattern-specific variable values (GNU extension).</span>
+<span class="nf">echo</span><span class="o">:</span> <span class="n">name</span>2 = <span class="n">Sara</span> <span class="c"># True within the matching rule</span>
+<span class="c">    # and also within its remade recursive dependencies</span>
+<span class="c">    # (except it can break when your graph gets too complicated!)</span>
+
+<span class="c"># Some variables defined automatically by make.</span>
+<span class="nf">echo_inbuilt</span><span class="o">:</span>
+    <span class="nb">echo</span> <span class="k">$(</span>CC<span class="k">)</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">CXX</span><span class="si">}</span>
+    <span class="nb">echo</span> <span class="k">$(</span>FC<span class="k">)</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">CFLAGS</span><span class="si">}</span>
+    <span class="nb">echo</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">CXXFLAGS</span><span class="si">}</span>
+    <span class="nb">echo</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">LDLIBS</span><span class="si">}</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Variables 2</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># The first type of variables are evaluated each time they are used.</span>
+<span class="c"># This can be expensive, so a second type of variable exists which is</span>
+<span class="c"># only evaluated once. (This is a GNU make extension)</span>
+
+<span class="nv">var</span> <span class="o">:=</span> hello
+<span class="nf">var2 </span><span class="o">::</span>=  <span class="k">$(</span><span class="nv">var</span><span class="k">)</span> <span class="n">hello</span>
+<span class="c">#:= and ::= are equivalent.</span>
+
+<span class="c"># These variables are evaluated procedurally (in the order that they</span>
+<span class="c"># appear), thus breaking with the rest of the language !</span>
+
+<span class="c"># This doesn&#39;t work</span>
+<span class="nf">var3 </span><span class="o">::</span>= <span class="k">$(</span><span class="nv">var</span>4<span class="k">)</span> <span class="n">and</span> <span class="n">good</span> <span class="n">luck</span>
+<span class="nf">var4 </span><span class="o">::</span>= <span class="n">good</span> <span class="n">night</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Functions</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># make has lots of functions available.</span>
+
+<span class="nv">sourcefiles</span> <span class="o">=</span> <span class="k">$(</span>wildcard *.c */*.c<span class="k">)</span>
+<span class="nv">objectfiles</span> <span class="o">=</span> <span class="k">$(</span>patsubst %.c,%.o,<span class="k">$(</span>sourcefiles<span class="k">))</span>
+
+<span class="c"># Format is $(func arg0,arg1,arg2...)</span>
+
+<span class="c"># Some examples</span>
+<span class="nf">ls</span><span class="o">:</span> * <span class="n">src</span>/*
+    @echo <span class="k">$(</span>filter %.txt, $^<span class="k">)</span>
+    @echo <span class="k">$(</span>notdir $^<span class="k">)</span>
+    @echo <span class="k">$(</span>join <span class="k">$(</span>dir $^<span class="k">)</span>,<span class="k">$(</span>notdir $^<span class="k">))</span>
+
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># Directives</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+
+<span class="c"># Include other makefiles, useful for platform specific code</span>
+<span class="cp">include foo.mk</span>
+
+<span class="nv">sport</span> <span class="o">=</span> tennis
+<span class="c"># Conditional compilation</span>
+<span class="nf">report</span><span class="o">:</span>
+<span class="cp">ifeq ($(sport),tennis)</span>
+    @echo <span class="s1">&#39;game, set, match&#39;</span>
+<span class="cp">else</span>
+    @echo <span class="s2">&quot;They think it&#39;s all over; it is now&quot;</span>
+<span class="cp">endif</span>
+
+<span class="c"># There are also ifneq, ifdef, ifndef</span>
+
+<span class="nv">foo</span> <span class="o">=</span> <span class="nb">true</span>
+
+<span class="cp">ifdef $(foo)</span>
+<span class="nv">bar</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="cp">endif</span>
+</pre></div>
+<h3>More Resources</h3>
+
+<ul>
+<li><a href="https://www.gnu.org/software/make/manual/">gnu make documentation</a></li>
+<li><a href="http://swcarpentry.github.io/make-novice/">software carpentry tutorial</a></li>
+<li>learn C the hard way <a href="http://c.learncodethehardway.org/book/ex2.html">ex2</a> <a href="http://c.learncodethehardway.org/book/ex28.html">ex28</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/make.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Robert Steed, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/make.html.markdown">5 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/robochat">Robert Steed</a>,
+        <a href="https://github.com/sfuhrm">Stephan Fuhrmann</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn X in Y Minutes: Scenic Programming Language Tours</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/bash/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fbash%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dbash">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=bash</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/LearnBash.sh">LearnBash.sh</a>
+    </p>
+  <div id="doc">
+    <p>Bash is a name of the unix shell, which was also distributed as the shell
+for the GNU operating system and as default shell on Linux and Mac OS X.
+Nearly all examples below can be a part of a shell script
+or executed directly in the shell.</p>
+
+<p><a href="http://www.gnu.org/software/bash/manual/bashref.html">Read more here.</a></p>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="c1"># First line of the script is the shebang which tells the system how to execute</span>
+<span class="c1"># the script: http://en.wikipedia.org/wiki/Shebang_(Unix)</span>
+<span class="c1"># As you already figured, comments start with #. Shebang is also a comment.</span>
+
+<span class="c1"># Simple hello world example:</span>
+<span class="nb">echo</span> Hello world! <span class="c1"># =&gt; Hello world!</span>
+
+<span class="c1"># Each command starts on a new line, or after a semicolon:</span>
+<span class="nb">echo</span> <span class="s1">&#39;This is the first line&#39;</span><span class="p">;</span> <span class="nb">echo</span> <span class="s1">&#39;This is the second line&#39;</span>
+<span class="c1"># =&gt; This is the first line</span>
+<span class="c1"># =&gt; This is the second line</span>
+
+<span class="c1"># Declaring a variable looks like this:</span>
+<span class="nv">Variable</span><span class="o">=</span><span class="s2">&quot;Some string&quot;</span>
+
+<span class="c1"># But not like this:</span>
+<span class="nv">Variable</span> <span class="o">=</span> <span class="s2">&quot;Some string&quot;</span> <span class="c1"># =&gt; returns error &quot;Variable: command not found&quot;</span>
+<span class="c1"># Bash will decide that Variable is a command it must execute and give an error</span>
+<span class="c1"># because it can&#39;t be found.</span>
+
+<span class="c1"># Nor like this:</span>
+<span class="nv">Variable</span><span class="o">=</span> <span class="s1">&#39;Some string&#39;</span> <span class="c1"># =&gt; returns error: &quot;Some string: command not found&quot;</span>
+<span class="c1"># Bash will decide that &#39;Some string&#39; is a command it must execute and give an</span>
+<span class="c1"># error because it can&#39;t be found. (In this case the &#39;Variable=&#39; part is seen</span>
+<span class="c1"># as a variable assignment valid only for the scope of the &#39;Some string&#39;</span>
+<span class="c1"># command.)</span>
+
+<span class="c1"># Using the variable:</span>
+<span class="nb">echo</span> <span class="nv">$Variable</span> <span class="c1"># =&gt; Some string</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$Variable</span><span class="s2">&quot;</span> <span class="c1"># =&gt; Some string</span>
+<span class="nb">echo</span> <span class="s1">&#39;$Variable&#39;</span> <span class="c1"># =&gt; $Variable</span>
+<span class="c1"># When you use the variable itself — assign it, export it, or else — you write</span>
+<span class="c1"># its name without $. If you want to use the variable&#39;s value, you should use $.</span>
+<span class="c1"># Note that &#39; (single quote) won&#39;t expand the variables!</span>
+
+<span class="c1"># Parameter expansion ${ }:</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Variable</span><span class="si">}</span> <span class="c1"># =&gt; Some string</span>
+<span class="c1"># This is a simple usage of parameter expansion</span>
+<span class="c1"># Parameter Expansion gets a value from a variable. </span>
+<span class="c1"># It &quot;expands&quot; or prints the value</span>
+<span class="c1"># During the expansion time the value or parameter can be modified</span>
+<span class="c1"># Below are other modifications that add onto this expansion</span>
+
+<span class="c1"># String substitution in variables</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Variable</span><span class="p">/Some/A</span><span class="si">}</span> <span class="c1"># =&gt; A string</span>
+<span class="c1"># This will substitute the first occurrence of &quot;Some&quot; with &quot;A&quot;</span>
+
+<span class="c1"># Substring from a variable</span>
+<span class="nv">Length</span><span class="o">=</span><span class="m">7</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Variable</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">Length</span><span class="si">}</span> <span class="c1"># =&gt; Some st</span>
+<span class="c1"># This will return only the first 7 characters of the value</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Variable</span><span class="p">: -5</span><span class="si">}</span> <span class="c1"># =&gt; tring</span>
+<span class="c1"># This will return the last 5 characters (note the space before -5)</span>
+
+<span class="c1"># String length</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">Variable</span><span class="si">}</span> <span class="c1"># =&gt; 11</span>
+
+<span class="c1"># Default value for variable</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">Foo</span><span class="k">:-</span><span class="s2">&quot;DefaultValueIfFooIsMissingOrEmpty&quot;</span><span class="si">}</span> 
+<span class="c1"># =&gt; DefaultValueIfFooIsMissingOrEmpty</span>
+<span class="c1"># This works for null (Foo=) and empty string (Foo=&quot;&quot;); zero (Foo=0) returns 0.</span>
+<span class="c1"># Note that it only returns default value and doesn&#39;t change variable value.</span>
+
+<span class="c1"># Declare an array with 6 elements</span>
+<span class="nv">array0</span><span class="o">=(</span>one two three four five six<span class="o">)</span>
+<span class="c1"># Print first element</span>
+<span class="nb">echo</span> <span class="nv">$array0</span> <span class="c1"># =&gt; &quot;one&quot;</span>
+<span class="c1"># Print first element</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># =&gt; &quot;one&quot;</span>
+<span class="c1"># Print all elements</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span> <span class="c1"># =&gt; &quot;one two three four five six&quot;</span>
+<span class="c1"># Print number of elements</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span> <span class="c1"># =&gt; &quot;6&quot;</span>
+<span class="c1"># Print number of characters in third element</span>
+<span class="nb">echo</span> <span class="si">${#</span><span class="nv">array0</span><span class="p">[2]</span><span class="si">}</span> <span class="c1"># =&gt; &quot;5&quot;</span>
+<span class="c1"># Print 2 elements starting from forth</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">array0</span><span class="p">[@]:</span><span class="nv">3</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span> <span class="c1"># =&gt; &quot;four five&quot;</span>
+<span class="c1"># Print all elements. Each of them on new line.</span>
+<span class="k">for</span> i in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">array0</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># Brace Expansion { }</span>
+<span class="c1"># Used to generate arbitrary strings</span>
+<span class="nb">echo</span> <span class="o">{</span><span class="m">1</span>..10<span class="o">}</span> <span class="c1"># =&gt; 1 2 3 4 5 6 7 8 9 10</span>
+<span class="nb">echo</span> <span class="o">{</span>a..z<span class="o">}</span> <span class="c1"># =&gt; a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+<span class="c1"># This will output the range from the start value to the end value</span>
+
+<span class="c1"># Built-in variables:</span>
+<span class="c1"># There are some useful built-in variables, like</span>
+<span class="nb">echo</span> <span class="s2">&quot;Last program&#39;s return value: </span><span class="nv">$?</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Script&#39;s PID: </span><span class="nv">$$</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Number of arguments passed to script: </span><span class="nv">$#</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;All arguments passed to script: </span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Script&#39;s arguments separated into different variables: </span><span class="nv">$1</span><span class="s2"> </span><span class="nv">$2</span><span class="s2">...&quot;</span>
+
+<span class="c1"># Now that we know how to echo and use variables,</span>
+<span class="c1"># let&#39;s learn some of the other basics of bash!</span>
+
+<span class="c1"># Our current directory is available through the command `pwd`.</span>
+<span class="c1"># `pwd` stands for &quot;print working directory&quot;.</span>
+<span class="c1"># We can also use the built-in variable `$PWD`.</span>
+<span class="c1"># Observe that the following are equivalent:</span>
+<span class="nb">echo</span> <span class="s2">&quot;I&#39;m in </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span> <span class="c1"># execs `pwd` and interpolates output</span>
+<span class="nb">echo</span> <span class="s2">&quot;I&#39;m in </span><span class="nv">$PWD</span><span class="s2">&quot;</span> <span class="c1"># interpolates the variable</span>
+
+<span class="c1"># If you get too much output in your terminal, or from a script, the command</span>
+<span class="c1"># `clear` clears your screen</span>
+clear
+<span class="c1"># Ctrl-L also works for clearing output</span>
+
+<span class="c1"># Reading a value from input:</span>
+<span class="nb">echo</span> <span class="s2">&quot;What&#39;s your name?&quot;</span>
+<span class="nb">read</span> Name <span class="c1"># Note that we didn&#39;t need to declare a new variable</span>
+<span class="nb">echo</span> Hello, <span class="nv">$Name</span>!
+
+<span class="c1"># We have the usual if structure:</span>
+<span class="c1"># use `man test` for more info about conditionals</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$Name</span> !<span class="o">=</span> <span class="nv">$USER</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Your name isn&#39;t your username&quot;</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Your name is your username&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># True if the value of $Name is not equal to the current user&#39;s login username</span>
+
+<span class="c1"># NOTE: if $Name is empty, bash sees the above condition as:</span>
+<span class="k">if</span> <span class="o">[</span> !<span class="o">=</span> <span class="nv">$USER</span> <span class="o">]</span>
+<span class="c1"># which is invalid syntax</span>
+<span class="c1"># so the &quot;safe&quot; way to use potentially empty variables in bash is:</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$Name</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="nv">$USER</span> <span class="o">]</span> ...
+<span class="c1"># which, when $Name is empty, is seen by bash as:</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;&quot;</span> !<span class="o">=</span> <span class="nv">$USER</span> <span class="o">]</span> ...
+<span class="c1"># which works as expected</span>
+
+<span class="c1"># There is also conditional execution</span>
+<span class="nb">echo</span> <span class="s2">&quot;Always executed&quot;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&quot;Only executed if first command fails&quot;</span>
+<span class="c1"># =&gt; Always executed</span>
+<span class="nb">echo</span> <span class="s2">&quot;Always executed&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;Only executed if first command does NOT fail&quot;</span>
+<span class="c1"># =&gt; Always executed</span>
+<span class="c1"># =&gt; Only executed if first command does NOT fail</span>
+
+
+<span class="c1"># To use &amp;&amp; and || with if statements, you need multiple pairs of square brackets:</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$Name</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;Steve&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$Age</span><span class="s2">&quot;</span> -eq <span class="m">15</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;This will run if </span><span class="nv">$Name</span><span class="s2"> is Steve AND </span><span class="nv">$Age</span><span class="s2"> is 15.&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$Name</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;Daniya&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$Name</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;Zach&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;This will run if </span><span class="nv">$Name</span><span class="s2"> is Daniya OR Zach.&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># There is also the `=~` operator, which tests a string against a Regex pattern:</span>
+<span class="nv">Email</span><span class="o">=</span>me@example.com
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$Email</span><span class="s2">&quot;</span> <span class="o">=</span>~ <span class="o">[</span>a-z<span class="o">]</span>+@<span class="o">[</span>a-z<span class="o">]{</span><span class="m">2</span>,<span class="o">}</span><span class="se">\.</span><span class="o">(</span>com<span class="p">|</span>net<span class="p">|</span>org<span class="o">)</span> <span class="o">]]</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Valid email!&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># Note that =~ only works within double [[ ]] square brackets,</span>
+<span class="c1"># which are subtly different from single [ ].</span>
+<span class="c1"># See http://www.gnu.org/software/bash/manual/bashref.html#Conditional-Constructs for more on this.</span>
+
+<span class="c1"># Redefine command `ping` as alias to send only 5 packets</span>
+<span class="nb">alias</span> <span class="nv">ping</span><span class="o">=</span><span class="s1">&#39;ping -c 5&#39;</span>
+<span class="c1"># Escape the alias and use command with this name instead</span>
+<span class="se">\p</span>ing <span class="m">192</span>.168.1.1
+<span class="c1"># Print all aliases</span>
+<span class="nb">alias</span> -p
+
+<span class="c1"># Expressions are denoted with the following format:</span>
+<span class="nb">echo</span> <span class="k">$((</span> <span class="m">10</span> <span class="o">+</span> <span class="m">5</span> <span class="k">))</span> <span class="c1"># =&gt; 15</span>
+
+<span class="c1"># Unlike other programming languages, bash is a shell so it works in the context</span>
+<span class="c1"># of a current directory. You can list files and directories in the current</span>
+<span class="c1"># directory with the ls command:</span>
+ls <span class="c1"># Lists the files and subdirectories contained in the current directory</span>
+
+<span class="c1"># This command has options that control its execution:</span>
+ls -l <span class="c1"># Lists every file and directory on a separate line</span>
+ls -t <span class="c1"># Sorts the directory contents by last-modified date (descending)</span>
+ls -R <span class="c1"># Recursively `ls` this directory and all of its subdirectories</span>
+
+<span class="c1"># Results of the previous command can be passed to the next command as input.</span>
+<span class="c1"># The `grep` command filters the input with provided patterns.</span>
+<span class="c1"># That&#39;s how we can list .txt files in the current directory:</span>
+ls -l <span class="p">|</span> grep <span class="s2">&quot;\.txt&quot;</span>
+
+<span class="c1"># Use `cat` to print files to stdout:</span>
+cat file.txt
+
+<span class="c1"># We can also read the file using `cat`:</span>
+<span class="nv">Contents</span><span class="o">=</span><span class="k">$(</span>cat file.txt<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;START OF FILE\n</span><span class="nv">$Contents</span><span class="s2">\nEND OF FILE&quot;</span> <span class="c1"># &quot;\n&quot; prints a new line character</span>
+<span class="c1"># =&gt; START OF FILE</span>
+<span class="c1"># =&gt; [contents of file.txt]</span>
+<span class="c1"># =&gt; END OF FILE</span>
+
+<span class="c1"># Use `cp` to copy files or directories from one place to another.</span>
+<span class="c1"># `cp` creates NEW versions of the sources,</span>
+<span class="c1"># so editing the copy won&#39;t affect the original (and vice versa).</span>
+<span class="c1"># Note that it will overwrite the destination if it already exists.</span>
+cp srcFile.txt clone.txt
+cp -r srcDirectory/ dst/ <span class="c1"># recursively copy</span>
+
+<span class="c1"># Look into `scp` or `sftp` if you plan on exchanging files between computers.</span>
+<span class="c1"># `scp` behaves very similarly to `cp`.</span>
+<span class="c1"># `sftp` is more interactive.</span>
+
+<span class="c1"># Use `mv` to move files or directories from one place to another.</span>
+<span class="c1"># `mv` is similar to `cp`, but it deletes the source.</span>
+<span class="c1"># `mv` is also useful for renaming files!</span>
+mv s0urc3.txt dst.txt <span class="c1"># sorry, l33t hackers...</span>
+
+<span class="c1"># Since bash works in the context of a current directory, you might want to </span>
+<span class="c1"># run your command in some other directory. We have cd for changing location:</span>
+<span class="nb">cd</span> ~    <span class="c1"># change to home directory</span>
+<span class="nb">cd</span>      <span class="c1"># also goes to home directory</span>
+<span class="nb">cd</span> ..   <span class="c1"># go up one directory</span>
+        <span class="c1"># (^^say, from /home/username/Downloads to /home/username)</span>
+<span class="nb">cd</span> /home/username/Documents   <span class="c1"># change to specified directory</span>
+<span class="nb">cd</span> ~/Documents/..    <span class="c1"># still in home directory..isn&#39;t it??</span>
+<span class="nb">cd</span> -    <span class="c1"># change to last directory</span>
+<span class="c1"># =&gt; /home/username/Documents</span>
+
+<span class="c1"># Use subshells to work across directories</span>
+<span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;First, I&#39;m here: </span><span class="nv">$PWD</span><span class="s2">&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> someDir<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;Then, I&#39;m here: </span><span class="nv">$PWD</span><span class="s2">&quot;</span><span class="o">)</span>
+<span class="nb">pwd</span> <span class="c1"># still in first directory</span>
+
+<span class="c1"># Use `mkdir` to create new directories.</span>
+mkdir myNewDir
+<span class="c1"># The `-p` flag causes new intermediate directories to be created as necessary.</span>
+mkdir -p myNewDir/with/intermediate/directories
+<span class="c1"># if the intermediate directories didn&#39;t already exist, running the above</span>
+<span class="c1"># command without the `-p` flag would return an error</span>
+
+<span class="c1"># You can redirect command input and output (stdin, stdout, and stderr).</span>
+<span class="c1"># Read from stdin until ^EOF$ and overwrite hello.py with the lines</span>
+<span class="c1"># between &quot;EOF&quot;:</span>
+cat &gt; hello.py <span class="s">&lt;&lt; EOF</span>
+<span class="s">#!/usr/bin/env python</span>
+<span class="s">from __future__ import print_function</span>
+<span class="s">import sys</span>
+<span class="s">print(&quot;#stdout&quot;, file=sys.stdout)</span>
+<span class="s">print(&quot;#stderr&quot;, file=sys.stderr)</span>
+<span class="s">for line in sys.stdin:</span>
+<span class="s">    print(line, file=sys.stdout)</span>
+<span class="s">EOF</span>
+<span class="c1"># Variables will be expanded if the first &quot;EOF&quot; is not quoted</span>
+
+<span class="c1"># Run the hello.py Python script with various stdin, stdout, and </span>
+<span class="c1"># stderr redirections:</span>
+python hello.py &lt; <span class="s2">&quot;input.in&quot;</span> <span class="c1"># pass input.in as input to the script</span>
+
+python hello.py &gt; <span class="s2">&quot;output.out&quot;</span> <span class="c1"># redirect output from the script to output.out</span>
+
+python hello.py <span class="m">2</span>&gt; <span class="s2">&quot;error.err&quot;</span> <span class="c1"># redirect error output to error.err</span>
+
+python hello.py &gt; <span class="s2">&quot;output-and-error.log&quot;</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="c1"># redirect both output and errors to output-and-error.log</span>
+
+python hello.py &gt; /dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="c1"># redirect all output and errors to the black hole, /dev/null, i.e., no output</span>
+
+<span class="c1"># The output error will overwrite the file if it exists,</span>
+<span class="c1"># if you want to append instead, use &quot;&gt;&gt;&quot;:</span>
+python hello.py &gt;&gt; <span class="s2">&quot;output.out&quot;</span> <span class="m">2</span>&gt;&gt; <span class="s2">&quot;error.err&quot;</span>
+
+<span class="c1"># Overwrite output.out, append to error.err, and count lines:</span>
+info bash <span class="s1">&#39;Basic Shell Features&#39;</span> <span class="s1">&#39;Redirections&#39;</span> &gt; output.out <span class="m">2</span>&gt;&gt; error.err
+wc -l output.out error.err
+
+<span class="c1"># Run a command and print its file descriptor (e.g. /dev/fd/123)</span>
+<span class="c1"># see: man fd</span>
+<span class="nb">echo</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;#helloworld&quot;</span><span class="o">)</span>
+
+<span class="c1"># Overwrite output.out with &quot;#helloworld&quot;:</span>
+cat &gt; output.out &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;#helloworld&quot;</span><span class="o">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;#helloworld&quot;</span> &gt; output.out
+<span class="nb">echo</span> <span class="s2">&quot;#helloworld&quot;</span> <span class="p">|</span> cat &gt; output.out
+<span class="nb">echo</span> <span class="s2">&quot;#helloworld&quot;</span> <span class="p">|</span> tee output.out &gt;/dev/null
+
+<span class="c1"># Cleanup temporary files verbosely (add &#39;-i&#39; for interactive)</span>
+<span class="c1"># WARNING: `rm` commands cannot be undone</span>
+rm -v output.out error.err output-and-error.log
+rm -r tempDir/ <span class="c1"># recursively delete</span>
+
+<span class="c1"># Commands can be substituted within other commands using $( ):</span>
+<span class="c1"># The following command displays the number of files and directories in the</span>
+<span class="c1"># current directory.</span>
+<span class="nb">echo</span> <span class="s2">&quot;There are </span><span class="k">$(</span>ls <span class="p">|</span> wc -l<span class="k">)</span><span class="s2"> items here.&quot;</span>
+
+<span class="c1"># The same can be done using backticks `` but they can&#39;t be nested - </span>
+<span class="c1">#the preferred way is to use $( ).</span>
+<span class="nb">echo</span> <span class="s2">&quot;There are `ls | wc -l` items here.&quot;</span>
+
+<span class="c1"># Bash uses a `case` statement that works similarly to switch in Java and C++:</span>
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$Variable</span><span class="s2">&quot;</span> in
+    <span class="c1">#List patterns for the conditions you want to meet</span>
+    <span class="m">0</span><span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;There is a zero.&quot;</span><span class="p">;;</span>
+    <span class="m">1</span><span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;There is a one.&quot;</span><span class="p">;;</span>
+    *<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;It is not null.&quot;</span><span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="c1"># `for` loops iterate for as many arguments given:</span>
+<span class="c1"># The contents of $Variable is printed three times.</span>
+<span class="k">for</span> Variable in <span class="o">{</span><span class="m">1</span>..3<span class="o">}</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$Variable</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="c1"># =&gt; 1</span>
+<span class="c1"># =&gt; 2</span>
+<span class="c1"># =&gt; 3</span>
+
+
+<span class="c1"># Or write it the &quot;traditional for loop&quot; way:</span>
+<span class="k">for</span> <span class="o">((</span><span class="nv">a</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> a &lt;<span class="o">=</span> <span class="m">3</span><span class="p">;</span> a++<span class="o">))</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="nv">$a</span>
+<span class="k">done</span>
+<span class="c1"># =&gt; 1</span>
+<span class="c1"># =&gt; 2</span>
+<span class="c1"># =&gt; 3</span>
+
+<span class="c1"># They can also be used to act on files..</span>
+<span class="c1"># This will run the command `cat` on file1 and file2</span>
+<span class="k">for</span> Variable in file1 file2
+<span class="k">do</span>
+    cat <span class="s2">&quot;</span><span class="nv">$Variable</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># ..or the output from a command</span>
+<span class="c1"># This will `cat` the output from `ls`.</span>
+<span class="k">for</span> Output in <span class="k">$(</span>ls<span class="k">)</span>
+<span class="k">do</span>
+    cat <span class="s2">&quot;</span><span class="nv">$Output</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># while loop:</span>
+<span class="k">while</span> <span class="o">[</span> <span class="nb">true</span> <span class="o">]</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;loop body here...&quot;</span>
+    <span class="nb">break</span>
+<span class="k">done</span>
+<span class="c1"># =&gt; loop body here...</span>
+
+<span class="c1"># You can also define functions</span>
+<span class="c1"># Definition:</span>
+<span class="k">function</span> foo <span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Arguments work just like script arguments: </span><span class="nv">$@</span><span class="s2">&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;And: </span><span class="nv">$1</span><span class="s2"> </span><span class="nv">$2</span><span class="s2">...&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;This is a function&quot;</span>
+    <span class="k">return</span> <span class="m">0</span>
+<span class="o">}</span>
+<span class="c1"># Call the function `foo` with two arguments, arg1 and arg2:</span>
+foo arg1 arg2
+<span class="c1"># =&gt; Arguments work just like script arguments: arg1 arg2</span>
+<span class="c1"># =&gt; And: arg1 arg2...</span>
+<span class="c1"># =&gt; This is a function</span>
+
+<span class="c1"># or simply</span>
+bar <span class="o">()</span>
+<span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Another way to declare functions!&quot;</span>
+    <span class="k">return</span> <span class="m">0</span>
+<span class="o">}</span>
+<span class="c1"># Call the function `bar` with no arguments:</span>
+bar <span class="c1"># =&gt; Another way to declare functions!</span>
+
+<span class="c1"># Calling your function</span>
+foo <span class="s2">&quot;My name is&quot;</span> <span class="nv">$Name</span>
+
+<span class="c1"># There are a lot of useful commands you should learn:</span>
+<span class="c1"># prints last 10 lines of file.txt</span>
+tail -n <span class="m">10</span> file.txt
+
+<span class="c1"># prints first 10 lines of file.txt</span>
+head -n <span class="m">10</span> file.txt
+
+<span class="c1"># sort file.txt&#39;s lines</span>
+sort file.txt
+
+<span class="c1"># report or omit repeated lines, with -d it reports them</span>
+uniq -d file.txt
+
+<span class="c1"># prints only the first column before the &#39;,&#39; character</span>
+cut -d <span class="s1">&#39;,&#39;</span> -f <span class="m">1</span> file.txt
+
+<span class="c1"># replaces every occurrence of &#39;okay&#39; with &#39;great&#39; in file.txt</span>
+<span class="c1"># (regex compatible)</span>
+sed -i <span class="s1">&#39;s/okay/great/g&#39;</span> file.txt
+
+<span class="c1"># print to stdout all lines of file.txt which match some regex</span>
+<span class="c1"># The example prints lines which begin with &quot;foo&quot; and end in &quot;bar&quot;</span>
+grep <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> file.txt
+
+<span class="c1"># pass the option &quot;-c&quot; to instead print the number of lines matching the regex</span>
+grep -c <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> file.txt
+
+<span class="c1"># Other useful options are:</span>
+grep -r <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> someDir/ <span class="c1"># recursively `grep`</span>
+grep -n <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> file.txt <span class="c1"># give line numbers</span>
+grep -rI <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> someDir/ <span class="c1"># recursively `grep`, but ignore binary files</span>
+
+<span class="c1"># perform the same initial search, but filter out the lines containing &quot;baz&quot;</span>
+grep <span class="s2">&quot;^foo.*bar</span>$<span class="s2">&quot;</span> file.txt <span class="p">|</span> grep -v <span class="s2">&quot;baz&quot;</span>
+
+<span class="c1"># if you literally want to search for the string,</span>
+<span class="c1"># and not the regex, use fgrep (or grep -F)</span>
+fgrep <span class="s2">&quot;foobar&quot;</span> file.txt
+
+<span class="c1"># The `trap` command allows you to execute a command whenever your script </span>
+<span class="c1"># receives a signal. Here, `trap` will execute `rm` if it receives any of the </span>
+<span class="c1"># three listed signals.</span>
+<span class="nb">trap</span> <span class="s2">&quot;rm </span><span class="nv">$TEMP_FILE</span><span class="s2">; exit&quot;</span> SIGHUP SIGINT SIGTERM
+
+<span class="c1"># `sudo` is used to perform commands as the superuser</span>
+<span class="nv">NAME1</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span>
+<span class="nv">NAME2</span><span class="o">=</span><span class="k">$(</span>sudo whoami<span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Was </span><span class="nv">$NAME1</span><span class="s2">, then became more powerful </span><span class="nv">$NAME2</span><span class="s2">&quot;</span>
+
+<span class="c1"># Read Bash shell built-ins documentation with the bash `help` built-in:</span>
+<span class="nb">help</span>
+<span class="nb">help</span> <span class="nb">help</span>
+<span class="nb">help</span> <span class="k">for</span>
+<span class="nb">help</span> <span class="k">return</span>
+<span class="nb">help</span> <span class="nb">source</span>
+<span class="nb">help</span> .
+
+<span class="c1"># Read Bash manpage documentation with `man`</span>
+apropos bash
+man <span class="m">1</span> bash
+man bash
+
+<span class="c1"># Read info documentation with `info` (`?` for help)</span>
+apropos info <span class="p">|</span> grep <span class="s1">&#39;^info.*(&#39;</span>
+man info
+info info
+info <span class="m">5</span> info
+
+<span class="c1"># Read bash info documentation:</span>
+info bash
+info bash <span class="s1">&#39;Bash Features&#39;</span>
+info bash <span class="m">6</span>
+info --apropos bash
+</pre></div>
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/bash.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by Max Yankov, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/bash.html.markdown">52 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="https://github.com/golergka">Max Yankov</a>,
+        <a href="https://github.com/CogBear">Darren Lin</a>,
+        <a href="http://alemedeiros.sdf.org">Alexandre Medeiros</a>,
+        <a href="https://github.com/darh">Denis Arh</a>,
+        <a href="https://twitter.com/akirahirose">akirahirose</a>,
+        <a href="http://lutic.org/">Anton Strömkvist</a>,
+        <a href="https://github.com/iamrahil">Rahil Momin</a>,
+        <a href="https://github.com/gskielian">Gregrory Kielian</a>,
+        <a href="https://github.com/deryni">Etan Reisner</a>,
+        <a href="https://github.com/Jonathansw">Jonathan Wang</a>,
+        <a href="https://github.com/LOZORD">Leo Rudberg</a>,
+        <a href="https://github.com/schbetsy">Betsy Lorton</a>,
+        <a href="https://github.com/jdetter">John Detter</a>,
+        <a href="https://github.com/harrymt">Harry Mumford-Turner</a>,
+        <a href="https://github.com/mn113">Martin Nicholson</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

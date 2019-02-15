@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.codeveloper.adepterwithcardview.MainActivity">
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/action_About"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"
+         />
+    <item
+        android:id="@+id/menu_exit"
+        android:title="Exit"
+        app:showAsAction="never"/>
+</menu>

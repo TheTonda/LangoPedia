@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Adam Bard is a freelance developer from Victoria, BC, Canada. Adam specializes in dynamic web applications using the latest technologies and methods.">
+    <meta name="viewport" content="width=device-width">
+    
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Adam Bard, Handsome Web Developer | Freelance Web Design | Adam Bard, Web Developer in Victoria BC</title>
+    
+    <link href="/css/base.css" rel="stylesheet" /><link href="/css/skeleton.css" rel="stylesheet" /><link href="/css/layout.css" rel="stylesheet" /><link href="/css/screen.css" rel="stylesheet" />
+
+  </head>
+  
+  <body class="index">
+    <div class="container">
+        <div id="sidebar" class="four columns">
+            <header>
+            <h1>Adam Bard</h1>
+            <h2>Makes Websites</h2>
+            <div class="photo"></div>
+            <p>Adam Bard is a software developer based in Victoria, BC.<p>
+            <p>He, which is to say, I, enjoy making websites.
+            I love to talk about nerd stuff, too, so hit me up if you're into it.
+            </p>
+            </header>
+            <nav>
+                <ul>
+                    <li><a class="selected" href="/">Home</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li>
+                        <strong>Twitter:</strong>
+                        <a href="https://twitter.com/adambard">
+                        @adambard</a>
+                    </li>
+                    <li>
+                        <strong>Github:</strong>
+                    <a href="https://github.com/adambard">
+                        adambard</a></li>
+                    <li>
+                        <strong>LinkedIn:</strong>
+                    <a href="https://www.linkedin.com/in/adambard">
+                        adambard</a>
+                    </li>
+                    <li>
+                        <strong>Email:</strong>
+                    <a href="mailto:dev@adambard.com">
+                        dev@adambard.com</a></li>
+                </ul>
+            </nav>
+
+            <h3>Site Mode:</h3>
+            <div id="modechange">
+                <a href="#normal" class="normal selected" title="Learn about what I did in plain English.">Normal</a>
+                <a href="#nerd" class="nerd" title="Read about these sites in excruciating technical detail">Nerd</a>
+            </div>
+
+            <h3>Other Adam Bards</h3>
+            <ul class="other-adam-bards">
+                <li><a href="http://bardmd.com/">Adam J. Bard, M.D.</a></li>
+                <li><a href="http://www.adambardmusic.com/">Adam Bard, Musician/Writer</a></li>
+                <li><a href="http://wwlp.com/2014/09/10/wmass-man-sentenced-for-deadly-oui-crash/">Adam Bard, Felon</a></li>
+            </ul>
+
+        </div>
+        <div class="four columns">&nbsp;
+        </div>
+        <div id="body" class="twelve columns">
+
+        <h2>Stuff I've Done</h2>
+<section class='thing row'>
+<h3>
+<a href='http://clojuretraining.ca'>ClojureTraining.ca</a>
+</h3>
+<div class='content alpha twelve columns'>
+<p>I&#39;ve gotten quite a bit of positive feedback on my 
+<a href="https://www.safaribooksonline.com/library/view/learning-clojure/9781771373623/">Learning Clojure</a>
+video course, so I decided to offer on-site Clojure training to teams based on my
+notes from that (i.e. the parts that aren&#39;t the property of O&#39;Reilly).</p>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='https://www.stripeinvoicegenerator.com/'>Stripe Invoice Generator</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='https://www.stripeinvoicegenerator.com/'>
+<img alt='Screenshot of Stripe Invoice Generator' src='/img/screenshots/stripeinvoicegenerator.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+<a href='https://www.stripeinvoicegenerator.com/'>Stripe Invoice Generator</a>
+is a somewhat half-assed flask application that solves a very
+specific problem I encountered recently. I'm sure there's other
+people that need it too.
+</p>
+<p>
+My favorite part about this app is that it stores everything as Stripe metadata,
+meaning I don't have to maintain a database or worry as much about securing peoples'
+payment information (save implementing Stripe Connect competently).
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='https://www.stripeinvoicegenerator.com/'>Stripe Invoice Generator</a>
+does exactly one thing: lets you produce really basic invoice documents
+from Stripe subscription transactions, with extra fields as required.
+</p>
+<p>
+I made it because a customer for one of my other services had specific requirements
+regarding the contents of their invoices, and I thought it might be useful.
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='https://onestrangething.com/'>OneStrangeThing.com: The dumbest subscription service</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='https://onestrangething.com/'>
+<img alt='Screenshot of OneStrangeThing.com' src='/img/screenshots/onestrangething.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+<a href='http://onestrangething.com/'>OneStrangeThing.com</a>
+is a little subscription box service powered by Stripe and a small
+<a href='https://github.com/weavejester/compojure'>Compojure</a>
+app processing payments and serving it. I'm afraid there's not too much
+interesting about it technically.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://onestrangething.com/'>OneStrangeThing.com</a>
+is a subscription box service wherein you pay me $15 per month and I send you an
+object of some persuasion or another that I guarantee you won't expect. A curated
+selection of fun items awaits, from hobby items to costumes to... I don't know, whatever
+you call a balisong bottle opener.
+</p>
+</div>
+</div>
+</section>
+<!--
+<section class='thing row'>
+<h3>
+<a href='http://getcustomsearch.com/'>ExtSearch: The easy, customizable custom search</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://getcustomsearch.com/'>
+<img alt='Screenshot of ExtSearch' src='/img/screenshots/extsearch.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+<a href='http://getcustomsearch.com/'>ExtSearch Custom Search</a>
+is a project to provide custom search via Javascript snippet. The other components
+are a spider, and a backend API in front of the search server.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://getcustomsearch.com/'>ExtSearch Custom Search</a>
+is a project to provide a premium alternative to other search solutions.
+It combines ease-of-deployment (a simple Javascript snippet) with full customizability
+and integration with your property and brand.
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='http://openrecipesearch.com/'>Open Recipe Search</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://openrecipesearch.com/'>
+<img alt='Screenshot of Openrecipesearch.com' src='/img/screenshots/openrecipesearch.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+<a href='http://openrecipesearch.com/'>OpenRecipeSearch.com</a>
+is an
+<a href='http://angularjs.org/'>Angular.js</a>
+application that interfaces directly with an
+<a href='http://www.elasticsearch.org/'>Elasticsearch</a>
+backend, which indexes the
+<a href='http://openrecip.es/'>Open Recipes database</a>
+(proxied to prevent external access to endpoints
+other than search).
+</p>
+</div>
+<p>
+The database and static assets are hosted on a DigitalOcean instance. Seems to be holding up.
+</p>
+<div class='normalmode'>
+<p>
+<a href='http://openrecipesearch.com/'>OpenRecipeSearch.com</a>
+indexes the recipes from the
+<a href='http://openrecip.es/'>Open Recipes database</a>
+and makes them available for easy, straightforward searching.
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='http://yourpersonaldotcom.com/'>Your Personal Dot Com</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://yourpersonaldotcom.com/'>
+<img alt='Screenshot of Yourpersonaldotcom.com' src='/img/screenshots/yourpersonaldotcom.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+<a href='http://yourpersonaldotcom.com'>Your Personal Dot Com</a>
+is a Clojure app that generates permutations of your
+name and lets you know which of them are available as domain names. (It also provides my Namecheap affiliate link
+for you to register them, if you so desire). The frontend is driven by
+<a href='http://angularjs.org/'>Angular.js,</a>
+which has become my favorite library for making lightweight javascript applications.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://yourpersonaldotcom.com'>Your Personal Dot Com</a>
+generates permutations of your
+name and lets you know which of them are available as domain names. (It also provides my Namecheap affiliate link
+for you to register them, if you so desire).
+</p>
+</div>
+</div>
+</section>
+-->
+<section class='thing row'>
+<h3>
+<a href='http://learnxinyminutes.com/'>Learn X in Y Minutes</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://learnxinyminutes.com/'>
+<img alt='Screenshot of Learnxinyminutes.com' src='/img/screenshots/learnxinyminutes.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+LearnXinYminutes is a static site (via Middleman) featuring short coding tutorials for a variety
+of languages. Nothing too interesting in the stack, but it has survived some good traffic storms
+for being a straight Nginx+static deployment, despite living on a 512mb virtualhost that also
+serves a bunch of other sites (this one included).
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://learnxinyminutes.com/'>
+Learn X in Y minutes
+</a>
+is a site for short programming language tutorials designed for professional programmers to
+get up to speed quickly on a new language. It started as a
+<a href='http://adambard.com/blog/clojure-in-15-minutes/'>blog response</a>
+to a Lua tutorial I saw on HN. I made my own Clojure version, and was
+encouraged to set up a site and accept contributions via Github.
+</p>
+<p>
+As of this writing (a month later), LearnXinYminutes.com features over 20 community-contributed language
+tutorials, excluding translations, all accessible and editable via
+<a href='https://github.com/adambard/learnxinyminutes-docs'>one public Github repository.</a>
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='https://addressbin.com/'>Address Bin: Easy Email and Drip Marketing</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='https://addressbin.com/'>
+<img alt='Screenshot of Addressbin.com: Easy Email Marketing right from Outlook' src='/img/screenshots/addressbin.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>This one is Clojure, enlive, middleman, and mongo again -- same stack as Redditlater, so you can read about it there.</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='https://addressbin.com/'>
+Addressbin is the
+<strong>easiest</strong>
+way to start building an email marketing list.
+</a>
+You sign up, get some HTML, drop it on your site,
+and start building a list. Then, you can send newsletters, contacts, etc. to your list right from
+your email client.
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='http://www.redditlater.com/'>RedditLater</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://www.redditlater.com/'>
+<img alt='Screenshot of RedditLater.com' src='/img/screenshots/redditlater.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+This is a Clojure Ring web application. I used
+<a href='http://middlemanapp.com/'>Middleman</a>
+and
+<a href='https://github.com/cgrand/enlive'>Enlive</a>
+to
+<a href='http://adambard.com/blog/middleman-enlive-your-new-god/'>generate HTML,</a>
+and
+<a href='https://github.com/weavejester/compojure'>Compojure</a>
+for routes. The datastore is
+<a href='http://www.mongodb.org/'>MongoDB.</a>
+</p>
+<p>
+A notable feature if this site is the
+<a href='https://github.com/ztellman/lamina'>lamina</a>
+queue it uses for messages.
+On startup, it spins up a separate thread consuming from a lamina channel of
+incoming posts. As people schedule their posts, they get added to the queue.
+This architecture decouples the work of posting to reddit from the rest, but
+more importantly spares me from paying
+<a href='http://adambard.com/blog/why-clojure-part-2-async-magic/'>Heroku</a>
+for a separate worker dyno. It also justifies the use of Clojure by actually
+utilizing its
+<a href='http://adambard.com/blog/why-clojure-part-2-async-magic/'>concurrency features</a>
+for once.
+</p>
+<p>
+Unlike LadiesChoiceVictoria, this project eschews a framework like
+<a href=''>Noir.</a>
+Noir
+contains a lot of abstractions to make things more stateful, which I wanted to
+avoid.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://www.redditlater.com/'>RedditLater</a>
+is a free service that lets you post to
+<a href='http://www.reddit.com/'>Reddit</a>
+on a schedule.
+I often finish my wee projects late at night and want to post about them
+right away, but this turns out to be a poor strategy for actually getting
+picked up by Reddit. Turns out there are certain times to post that just
+work better.
+</p>
+</div>
+</div>
+</section>
+<!--
+<section class='thing row'>
+<h3>
+<a href='http://wagr.herokuapp.com/'>Wagr</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://wagr.herokuapp.com/'>
+<img src='/img/screenshots/wagr.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+Wagr is the first application I made using Enlive and Middleman with Clojure.
+It's a simple, auth-less form that accepts fields constituting a wager with
+some date of resolution in the future. On that date, it sends an email to
+both parties reminding them.
+</p>
+<p>
+The email sending is a pretty simple cron job. I used Mongo again as the data
+store. Email sending is done by the excellent
+<a href='http://www.mailgun.com/'>Mailgun</a>
+service, via the SMTP interface. The date input is parsed using
+<a href='https://github.com/samtingleff/jchronic'>JChronic,</a>
+a Java port of Ruby's
+<a href='https://github.com/mojombo/chronic'>Chronic</a>
+natural-language date parser.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://wagr.herokuapp.com/'>Wagr</a>
+is a really minimal site I made to facilitate gentlemanly wagers between
+friends. You enter your email address, your friends' email address, the details
+of your bet, and a date in the future,
+</p>
+<p>
+It never really went anywhere, but it was pretty fun to make.
+</p>
+</div>
+</div>
+</section>
+-->
+<section class='thing row'>
+<h3>
+<a href='http://www.ladieschoicevictoria.com/'>LadiesChoiceVictoria</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://www.ladieschoicevictoria.com/'>
+<img src='/img/screenshots/ladieschoicevictoria.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+LadiesChoiceVictoria is the first and most major site I wrote in
+Clojure. I used the
+<a href='http://www.webnoir.org/'>Noir</a>
+framework, with
+<a href='http://www.mongodb.org/'>Mongo</a>
+as a datastore and
+<a href='http://mustache.github.io/'>Mustache</a>
+for templating.
+</p>
+<p>
+I learned a lot from writing this site, mostly that I'd better keep
+Clojure to myself unless I was working with someone similarly enthused.
+Still, Clojure managed to be fast to develop in and performant, even as
+I worked through the problems of translating what I knew about other frameworks
+to the functional paradigms underlying Clojure.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+LadiesChoiceVictoria is a dating site with a simple but innovative premise;
+only women can browse profiles and send initial messages. I made it
+with my friend Paul Ripley. Within a week of releasing the site, we'd
+been featured in a local news and
+<a href='http://www.cbc.ca/allpointswest/2012/10/26/ladies-choice/'>interviewed by CBC Radio,</a>
+the latter of which was a first for me.
+</p>
+</div>
+</div>
+</section>
+<!--
+<section class='thing row'>
+<h3>
+<a href='http://nurblizer.herokuapp.com/'>Nurblizer</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://nurblizer.herokuapp.com/'>
+<img src='/img/screenshots/nurblizer.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+Nurblizer was a little project I did in response to an
+<a href='http://www.smbc-comics.com/?id=2779'>SMBC comic</a>
+back in 2012. It's done using
+<a href='http://www.sinatrarb.com/'>Sinatra</a>
+in
+<a href='http://www.ruby-lang.org/en/'>Ruby.</a>
+The whole app code, sans HTML, is 30 lines long.
+</p>
+<p>
+It's not too notable technically, but I did use it as a reference application
+for an
+<a href='http://adambard.com/blog/PHP-ruby-python-clojure-webapps-by-example/'>article I wrote</a>
+comparing and contrasting implementations of the nurblizer in PHP, Python, Ruby and Clojure.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+The Nurblizer is another toy app I made. It takes a bunch of text, and replaces
+everything but nouns with the non-word "nurble".
+<a href='http://www.smbc-comics.com/?id=2779'>Here's the reference.</a>
+</p>
+</div>
+</div>
+</section>
+<section class='thing row'>
+<h3>
+<a href='http://franslate.me/'>Franslate.me</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://franslate.me/'>
+<img src='/img/screenshots/franslate.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+Franslate is a really lightweight
+<a href='http://sinatrarb.com/'>Sinatra</a>
+app with a
+<a href='http://backbonejs.org'>Backbone.js</a>
+layer doing most of the work. The actual frontend code is written in
+<a href='http://coffeescript.org/'>CoffeeScript.</a>
+</p>
+<p>
+The original vocabulary lists were built up with Google Translate. They're
+simple text files featuring the 20,000 most-used words in each of the
+supported languages, and their english equivalents. The wordlists
+are available in a
+<a href='https://github.com/adambard/franslations'>Github Repository</a>
+to facilitate contributions from people who might be better sources
+than Google Translate.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+Franslate is a multi-language vocabulary quiz. It currently has wordlists
+for French, German, Spanish, Polish, and Russian, although only the first three
+can be said to be particularly high-quality; direct translation in Polish and
+Russian is a bit more difficult.
+</p>
+</div>
+</div>
+</section>
+-->
+<section class='thing row'>
+<h3>
+<a href='http://resumatic.net/'>Resumatic</a>
+</h3>
+<div class='picture alpha twelve columns'>
+<a href='http://resumatic.net/'>
+<img src='/img/screenshots/resumatic.png' width='100%'>
+</a>
+</div>
+<div class='content alpha twelve columns'>
+<div class='nerdmode'>
+<p>
+Resumatic is a
+<a href='https://www.djangoproject.com/'>Django</a>
+project, and the last of these projects I made before I got sick
+of setting up WSGI and the like and started using Heroku.
+</p>
+<p>
+It's got LinkedIn integration, although unfortunately only for import;
+I didn't implement the Linkedin OAuth as a login method.
+</p>
+</div>
+<div class='normalmode'>
+<p>
+<a href='http://resumatic.net/'>Resumatic</a>
+is a tool to give folks more control over the presentation
+and formatting of their resume, to give it a bit more personality than
+a stock LinkedIn profile. Users can customize colors, layout, and fonts
+</p>
+<p>
+I made it about the same time as
+<a href='http://www.zerply.com/'>Zerply</a>
+came out, which I was pretty proud of. They pretty quickly pulled ahead
+though; I get the feeling at least one person was working full-time on it.
+</p>
+</div>
+</div>
+</section>
+
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+    <script src="/js/all.js"></script>
+
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-3525624-10']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

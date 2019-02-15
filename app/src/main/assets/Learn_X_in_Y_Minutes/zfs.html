@@ -1,0 +1,454 @@
+<!DOCTYPE html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Content-Language" content="en-us">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Learn X in Y Minutes: Scenic Programming Language Tours</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="canonical" href="https://learnxinyminutes.com/docs/zfs/">
+        <script>
+            function set_theme(theme) {
+                var el = document.getElementsByTagName("html")[0];
+
+                if (theme === "dark" ) {
+                    el.className = "dark";
+                } else {
+                    el.className = "light";
+                }
+
+                localStorage.setItem("lxiym_theme", theme);
+            }
+
+            var theme = localStorage.getItem("lxiym_theme");
+            if (theme) {
+                set_theme(theme);
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="container">
+            <div class="share">
+    <span class="sharemsg">
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Flearnxinyminutes.com%2Fdocs%2Fzfs%2F&text=Learn+X+in+Y+minutes%2C+where+X%3Dzfs">
+        Share this page
+      </a></span>
+
+      <span class='st_facebook_large' displayText='Facebook'></span>
+      <span class='st_twitter_large' displayText='Tweet'></span>
+  </div>
+  <div class="theme-choice">
+    <label id="theme-label">Select theme:</label>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('light');">light</button>
+    <button type="button" aria-labelledby="theme-label" onclick="set_theme('dark');">dark</button>
+  </div>
+  <h1><a href="/">Learn X in Y minutes</a></h2>
+  <h2>Where X=zfs</h2>
+    <p class="filelink">
+    Get the code:
+    <a href="/docs/files/LearnZfs.txt">LearnZfs.txt</a>
+    </p>
+  <div id="doc">
+    <p><a href="http://open-zfs.org/wiki/Main_Page">ZFS</a>
+is a rethinking of the storage stack, combining traditional file systems as well as volume
+managers into one cohesive tool.  ZFS has some specific terminology that sets it apart from
+more traditional storage systems, however it has a great set of features with a focus on
+usability for systems administrators.</p>
+
+<h2>ZFS Concepts</h2>
+
+<h3>Virtual Devices</h3>
+
+<p>A VDEV is similar to a raid device presented by a RAID card, there are several different
+types of VDEV&rsquo;s that offer various advantages, including redundancy and speed.  In general
+VDEV&rsquo;s offer better reliability and safety than a RAID card.  It is discouraged to use a
+RAID setup with ZFS, as ZFS expects to directly manage the underlying disks.</p>
+
+<p>Types of VDEV&rsquo;s</p>
+
+<ul>
+<li>stripe (a single disk, no redundancy)</li>
+<li>mirror (n-way mirrors supported)</li>
+<li>raidz
+
+<ul>
+<li>raidz1 (1-disk parity, similar to RAID 5)</li>
+<li>raidz2 (2-disk parity, similar to RAID 6)</li>
+<li>raidz3 (3-disk parity, no RAID analog)</li>
+</ul></li>
+<li>disk</li>
+<li>file (not recommended for production due to another filesystem adding unnecessary layering)</li>
+</ul>
+
+<p>Your data is striped across all the VDEV&rsquo;s present in your Storage Pool, so more VDEV&rsquo;s will
+increase your IOPS.</p>
+
+<h3>Storage Pools</h3>
+
+<p>ZFS uses Storage Pools as an abstraction over the lower level storage provider (VDEV), allow
+you to separate the user visible file system from the physical layout.</p>
+
+<h3>ZFS Dataset</h3>
+
+<p>ZFS datasets are analogous to traditional filesystems but with many more features.  They
+provide many of ZFS&rsquo;s advantages.  Datasets support <a href="https://en.wikipedia.org/wiki/Copy-on-write">Copy on Write</a>
+snapshots, quota&rsquo;s, compression and de-duplication.</p>
+
+<h3>Limits</h3>
+
+<p>One directory may contain up to 2^48 files, up to 16 exabytes each.  A single storage pool
+can contain up to 256 zettabytes (2^78) of space, and can be striped across 2^64 devices.  A
+single host can have 2^64 storage pools.  The limits are huge.</p>
+
+<h2>Commands</h2>
+
+<h3>Storage Pools</h3>
+
+<p>Actions:</p>
+
+<ul>
+<li>List</li>
+<li>Status</li>
+<li>Destroy</li>
+<li>Get/Set properties</li>
+</ul>
+
+<p>List zpools</p>
+<div class="highlight"><pre><span></span><span class="c1"># Create a raidz zpool</span>
+$ zpool create bucket raidz1 gpt/zfs0 gpt/zfs1 gpt/zfs2
+
+<span class="c1"># List ZPools</span>
+$ zpool list
+NAME    SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT
+zroot   141G   106G  <span class="m">35</span>.2G         -    <span class="m">43</span>%    <span class="m">75</span>%  <span class="m">1</span>.00x  ONLINE  -
+
+<span class="c1"># List detailed information about a specific zpool</span>
+$ zpool list -v zroot
+NAME                                     SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP HEALTH  ALTROOT
+zroot                                    141G   106G  <span class="m">35</span>.2G         -    <span class="m">43</span>%    <span class="m">75</span>%  <span class="m">1</span>.00x ONLINE  -
+  gptid/c92a5ccf-a5bb-11e4-a77d-001b2172c655   141G   106G  <span class="m">35</span>.2G         -    <span class="m">43</span>%    <span class="m">75</span>%
+</pre></div>
+<p>Status of zpools</p>
+<div class="highlight"><pre><span></span><span class="c1"># Get status information about zpools</span>
+$ zpool status
+  pool: zroot
+ state: ONLINE
+  scan: scrub repaired <span class="m">0</span> in 2h51m with <span class="m">0</span> errors on Thu Oct  <span class="m">1</span> <span class="m">07</span>:08:31 <span class="m">2015</span>
+config:
+
+        NAME                                          STATE     READ WRITE CKSUM
+        zroot                                         ONLINE       <span class="m">0</span>     <span class="m">0</span>     <span class="m">0</span>
+          gptid/c92a5ccf-a5bb-11e4-a77d-001b2172c655  ONLINE       <span class="m">0</span>     <span class="m">0</span>     <span class="m">0</span>
+
+errors: No known data errors
+
+<span class="c1"># Scrubbing a zpool to correct any errors</span>
+$ zpool scrub zroot
+$ zpool status -v zroot
+  pool: zroot
+ state: ONLINE
+  scan: scrub in progress since Thu Oct <span class="m">15</span> <span class="m">16</span>:59:14 <span class="m">2015</span>
+        <span class="m">39</span>.1M scanned out of 106G at <span class="m">1</span>.45M/s, 20h47m to go
+        <span class="m">0</span> repaired, <span class="m">0</span>.04% <span class="k">done</span>
+config:
+
+        NAME                                          STATE     READ WRITE CKSUM
+        zroot                                         ONLINE       <span class="m">0</span>     <span class="m">0</span>     <span class="m">0</span>
+          gptid/c92a5ccf-a5bb-11e4-a77d-001b2172c655  ONLINE       <span class="m">0</span>     <span class="m">0</span>     <span class="m">0</span>
+
+errors: No known data errors
+</pre></div>
+<p>Properties of zpools</p>
+<div class="highlight"><pre><span></span><span class="c1"># Getting properties from the pool properties can be user set or system provided.</span>
+$ zpool get all zroot
+NAME   PROPERTY                       VALUE                          SOURCE
+zroot  size                           141G                           -
+zroot  capacity                       <span class="m">75</span>%                            -
+zroot  altroot                        -                              default
+zroot  health                         ONLINE                         -
+...
+
+<span class="c1"># Setting a zpool property</span>
+$ zpool <span class="nb">set</span> <span class="nv">comment</span><span class="o">=</span><span class="s2">&quot;Storage of mah stuff&quot;</span> zroot
+$ zpool get comment
+NAME   PROPERTY  VALUE                 SOURCE
+tank   comment   -                     default
+zroot  comment   Storage of mah stuff  <span class="nb">local</span>
+</pre></div>
+<p>Remove zpool</p>
+<div class="highlight"><pre><span></span>$ zpool destroy <span class="nb">test</span>
+</pre></div>
+<h3>Datasets</h3>
+
+<p>Actions:</p>
+
+<ul>
+<li>Create</li>
+<li>List</li>
+<li>Rename</li>
+<li>Delete</li>
+<li>Get/Set properties</li>
+</ul>
+
+<p>Create datasets</p>
+<div class="highlight"><pre><span></span><span class="c1"># Create dataset</span>
+$ zfs create tank/root/data
+$ mount <span class="p">|</span> grep data
+tank/root/data on /data <span class="o">(</span>zfs, local, nfsv4acls<span class="o">)</span>
+
+<span class="c1"># Create child dataset</span>
+$ zfs create tank/root/data/stuff
+$ mount <span class="p">|</span> grep data
+tank/root/data on /data <span class="o">(</span>zfs, local, nfsv4acls<span class="o">)</span>
+tank/root/data/stuff on /data/stuff <span class="o">(</span>zfs, local, nfsv4acls<span class="o">)</span>
+
+
+<span class="c1"># Create Volume</span>
+$ zfs create -V zroot/win_vm
+$ zfs list zroot/win_vm
+NAME                 USED  AVAIL  REFER  MOUNTPOINT
+tank/win_vm         <span class="m">4</span>.13G  <span class="m">17</span>.9G    64K  -
+</pre></div>
+<p>List datasets</p>
+<div class="highlight"><pre><span></span><span class="c1"># List all datasets</span>
+$ zfs list
+NAME                                                                       USED  AVAIL  REFER  MOUNTPOINT
+zroot                                                                      106G  <span class="m">30</span>.8G   144K  none
+zroot/ROOT                                                                <span class="m">18</span>.5G  <span class="m">30</span>.8G   144K  none
+zroot/ROOT/10.1                                                              8K  <span class="m">30</span>.8G  <span class="m">9</span>.63G  /
+zroot/ROOT/default                                                        <span class="m">18</span>.5G  <span class="m">30</span>.8G  <span class="m">11</span>.2G  /
+zroot/backup                                                              <span class="m">5</span>.23G  <span class="m">30</span>.8G   144K  none
+zroot/home                                                                 288K  <span class="m">30</span>.8G   144K  none
+...
+
+<span class="c1"># List a specific dataset</span>
+$ zfs list zroot/home
+NAME         USED  AVAIL  REFER  MOUNTPOINT
+zroot/home   288K  <span class="m">30</span>.8G   144K  none
+
+<span class="c1"># List snapshots</span>
+$ zfs list -t snapshot
+zroot@daily-2015-10-15                                                                  <span class="m">0</span>      -   144K  -
+zroot/ROOT@daily-2015-10-15                                                             <span class="m">0</span>      -   144K  -
+zroot/ROOT/default@daily-2015-10-15                                                     <span class="m">0</span>      -  <span class="m">24</span>.2G  -
+zroot/tmp@daily-2015-10-15                                                           124K      -   708M  -
+zroot/usr@daily-2015-10-15                                                              <span class="m">0</span>      -   144K  -
+zroot/home@daily-2015-10-15                                                             <span class="m">0</span>      -  <span class="m">11</span>.9G  -
+zroot/var@daily-2015-10-15                                                           704K      -  <span class="m">1</span>.42G  -
+zroot/var/log@daily-2015-10-15                                                       192K      -   828K  -
+zroot/var/tmp@daily-2015-10-15                                                          <span class="m">0</span>      -   152K  -
+</pre></div>
+<p>Rename datasets</p>
+<div class="highlight"><pre><span></span>$ zfs rename tank/root/home tank/root/old_home
+$ zfs rename tank/root/new_home tank/root/home
+</pre></div>
+<p>Delete dataset</p>
+<div class="highlight"><pre><span></span><span class="c1"># Datasets cannot be deleted if they have any snapshots</span>
+zfs destroy tank/root/home
+</pre></div>
+<p>Get / set properties of a dataset</p>
+<div class="highlight"><pre><span></span><span class="c1"># Get all properties</span>
+$ zfs get all  zroot/usr/home                                                                                              ???157 <span class="c1"># Create Volume</span>
+NAME            PROPERTY              VALUE                  SOURCE                                                                          ???158 $ zfs create -V zroot/win_vm
+zroot/home      <span class="nb">type</span>                  filesystem             -                                                                               ???159 $ zfs list zroot/win_vm
+zroot/home      creation              Mon Oct <span class="m">20</span> <span class="m">14</span>:44 <span class="m">2014</span>  -                                                                               ???160 NAME                 USED  AVAIL  REFER  MOUNTPOINT
+zroot/home      used                  <span class="m">11</span>.9G                  -                                                                               ???161 tank/win_vm         <span class="m">4</span>.13G  <span class="m">17</span>.9G    64K  -
+zroot/home      available             <span class="m">94</span>.1G                  -                                                                               ???162 <span class="sb">```</span>
+zroot/home      referenced            <span class="m">11</span>.9G                  -                                                                               ???163
+zroot/home      mounted               yes                    -
+...
+
+<span class="c1"># Get property from dataset</span>
+$ zfs get compression zroot/usr/home
+NAME            PROPERTY     VALUE     SOURCE
+zroot/home      compression  off       default
+
+<span class="c1"># Set property on dataset</span>
+$ zfs <span class="nb">set</span> <span class="nv">compression</span><span class="o">=</span>gzip-9 mypool/lamb
+
+<span class="c1"># Get a set of properties from all datasets</span>
+$ zfs list -o name,quota,reservation
+NAME                                                               QUOTA  RESERV
+zroot                                                               none    none
+zroot/ROOT                                                          none    none
+zroot/ROOT/default                                                  none    none
+zroot/tmp                                                           none    none
+zroot/usr                                                           none    none
+zroot/home                                                          none    none
+zroot/var                                                           none    none
+...
+</pre></div>
+<h3>Snapshots</h3>
+
+<p>ZFS snapshots are one of the things about zfs that are a really big deal</p>
+
+<ul>
+<li>The space they take up is equal to the difference in data between the filesystem and its snapshot</li>
+<li>Creation time is only seconds</li>
+<li>Recovery is as fast as you can write data.</li>
+<li>They are easy to automate.</li>
+</ul>
+
+<p>Actions:</p>
+
+<ul>
+<li>Create</li>
+<li>Delete</li>
+<li>Rename</li>
+<li>Access snapshots</li>
+<li>Send / Receive</li>
+<li>Clone</li>
+</ul>
+
+<p>Create snapshots</p>
+<div class="highlight"><pre><span></span><span class="c1"># Create a snapshot of a single dataset</span>
+zfs snapshot tank/home/sarlalian@now
+
+<span class="c1"># Create a snapshot of a dataset and its children</span>
+$ zfs snapshot -r tank/home@now
+$ zfs list -t snapshot
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+tank/home@now                 <span class="m">0</span>      -    26K  -
+tank/home/sarlalian@now       <span class="m">0</span>      -   259M  -
+tank/home/alice@now           <span class="m">0</span>      -   156M  -
+tank/home/bob@now             <span class="m">0</span>      -   156M  -
+...
+
+Destroy snapshots
+
+<span class="sb">```</span>bash
+<span class="c1"># How to destroy a snapshot</span>
+$ zfs destroy tank/home/sarlalian@now
+
+<span class="c1"># Delete a snapshot on a parent dataset and its children</span>
+$ zfs destroy -r tank/home/sarlalian@now
+</pre></div>
+<p>Renaming Snapshots</p>
+<div class="highlight"><pre><span></span><span class="c1"># Rename a snapshot</span>
+$ zfs rename tank/home/sarlalian@now tank/home/sarlalian@today
+$ zfs rename tank/home/sarlalian@now today
+
+<span class="c1"># zfs rename -r tank/home@now @yesterday</span>
+</pre></div>
+<p>Accessing snapshots</p>
+<div class="highlight"><pre><span></span><span class="c1"># CD Into a snapshot directory</span>
+$ <span class="nb">cd</span> /home/.zfs/snapshot/
+</pre></div>
+<p>Sending and Receiving</p>
+<div class="highlight"><pre><span></span><span class="c1"># Backup a snapshot to a file</span>
+$ zfs send tank/home/sarlalian@now <span class="p">|</span> gzip &gt; backup_file.gz
+
+<span class="c1"># Send a snapshot to another dataset</span>
+$ zfs send tank/home/sarlalian@now <span class="p">|</span> zfs recv backups/home/sarlalian
+
+<span class="c1"># Send a snapshot to a remote host</span>
+$ zfs send tank/home/sarlalian@now <span class="p">|</span> ssh root@backup_server <span class="s1">&#39;zfs recv tank/home/sarlalian&#39;</span>
+
+<span class="c1"># Send full dataset with snapshos to new host</span>
+$ zfs send -v -R tank/home@now <span class="p">|</span> ssh root@backup_server <span class="s1">&#39;zfs recv tank/home&#39;</span>
+</pre></div>
+<p>Cloneing Snapshots</p>
+<div class="highlight"><pre><span></span><span class="c1"># Clone a snapshot</span>
+$ zfs clone tank/home/sarlalian@now tank/home/sarlalian_new
+
+<span class="c1"># Promoting the clone so it is no longer dependent on the snapshot</span>
+$ zfs promote tank/home/sarlalian_new
+</pre></div>
+<h3>Putting it all together</h3>
+
+<p>This following a script utilizing FreeBSD, jails and ZFS to automate
+provisioning a clean copy of a mysql staging database from a live replication
+slave.</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Stopping the staging database server ====&quot;</span>
+jail -r staging
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Cleaning up existing staging server and snapshot ====&quot;</span>
+zfs destroy -r zroot/jails/staging
+zfs destroy zroot/jails/slave@staging
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Quiescing the slave database ====&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;FLUSH TABLES WITH READ LOCK;&quot;</span> <span class="p">|</span> /usr/local/bin/mysql -u root -pmyrootpassword -h slave
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Snapshotting the slave db filesystem as zroot/jails/slave@staging ====&quot;</span>
+zfs snapshot zroot/jails/slave@staging
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Starting the slave database server ====&quot;</span>
+jail -c slave
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Cloning the slave snapshot to the staging server ====&quot;</span>
+zfs clone zroot/jails/slave@staging zroot/jails/staging
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Installing the staging mysql config ====&quot;</span>
+mv /jails/staging/usr/local/etc/my.cnf /jails/staging/usr/local/etc/my.cnf.slave
+cp /jails/staging/usr/local/etc/my.cnf.staging /jails/staging/usr/local/etc/my.cnf
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Setting up the staging rc.conf file ====&quot;</span>
+mv /jails/staging/etc/rc.conf.local /jails/staging/etc/rc.conf.slave
+mv /jails/staging/etc/rc.conf.staging /jails/staging/etc/rc.conf.local
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Starting the staging db server ====&quot;</span>
+jail -c staging
+
+<span class="nb">echo</span> <span class="s2">&quot;==== Makes the staging database not pull from the master ====&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;STOP SLAVE;&quot;</span> <span class="p">|</span> /usr/local/bin/mysql -u root -pmyrootpassword -h staging
+<span class="nb">echo</span> <span class="s2">&quot;RESET SLAVE;&quot;</span> <span class="p">|</span> /usr/local/bin/mysql -u root -pmyrootpassword -h staging
+</pre></div>
+<h3>Additional Reading</h3>
+
+<ul>
+<li><a href="http://www.bsdnow.tv/tutorials/zfs">BSDNow&rsquo;s Crash Course on ZFS</a></li>
+<li><a href="https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/zfs.html">FreeBSD Handbook on ZFS</a></li>
+<li><a href="http://www.bsdnow.tv/tutorials/zfs">BSDNow&rsquo;s Crash Course on ZFS</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/servers-storage-admin/sto-recommended-zfs-settings-1951715.html">Oracle&rsquo;s Tuning Guide</a></li>
+<li><a href="http://open-zfs.org/wiki/Performance_tuning">OpenZFS Tuning Guide</a></li>
+<li><a href="https://wiki.freebsd.org/ZFSTuningGuide">FreeBSD ZFS Tuning Guide</a></li>
+</ul>
+
+    <hr>
+    <p>Got a suggestion? A correction, perhaps? <a href="https://github.com/adambard/learnxinyminutes-docs/issues/new">Open an Issue</a> on the Github Repo, or make a <a href="https://github.com/adambard/learnxinyminutes-docs/edit/master/zfs.html.markdown">pull request</a> yourself!
+    </p>
+    <p class="contributed">
+    Originally contributed by sarlalian, and updated by <a href="https://github.com/adambard/learnxinyminutes-docs/blame/master/zfs.html.markdown">4 contributor(s)</a>.
+    </p>
+
+    <footer>
+    <a style="float: left" rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
+    <p>
+    &copy; 2019
+        <a href="http://github.com/sarlalian">sarlalian</a>
+    </p>
+
+    <p>
+
+    </footer>
+  </div>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-3525624-21'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
